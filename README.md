@@ -1,2 +1,2 @@
-# django-docker-project-template
-Django 4.0+ Docker project template
+# NOW
+The NOW (New and Old Worlds) fossil mammal database

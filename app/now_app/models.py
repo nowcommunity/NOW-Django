@@ -193,8 +193,8 @@ class ComUsers(models.Model):
 
 class NowBau(models.Model):
     buid = models.AutoField(primary_key=True)
-    bau_coordinator = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='bau_coordinator')
-    bau_authorizer = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='bau_authorizer')
+    bau_coordinator = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='bau_coordinator', related_name='%(class)s_bau_coordinator')
+    bau_authorizer = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='bau_authorizer', related_name='%(class)s_bau_authorizer')
     bid = models.ForeignKey('NowTuBound', models.DO_NOTHING, db_column='bid')
     bau_date = models.DateField(blank=True, null=True)
     bau_comment = models.CharField(max_length=255, blank=True, null=True)
@@ -234,8 +234,8 @@ class NowCollMethValues(models.Model):
 
 class NowLau(models.Model):
     luid = models.AutoField(primary_key=True)
-    lau_coordinator = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='lau_coordinator')
-    lau_authorizer = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='lau_authorizer')
+    lau_coordinator = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='lau_coordinator', related_name='%(class)s_lau_coordinator')
+    lau_authorizer = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='lau_authorizer', related_name='%(class)s_lau_authorizer')
     lid = models.ForeignKey('NowLoc', models.DO_NOTHING, db_column='lid')
     lau_date = models.DateField(blank=True, null=True)
     lau_comment = models.CharField(max_length=255, blank=True, null=True)
@@ -247,8 +247,8 @@ class NowLau(models.Model):
 
 class NowLoc(models.Model):
     lid = models.AutoField(primary_key=True)
-    bfa_max = models.ForeignKey('NowTimeUnit', models.DO_NOTHING, db_column='bfa_max', blank=True, null=True)
-    bfa_min = models.ForeignKey('NowTimeUnit', models.DO_NOTHING, db_column='bfa_min', blank=True, null=True)
+    bfa_max = models.ForeignKey('NowTimeUnit', models.DO_NOTHING, db_column='bfa_max', blank=True, null=True, related_name='%(class)s_bfa_max')
+    bfa_min = models.ForeignKey('NowTimeUnit', models.DO_NOTHING, db_column='bfa_min', blank=True, null=True, related_name='%(class)s_bfa_min')
     loc_name = models.CharField(max_length=30)
     date_meth = models.CharField(max_length=9)
     max_age = models.FloatField()
@@ -529,8 +529,8 @@ class NowRegionalCulture(models.Model):
 
 class NowSau(models.Model):
     suid = models.AutoField(primary_key=True)
-    sau_coordinator = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='sau_coordinator')
-    sau_authorizer = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='sau_authorizer')
+    sau_coordinator = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='sau_coordinator', related_name='%(class)s_sau_coordinator')
+    sau_authorizer = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='sau_authorizer', related_name='%(class)s_sau_authorizer')
     species = models.ForeignKey(ComSpecies, models.DO_NOTHING)
     sau_date = models.DateField(blank=True, null=True)
     sau_comment = models.CharField(max_length=1024, blank=True, null=True)
@@ -630,8 +630,8 @@ class NowSynLoc(models.Model):
 
 class NowTau(models.Model):
     tuid = models.AutoField(primary_key=True)
-    tau_coordinator = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='tau_coordinator')
-    tau_authorizer = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='tau_authorizer')
+    tau_coordinator = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='tau_coordinator', related_name='%(class)s_tau_coordinator')
+    tau_authorizer = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='tau_authorizer', related_name='%(class)s_tau_authorizer')
     tu_name = models.ForeignKey('NowTimeUnit', models.DO_NOTHING, db_column='tu_name')
     tau_date = models.DateField(blank=True, null=True)
     tau_comment = models.CharField(max_length=255, blank=True, null=True)
@@ -644,8 +644,8 @@ class NowTau(models.Model):
 class NowTimeUnit(models.Model):
     tu_name = models.CharField(primary_key=True, max_length=100)
     tu_display_name = models.CharField(max_length=100)
-    up_bnd = models.ForeignKey('NowTuBound', models.DO_NOTHING, db_column='up_bnd')
-    low_bnd = models.ForeignKey('NowTuBound', models.DO_NOTHING, db_column='low_bnd')
+    up_bnd = models.ForeignKey('NowTuBound', models.DO_NOTHING, db_column='up_bnd', related_name='%(class)s_up_bnd')
+    low_bnd = models.ForeignKey('NowTuBound', models.DO_NOTHING, db_column='low_bnd', related_name='%(class)s_low_bnd')
     rank = models.CharField(max_length=15, blank=True, null=True)
     sequence = models.ForeignKey('NowTuSequence', models.DO_NOTHING, db_column='sequence')
     tu_comment = models.CharField(max_length=255, blank=True, null=True)
@@ -659,8 +659,8 @@ class NowTimeUpdate(models.Model):
     time_update_id = models.AutoField(primary_key=True)
     tu_name = models.ForeignKey(NowTimeUnit, models.DO_NOTHING, db_column='tu_name')
     tuid = models.ForeignKey(NowTau, models.DO_NOTHING, db_column='tuid', blank=True, null=True)
-    lower_buid = models.ForeignKey(NowBau, models.DO_NOTHING, db_column='lower_buid', blank=True, null=True)
-    upper_buid = models.ForeignKey(NowBau, models.DO_NOTHING, db_column='upper_buid', blank=True, null=True)
+    lower_buid = models.ForeignKey(NowBau, models.DO_NOTHING, db_column='lower_buid', blank=True, null=True, related_name='%(class)s_lower_buid')
+    upper_buid = models.ForeignKey(NowBau, models.DO_NOTHING, db_column='upper_buid', blank=True, null=True, related_name='%(class)s_upper_buid')
     coordinator = models.CharField(max_length=10)
     authorizer = models.CharField(max_length=10)
     date = models.DateField(blank=True, null=True)

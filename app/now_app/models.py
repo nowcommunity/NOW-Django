@@ -399,7 +399,7 @@ class NowLs(models.Model):
 
 
 class NowLsCopy(models.Model):
-    lid = models.IntegerField()
+    lid = models.IntegerField(primary_key=True)
     species_id = models.IntegerField()
     nis = models.IntegerField(blank=True, null=True)
     pct = models.FloatField(blank=True, null=True)

@@ -522,7 +522,7 @@ class NowProjectPeople(models.Model):
         unique_together = (('pid', 'initials'),)
 
 
-class NowPsr(models.Model):
+class NowProjectSpecies(models.Model):
     pid = models.OneToOneField(NowProject, models.DO_NOTHING, db_column='pid', primary_key=True)
     species = models.ForeignKey(ComSpecies, models.DO_NOTHING)
 

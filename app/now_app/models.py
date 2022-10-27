@@ -401,7 +401,7 @@ class NowLocalityUpdate(models.Model):
     class Meta:
         db_table = 'now_lau'
 
-class NowLr(models.Model):
+class NowLocalityUpdateReference(models.Model):
     luid = models.OneToOneField(NowLocalityUpdate, models.DO_NOTHING, db_column='luid', primary_key=True)
     rid = models.ForeignKey(RefReference, models.DO_NOTHING, db_column='rid')
 

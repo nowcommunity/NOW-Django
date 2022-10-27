@@ -604,7 +604,7 @@ class NowSpCoordTaxa(models.Model):
         unique_together = (('sp_coord', 'order_name', 'family_name'),)
 
 
-class NowSr(models.Model):
+class NowSpeciesUpdateReference(models.Model):
     suid = models.OneToOneField(NowSpeciesUpdate, models.DO_NOTHING, db_column='suid', primary_key=True)
     rid = models.ForeignKey(RefReference, models.DO_NOTHING, db_column='rid')
 

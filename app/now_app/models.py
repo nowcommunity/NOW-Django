@@ -656,7 +656,7 @@ class NowLocalitySynonym(models.Model):
         db_table = 'now_syn_loc'
 
 
-class NowTau(models.Model):
+class NowTimeUnitUpdate(models.Model):
     tuid = models.AutoField(primary_key=True)
     tau_coordinator = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='tau_coordinator', related_name='%(class)s_tau_coordinator')
     tau_authorizer = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='tau_authorizer', related_name='%(class)s_tau_authorizer')
@@ -670,7 +670,7 @@ class NowTau(models.Model):
 class NowTimeUpdate(models.Model):
     time_update_id = models.AutoField(primary_key=True)
     tu_name = models.ForeignKey(NowTimeUnit, models.DO_NOTHING, db_column='tu_name')
-    tuid = models.ForeignKey(NowTau, models.DO_NOTHING, db_column='tuid', blank=True, null=True)
+    tuid = models.ForeignKey(NowTimeUnitUpdate, models.DO_NOTHING, db_column='tuid', blank=True, null=True)
     lower_buid = models.ForeignKey(NowTimeUnitBoundaryUpdate, models.DO_NOTHING, db_column='lower_buid', blank=True, null=True, related_name='%(class)s_lower_buid')
     upper_buid = models.ForeignKey(NowTimeUnitBoundaryUpdate, models.DO_NOTHING, db_column='upper_buid', blank=True, null=True, related_name='%(class)s_upper_buid')
     coordinator = models.CharField(max_length=10)
@@ -683,7 +683,7 @@ class NowTimeUpdate(models.Model):
 
 
 class NowTr(models.Model):
-    tuid = models.OneToOneField(NowTau, models.DO_NOTHING, db_column='tuid', primary_key=True)
+    tuid = models.OneToOneField(NowTimeUnitUpdate, models.DO_NOTHING, db_column='tuid', primary_key=True)
     rid = models.ForeignKey(RefReference, models.DO_NOTHING, db_column='rid')
 
     class Meta:

@@ -304,8 +304,8 @@ class NowTimeUnit(models.Model):
 
 class NowLoc(models.Model):
     lid = models.AutoField(primary_key=True)
-    bfa_max = models.ForeignKey('NowTimeUnit', models.DO_NOTHING, db_column='bfa_max', blank=True, null=True, related_name='%(class)s_bfa_max')
-    bfa_min = models.ForeignKey('NowTimeUnit', models.DO_NOTHING, db_column='bfa_min', blank=True, null=True, related_name='%(class)s_bfa_min')
+    bfa_max = models.ForeignKey(NowTimeUnit, models.DO_NOTHING, db_column='bfa_max', blank=True, null=True, related_name='%(class)s_bfa_max')
+    bfa_min = models.ForeignKey(NowTimeUnit, models.DO_NOTHING, db_column='bfa_min', blank=True, null=True, related_name='%(class)s_bfa_min')
     loc_name = models.CharField(max_length=30)
     date_meth = models.CharField(max_length=9)
     max_age = models.FloatField()
@@ -666,7 +666,7 @@ class NowTau(models.Model):
     tuid = models.AutoField(primary_key=True)
     tau_coordinator = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='tau_coordinator', related_name='%(class)s_tau_coordinator')
     tau_authorizer = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='tau_authorizer', related_name='%(class)s_tau_authorizer')
-    tu_name = models.ForeignKey('NowTimeUnit', models.DO_NOTHING, db_column='tu_name')
+    tu_name = models.ForeignKey(NowTimeUnit, models.DO_NOTHING, db_column='tu_name')
     tau_date = models.DateField(blank=True, null=True)
     tau_comment = models.CharField(max_length=255, blank=True, null=True)
 

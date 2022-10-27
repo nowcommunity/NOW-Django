@@ -410,7 +410,7 @@ class NowLocalityUpdateReference(models.Model):
         unique_together = (('luid', 'rid'),)
 
 
-class NowLs(models.Model):
+class NowLocalitySpecies(models.Model):
     lid = models.OneToOneField(NowLocality, models.DO_NOTHING, db_column='lid', primary_key=True)
     species = models.ForeignKey(ComSpecies, models.DO_NOTHING)
     nis = models.IntegerField(blank=True, null=True)
@@ -448,7 +448,7 @@ class NowLs(models.Model):
         unique_together = (('lid', 'species'),)
 
 
-class NowLsCopy(models.Model):
+class NowLocalitySpeciesCopy(models.Model):
     lid = models.IntegerField(primary_key=True)
     species_id = models.IntegerField()
     nis = models.IntegerField(blank=True, null=True)

@@ -495,16 +495,6 @@ class NowMus(models.Model):
         db_table = 'now_mus'
         unique_together = (('lid', 'museum'),)
 
-
-class NowPlr(models.Model):
-    lid = models.OneToOneField(NowLoc, models.DO_NOTHING, db_column='lid', primary_key=True)
-    pid = models.ForeignKey('NowProj', models.DO_NOTHING, db_column='pid')
-
-    class Meta:
-        db_table = 'now_plr'
-        unique_together = (('lid', 'pid'),)
-
-
 class NowProj(models.Model):
     pid = models.AutoField(primary_key=True)
     contact = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='contact')
@@ -516,6 +506,13 @@ class NowProj(models.Model):
     class Meta:
         db_table = 'now_proj'
 
+class NowPlr(models.Model):
+    lid = models.OneToOneField(NowLoc, models.DO_NOTHING, db_column='lid', primary_key=True)
+    pid = models.ForeignKey(NowProj, models.DO_NOTHING, db_column='pid')
+
+    class Meta:
+        db_table = 'now_plr'
+        unique_together = (('lid', 'pid'),)
 
 class NowProjPeople(models.Model):
     pid = models.OneToOneField(NowProj, models.DO_NOTHING, db_column='pid', primary_key=True)

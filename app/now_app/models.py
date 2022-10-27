@@ -261,7 +261,7 @@ class NowCollMethValues(models.Model):
     class Meta:
         db_table = 'now_coll_meth_values'
 
-class NowTuSequence(models.Model):
+class NowTimeUnitSequence(models.Model):
     sequence = models.CharField(primary_key=True, max_length=30)
     seq_name = models.CharField(max_length=30)
 
@@ -274,7 +274,7 @@ class NowTimeUnit(models.Model):
     up_bnd = models.ForeignKey(NowTimeUnitBoundary, models.DO_NOTHING, db_column='up_bnd', related_name='%(class)s_up_bnd')
     low_bnd = models.ForeignKey(NowTimeUnitBoundary, models.DO_NOTHING, db_column='low_bnd', related_name='%(class)s_low_bnd')
     rank = models.CharField(max_length=15, blank=True, null=True)
-    sequence = models.ForeignKey(NowTuSequence, models.DO_NOTHING, db_column='sequence')
+    sequence = models.ForeignKey(NowTimeUnitSequence, models.DO_NOTHING, db_column='sequence')
     tu_comment = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:

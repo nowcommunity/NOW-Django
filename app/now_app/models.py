@@ -613,7 +613,7 @@ class NowSpeciesUpdateReference(models.Model):
         unique_together = (('suid', 'rid'),)
 
 
-class NowSs(models.Model):
+class NowSedimentaryStructure(models.Model):
     lid = models.OneToOneField(NowLocality, models.DO_NOTHING, db_column='lid', primary_key=True)
     sed_struct = models.CharField(max_length=30)
 
@@ -622,7 +622,7 @@ class NowSs(models.Model):
         unique_together = (('lid', 'sed_struct'),)
 
 
-class NowSsValues(models.Model):
+class NowSedimentaryStructureValue(models.Model):
     ss_value = models.CharField(primary_key=True, max_length=30)
     category = models.CharField(max_length=80, blank=True, null=True)
 

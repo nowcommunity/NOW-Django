@@ -1974,7 +1974,7 @@ class RefKeywords(models.Model):
         db_table = 'ref_keywords'
 
 
-class RefKeywordsRef(models.Model):
+class RefKeywordsReference(models.Model):
     keywords = models.OneToOneField(RefKeywords, models.DO_NOTHING, primary_key=True)
     rid = models.ForeignKey(RefReference, models.DO_NOTHING, db_column='rid')
 

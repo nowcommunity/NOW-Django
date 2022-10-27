@@ -189,7 +189,7 @@ class NowTimeUnitBoundary(models.Model):
     class Meta:
         db_table = 'now_tu_bound'
 
-class NowBau(models.Model):
+class NowTimeUnitBoundaryUpdate(models.Model):
     buid = models.AutoField(primary_key=True)
     bau_coordinator = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='bau_coordinator', related_name='%(class)s_bau_coordinator')
     bau_authorizer = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='bau_authorizer', related_name='%(class)s_bau_authorizer')
@@ -248,7 +248,7 @@ class RefRef(models.Model):
         db_table = 'ref_ref'
 
 class NowBr(models.Model):
-    buid = models.OneToOneField(NowBau, models.DO_NOTHING, db_column='buid', primary_key=True)
+    buid = models.OneToOneField(NowTimeUnitBoundaryUpdate, models.DO_NOTHING, db_column='buid', primary_key=True)
     rid = models.ForeignKey(RefRef, models.DO_NOTHING, db_column='rid')
 
     class Meta:
@@ -670,8 +670,8 @@ class NowTimeUpdate(models.Model):
     time_update_id = models.AutoField(primary_key=True)
     tu_name = models.ForeignKey(NowTimeUnit, models.DO_NOTHING, db_column='tu_name')
     tuid = models.ForeignKey(NowTau, models.DO_NOTHING, db_column='tuid', blank=True, null=True)
-    lower_buid = models.ForeignKey(NowBau, models.DO_NOTHING, db_column='lower_buid', blank=True, null=True, related_name='%(class)s_lower_buid')
-    upper_buid = models.ForeignKey(NowBau, models.DO_NOTHING, db_column='upper_buid', blank=True, null=True, related_name='%(class)s_upper_buid')
+    lower_buid = models.ForeignKey(NowTimeUnitBoundaryUpdate, models.DO_NOTHING, db_column='lower_buid', blank=True, null=True, related_name='%(class)s_lower_buid')
+    upper_buid = models.ForeignKey(NowTimeUnitBoundaryUpdate, models.DO_NOTHING, db_column='upper_buid', blank=True, null=True, related_name='%(class)s_upper_buid')
     coordinator = models.CharField(max_length=10)
     authorizer = models.CharField(max_length=10)
     date = models.DateField(blank=True, null=True)

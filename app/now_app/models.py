@@ -13,7 +13,6 @@ class ComFamilySynonym(models.Model):
     family_name = models.CharField(max_length=30, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'com_family_synonym'
 
 
@@ -22,7 +21,6 @@ class ComGenusSynonym(models.Model):
     genus_name = models.CharField(max_length=30, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'com_genus_synonym'
 
 
@@ -30,7 +28,6 @@ class ComMain(models.Model):
     one = models.IntegerField(primary_key=True)
 
     class Meta:
-        managed = False
         db_table = 'com_main'
 
 
@@ -47,7 +44,6 @@ class ComMlist(models.Model):
     used_gene = models.IntegerField(blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'com_mlist'
 
 
@@ -56,7 +52,6 @@ class ComOrderSynonym(models.Model):
     order_name = models.CharField(max_length=30, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'com_order_synonym'
 
 
@@ -76,7 +71,6 @@ class ComPeople(models.Model):
     used_gene = models.IntegerField(blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'com_people'
 
 
@@ -152,7 +146,6 @@ class ComSpecies(models.Model):
     sp_comment = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'com_species'
 
 
@@ -161,7 +154,6 @@ class ComSubfamilySynonym(models.Model):
     subfamily_name = models.CharField(max_length=30, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'com_subfamily_synonym'
 
 
@@ -173,7 +165,6 @@ class ComTaxaSynonym(models.Model):
     syn_comment = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'com_taxa_synonym'
 
 
@@ -187,7 +178,6 @@ class ComUsers(models.Model):
     gen_user_group = models.CharField(max_length=30, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'com_users'
 
 
@@ -200,7 +190,6 @@ class NowBau(models.Model):
     bau_comment = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'now_bau'
 
 
@@ -209,7 +198,6 @@ class NowBr(models.Model):
     rid = models.ForeignKey('RefRef', models.DO_NOTHING, db_column='rid')
 
     class Meta:
-        managed = False
         db_table = 'now_br'
         unique_together = (('buid', 'rid'),)
 
@@ -219,7 +207,6 @@ class NowCollMeth(models.Model):
     coll_meth = models.CharField(max_length=21)
 
     class Meta:
-        managed = False
         db_table = 'now_coll_meth'
         unique_together = (('lid', 'coll_meth'),)
 
@@ -228,7 +215,6 @@ class NowCollMethValues(models.Model):
     coll_meth_value = models.CharField(primary_key=True, max_length=21)
 
     class Meta:
-        managed = False
         db_table = 'now_coll_meth_values'
 
 
@@ -241,7 +227,6 @@ class NowLau(models.Model):
     lau_comment = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'now_lau'
 
 
@@ -345,7 +330,6 @@ class NowLoc(models.Model):
     regional_culture_3 = models.CharField(max_length=64, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'now_loc'
 
 
@@ -354,7 +338,6 @@ class NowLr(models.Model):
     rid = models.ForeignKey('RefRef', models.DO_NOTHING, db_column='rid')
 
     class Meta:
-        managed = False
         db_table = 'now_lr'
         unique_together = (('luid', 'rid'),)
 
@@ -393,7 +376,6 @@ class NowLs(models.Model):
     do18_stdev = models.FloatField(blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'now_ls'
         unique_together = (('lid', 'species'),)
 
@@ -432,7 +414,6 @@ class NowLsCopy(models.Model):
     do18_stdev = models.FloatField(blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'now_ls_copy'
 
 
@@ -441,7 +422,6 @@ class NowMus(models.Model):
     museum = models.ForeignKey(ComMlist, models.DO_NOTHING, db_column='museum')
 
     class Meta:
-        managed = False
         db_table = 'now_mus'
         unique_together = (('lid', 'museum'),)
 
@@ -451,7 +431,6 @@ class NowPlr(models.Model):
     pid = models.ForeignKey('NowProj', models.DO_NOTHING, db_column='pid')
 
     class Meta:
-        managed = False
         db_table = 'now_plr'
         unique_together = (('lid', 'pid'),)
 
@@ -465,7 +444,6 @@ class NowProj(models.Model):
     proj_records = models.IntegerField(blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'now_proj'
 
 
@@ -474,7 +452,6 @@ class NowProjPeople(models.Model):
     initials = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='initials')
 
     class Meta:
-        managed = False
         db_table = 'now_proj_people'
         unique_together = (('pid', 'initials'),)
 
@@ -484,7 +461,6 @@ class NowPsr(models.Model):
     species = models.ForeignKey(ComSpecies, models.DO_NOTHING)
 
     class Meta:
-        managed = False
         db_table = 'now_psr'
         unique_together = (('pid', 'species'),)
 
@@ -494,7 +470,6 @@ class NowRegCoord(models.Model):
     region = models.CharField(max_length=80)
 
     class Meta:
-        managed = False
         db_table = 'now_reg_coord'
 
 
@@ -503,7 +478,6 @@ class NowRegCoordCountry(models.Model):
     country = models.CharField(max_length=80)
 
     class Meta:
-        managed = False
         db_table = 'now_reg_coord_country'
         unique_together = (('reg_coord', 'country'),)
 
@@ -513,7 +487,6 @@ class NowRegCoordPeople(models.Model):
     initials = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='initials')
 
     class Meta:
-        managed = False
         db_table = 'now_reg_coord_people'
         unique_together = (('reg_coord', 'initials'),)
 
@@ -523,7 +496,6 @@ class NowRegionalCulture(models.Model):
     regional_culture_name = models.CharField(max_length=50)
 
     class Meta:
-        managed = False
         db_table = 'now_regional_culture'
 
 
@@ -536,7 +508,6 @@ class NowSau(models.Model):
     sau_comment = models.CharField(max_length=1024, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'now_sau'
 
 
@@ -545,7 +516,6 @@ class NowSpCoord(models.Model):
     tax_group = models.CharField(max_length=80)
 
     class Meta:
-        managed = False
         db_table = 'now_sp_coord'
 
 
@@ -554,7 +524,6 @@ class NowSpCoordPeople(models.Model):
     initials = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='initials')
 
     class Meta:
-        managed = False
         db_table = 'now_sp_coord_people'
         unique_together = (('sp_coord', 'initials'),)
 
@@ -565,7 +534,6 @@ class NowSpCoordTaxa(models.Model):
     family_name = models.CharField(max_length=30)
 
     class Meta:
-        managed = False
         db_table = 'now_sp_coord_taxa'
         unique_together = (('sp_coord', 'order_name', 'family_name'),)
 
@@ -575,7 +543,6 @@ class NowSr(models.Model):
     rid = models.ForeignKey('RefRef', models.DO_NOTHING, db_column='rid')
 
     class Meta:
-        managed = False
         db_table = 'now_sr'
         unique_together = (('suid', 'rid'),)
 
@@ -585,7 +552,6 @@ class NowSs(models.Model):
     sed_struct = models.CharField(max_length=30)
 
     class Meta:
-        managed = False
         db_table = 'now_ss'
         unique_together = (('lid', 'sed_struct'),)
 
@@ -595,7 +561,6 @@ class NowSsValues(models.Model):
     category = models.CharField(max_length=80, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'now_ss_values'
 
 
@@ -604,7 +569,6 @@ class NowStratCoord(models.Model):
     title = models.CharField(max_length=80)
 
     class Meta:
-        managed = False
         db_table = 'now_strat_coord'
 
 
@@ -613,7 +577,6 @@ class NowStratCoordPeople(models.Model):
     initials = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='initials')
 
     class Meta:
-        managed = False
         db_table = 'now_strat_coord_people'
         unique_together = (('strat_coord', 'initials'),)
 
@@ -624,7 +587,6 @@ class NowSynLoc(models.Model):
     synonym = models.CharField(max_length=30, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'now_syn_loc'
 
 
@@ -637,7 +599,6 @@ class NowTau(models.Model):
     tau_comment = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'now_tau'
 
 
@@ -651,7 +612,6 @@ class NowTimeUnit(models.Model):
     tu_comment = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'now_time_unit'
 
 
@@ -667,7 +627,6 @@ class NowTimeUpdate(models.Model):
     comment = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'now_time_update'
 
 
@@ -676,7 +635,6 @@ class NowTr(models.Model):
     rid = models.ForeignKey('RefRef', models.DO_NOTHING, db_column='rid')
 
     class Meta:
-        managed = False
         db_table = 'now_tr'
         unique_together = (('tuid', 'rid'),)
 
@@ -688,7 +646,6 @@ class NowTuBound(models.Model):
     b_comment = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'now_tu_bound'
 
 
@@ -697,7 +654,6 @@ class NowTuSequence(models.Model):
     seq_name = models.CharField(max_length=30)
 
     class Meta:
-        managed = False
         db_table = 'now_tu_sequence'
 
 
@@ -706,7 +662,6 @@ class NowTur(models.Model):
     rid = models.ForeignKey('RefRef', models.DO_NOTHING, db_column='rid')
 
     class Meta:
-        managed = False
         db_table = 'now_tur'
         unique_together = (('bid', 'rid'),)
 
@@ -1960,7 +1915,6 @@ class RefAuthors(models.Model):
     author_initials = models.CharField(max_length=20, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'ref_authors'
         unique_together = (('rid', 'field_id', 'au_num'),)
 
@@ -1977,7 +1931,6 @@ class RefFieldName(models.Model):
     field_name = models.CharField(max_length=50, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'ref_field_name'
         unique_together = (('field_id', 'ref_type'),)
 
@@ -1990,7 +1943,6 @@ class RefJournal(models.Model):
     issn = models.CharField(db_column='ISSN', max_length=10, blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
-        managed = False
         db_table = 'ref_journal'
 
 
@@ -1999,7 +1951,6 @@ class RefKeywords(models.Model):
     keyword = models.CharField(max_length=50)
 
     class Meta:
-        managed = False
         db_table = 'ref_keywords'
 
 
@@ -2008,7 +1959,6 @@ class RefKeywordsRef(models.Model):
     rid = models.ForeignKey('RefRef', models.DO_NOTHING, db_column='rid')
 
     class Meta:
-        managed = False
         db_table = 'ref_keywords_ref'
         unique_together = (('keywords', 'rid'),)
 
@@ -2041,7 +1991,6 @@ class RefRef(models.Model):
     used_gene = models.IntegerField(blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'ref_ref'
 
 
@@ -2050,5 +1999,4 @@ class RefRefType(models.Model):
     ref_type = models.CharField(max_length=30, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'ref_ref_type'

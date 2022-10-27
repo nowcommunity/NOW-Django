@@ -180,7 +180,7 @@ class ComUsers(models.Model):
     class Meta:
         db_table = 'com_users'
 
-class NowTuBound(models.Model):
+class NowTimeUnitBoundary(models.Model):
     bid = models.AutoField(primary_key=True)
     b_name = models.CharField(max_length=150, blank=True, null=True)
     age = models.FloatField(blank=True, null=True)
@@ -193,7 +193,7 @@ class NowBau(models.Model):
     buid = models.AutoField(primary_key=True)
     bau_coordinator = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='bau_coordinator', related_name='%(class)s_bau_coordinator')
     bau_authorizer = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='bau_authorizer', related_name='%(class)s_bau_authorizer')
-    bid = models.ForeignKey(NowTuBound, models.DO_NOTHING, db_column='bid')
+    bid = models.ForeignKey(NowTimeUnitBoundary, models.DO_NOTHING, db_column='bid')
     bau_date = models.DateField(blank=True, null=True)
     bau_comment = models.CharField(max_length=255, blank=True, null=True)
 
@@ -271,8 +271,8 @@ class NowTuSequence(models.Model):
 class NowTimeUnit(models.Model):
     tu_name = models.CharField(primary_key=True, max_length=100)
     tu_display_name = models.CharField(max_length=100)
-    up_bnd = models.ForeignKey(NowTuBound, models.DO_NOTHING, db_column='up_bnd', related_name='%(class)s_up_bnd')
-    low_bnd = models.ForeignKey(NowTuBound, models.DO_NOTHING, db_column='low_bnd', related_name='%(class)s_low_bnd')
+    up_bnd = models.ForeignKey(NowTimeUnitBoundary, models.DO_NOTHING, db_column='up_bnd', related_name='%(class)s_up_bnd')
+    low_bnd = models.ForeignKey(NowTimeUnitBoundary, models.DO_NOTHING, db_column='low_bnd', related_name='%(class)s_low_bnd')
     rank = models.CharField(max_length=15, blank=True, null=True)
     sequence = models.ForeignKey(NowTuSequence, models.DO_NOTHING, db_column='sequence')
     tu_comment = models.CharField(max_length=255, blank=True, null=True)
@@ -690,7 +690,7 @@ class NowTr(models.Model):
         unique_together = (('tuid', 'rid'),)
 
 class NowTur(models.Model):
-    bid = models.OneToOneField(NowTuBound, models.DO_NOTHING, db_column='bid', primary_key=True)
+    bid = models.OneToOneField(NowTimeUnitBoundary, models.DO_NOTHING, db_column='bid', primary_key=True)
     rid = models.ForeignKey(RefRef, models.DO_NOTHING, db_column='rid')
 
     class Meta:

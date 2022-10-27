@@ -690,7 +690,7 @@ class NowTimeUnitUpdateReference(models.Model):
         db_table = 'now_tr'
         unique_together = (('tuid', 'rid'),)
 
-class NowTur(models.Model):
+class NowTimeUnitBoundaryReference(models.Model):
     bid = models.OneToOneField(NowTimeUnitBoundary, models.DO_NOTHING, db_column='bid', primary_key=True)
     rid = models.ForeignKey(RefReference, models.DO_NOTHING, db_column='rid')
 

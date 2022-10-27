@@ -280,7 +280,7 @@ class NowTimeUnit(models.Model):
     class Meta:
         db_table = 'now_time_unit'
 
-class NowLoc(models.Model):
+class NowLocality(models.Model):
     lid = models.AutoField(primary_key=True)
     bfa_max = models.ForeignKey(NowTimeUnit, models.DO_NOTHING, db_column='bfa_max', blank=True, null=True, related_name='%(class)s_bfa_max')
     bfa_min = models.ForeignKey(NowTimeUnit, models.DO_NOTHING, db_column='bfa_min', blank=True, null=True, related_name='%(class)s_bfa_min')
@@ -383,7 +383,7 @@ class NowLoc(models.Model):
         db_table = 'now_loc'
 
 class NowCollMeth(models.Model):
-    lid = models.OneToOneField(NowLoc, models.DO_NOTHING, db_column='lid', primary_key=True)
+    lid = models.OneToOneField(NowLocality, models.DO_NOTHING, db_column='lid', primary_key=True)
     coll_meth = models.CharField(max_length=21)
 
     class Meta:
@@ -394,7 +394,7 @@ class NowLau(models.Model):
     luid = models.AutoField(primary_key=True)
     lau_coordinator = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='lau_coordinator', related_name='%(class)s_lau_coordinator')
     lau_authorizer = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='lau_authorizer', related_name='%(class)s_lau_authorizer')
-    lid = models.ForeignKey(NowLoc, models.DO_NOTHING, db_column='lid')
+    lid = models.ForeignKey(NowLocality, models.DO_NOTHING, db_column='lid')
     lau_date = models.DateField(blank=True, null=True)
     lau_comment = models.CharField(max_length=255, blank=True, null=True)
 
@@ -411,7 +411,7 @@ class NowLr(models.Model):
 
 
 class NowLs(models.Model):
-    lid = models.OneToOneField(NowLoc, models.DO_NOTHING, db_column='lid', primary_key=True)
+    lid = models.OneToOneField(NowLocality, models.DO_NOTHING, db_column='lid', primary_key=True)
     species = models.ForeignKey(ComSpecies, models.DO_NOTHING)
     nis = models.IntegerField(blank=True, null=True)
     pct = models.FloatField(blank=True, null=True)
@@ -486,7 +486,7 @@ class NowLsCopy(models.Model):
 
 
 class NowMus(models.Model):
-    lid = models.OneToOneField(NowLoc, models.DO_NOTHING, db_column='lid', primary_key=True)
+    lid = models.OneToOneField(NowLocality, models.DO_NOTHING, db_column='lid', primary_key=True)
     museum = models.ForeignKey(ComMuseumList, models.DO_NOTHING, db_column='museum')
 
     class Meta:
@@ -505,7 +505,7 @@ class NowProj(models.Model):
         db_table = 'now_proj'
 
 class NowPlr(models.Model):
-    lid = models.OneToOneField(NowLoc, models.DO_NOTHING, db_column='lid', primary_key=True)
+    lid = models.OneToOneField(NowLocality, models.DO_NOTHING, db_column='lid', primary_key=True)
     pid = models.ForeignKey(NowProj, models.DO_NOTHING, db_column='pid')
 
     class Meta:
@@ -613,7 +613,7 @@ class NowSr(models.Model):
 
 
 class NowSs(models.Model):
-    lid = models.OneToOneField(NowLoc, models.DO_NOTHING, db_column='lid', primary_key=True)
+    lid = models.OneToOneField(NowLocality, models.DO_NOTHING, db_column='lid', primary_key=True)
     sed_struct = models.CharField(max_length=30)
 
     class Meta:
@@ -648,7 +648,7 @@ class NowStratCoordPeople(models.Model):
 
 class NowSynLoc(models.Model):
     syn_id = models.AutoField(primary_key=True)
-    lid = models.ForeignKey(NowLoc, models.DO_NOTHING, db_column='lid')
+    lid = models.ForeignKey(NowLocality, models.DO_NOTHING, db_column='lid')
     synonym = models.CharField(max_length=30, blank=True, null=True)
 
     class Meta:

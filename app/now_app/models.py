@@ -485,7 +485,8 @@ class NowLocalitySpeciesCopy(models.Model):
         db_table = 'now_ls_copy'
 
 
-class NowMus(models.Model):
+class NowMuseum(models.Model):
+    """Museum where significant material from the locality is housed"""
     lid = models.OneToOneField(NowLocality, models.DO_NOTHING, db_column='lid', primary_key=True)
     museum = models.ForeignKey(ComMuseumList, models.DO_NOTHING, db_column='museum')
 

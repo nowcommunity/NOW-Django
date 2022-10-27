@@ -1915,10 +1915,16 @@ class RefAuthors(models.Model):
         db_table = 'ref_authors'
         unique_together = (('rid', 'field_id', 'au_num'),)
 
+class RefRefType(models.Model):
+    ref_type_id = models.AutoField(primary_key=True)
+    ref_type = models.CharField(max_length=30, blank=True, null=True)
+
+    class Meta:
+        db_table = 'ref_ref_type'
 
 class RefFieldName(models.Model):
     field_id = models.IntegerField(db_column='field_ID', primary_key=True)  # Field name made lowercase.
-    ref_type = models.ForeignKey('RefRefType', models.DO_NOTHING)
+    ref_type = models.ForeignKey(RefRefType, models.DO_NOTHING)
     ref_field_name = models.CharField(max_length=50, blank=True, null=True)
     display = models.IntegerField(blank=True, null=True)
     label_x = models.IntegerField(blank=True, null=True)
@@ -1962,7 +1968,7 @@ class RefKeywordsRef(models.Model):
 
 class RefRef(models.Model):
     rid = models.AutoField(primary_key=True)
-    ref_type = models.ForeignKey('RefRefType', models.DO_NOTHING)
+    ref_type = models.ForeignKey(RefRefType, models.DO_NOTHING)
     journal = models.ForeignKey(RefJournal, models.DO_NOTHING, blank=True, null=True)
     title_primary = models.CharField(max_length=255, blank=True, null=True)
     date_primary = models.IntegerField(blank=True, null=True)
@@ -1989,11 +1995,3 @@ class RefRef(models.Model):
 
     class Meta:
         db_table = 'ref_ref'
-
-
-class RefRefType(models.Model):
-    ref_type_id = models.AutoField(primary_key=True)
-    ref_type = models.CharField(max_length=30, blank=True, null=True)
-
-    class Meta:
-        db_table = 'ref_ref_type'

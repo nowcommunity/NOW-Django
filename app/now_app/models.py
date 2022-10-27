@@ -682,7 +682,7 @@ class NowTimeUpdate(models.Model):
         db_table = 'now_time_update'
 
 
-class NowTr(models.Model):
+class NowTimeUnitUpdateReference(models.Model):
     tuid = models.OneToOneField(NowTimeUnitUpdate, models.DO_NOTHING, db_column='tuid', primary_key=True)
     rid = models.ForeignKey(RefReference, models.DO_NOTHING, db_column='rid')
 

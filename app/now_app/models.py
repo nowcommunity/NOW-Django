@@ -494,7 +494,7 @@ class NowMuseum(models.Model):
         db_table = 'now_mus'
         unique_together = (('lid', 'museum'),)
 
-class NowProj(models.Model):
+class NowProject(models.Model):
     pid = models.AutoField(primary_key=True)
     contact = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='contact')
     proj_code = models.CharField(max_length=10, blank=True, null=True)
@@ -507,14 +507,14 @@ class NowProj(models.Model):
 
 class NowPlr(models.Model):
     lid = models.OneToOneField(NowLocality, models.DO_NOTHING, db_column='lid', primary_key=True)
-    pid = models.ForeignKey(NowProj, models.DO_NOTHING, db_column='pid')
+    pid = models.ForeignKey(NowProject, models.DO_NOTHING, db_column='pid')
 
     class Meta:
         db_table = 'now_plr'
         unique_together = (('lid', 'pid'),)
 
 class NowProjPeople(models.Model):
-    pid = models.OneToOneField(NowProj, models.DO_NOTHING, db_column='pid', primary_key=True)
+    pid = models.OneToOneField(NowProject, models.DO_NOTHING, db_column='pid', primary_key=True)
     initials = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='initials')
 
     class Meta:
@@ -523,7 +523,7 @@ class NowProjPeople(models.Model):
 
 
 class NowPsr(models.Model):
-    pid = models.OneToOneField(NowProj, models.DO_NOTHING, db_column='pid', primary_key=True)
+    pid = models.OneToOneField(NowProject, models.DO_NOTHING, db_column='pid', primary_key=True)
     species = models.ForeignKey(ComSpecies, models.DO_NOTHING)
 
     class Meta:

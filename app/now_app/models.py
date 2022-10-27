@@ -565,7 +565,7 @@ class NowRegionalCulture(models.Model):
         db_table = 'now_regional_culture'
 
 
-class NowSau(models.Model):
+class NowSpeciesUpdate(models.Model):
     suid = models.AutoField(primary_key=True)
     sau_coordinator = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='sau_coordinator', related_name='%(class)s_sau_coordinator')
     sau_authorizer = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='sau_authorizer', related_name='%(class)s_sau_authorizer')
@@ -605,7 +605,7 @@ class NowSpCoordTaxa(models.Model):
 
 
 class NowSr(models.Model):
-    suid = models.OneToOneField(NowSau, models.DO_NOTHING, db_column='suid', primary_key=True)
+    suid = models.OneToOneField(NowSpeciesUpdate, models.DO_NOTHING, db_column='suid', primary_key=True)
     rid = models.ForeignKey(RefReference, models.DO_NOTHING, db_column='rid')
 
     class Meta:

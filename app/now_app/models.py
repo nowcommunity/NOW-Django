@@ -271,18 +271,6 @@ class NowCollMethValues(models.Model):
     class Meta:
         db_table = 'now_coll_meth_values'
 
-
-class NowLau(models.Model):
-    luid = models.AutoField(primary_key=True)
-    lau_coordinator = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='lau_coordinator', related_name='%(class)s_lau_coordinator')
-    lau_authorizer = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='lau_authorizer', related_name='%(class)s_lau_authorizer')
-    lid = models.ForeignKey('NowLoc', models.DO_NOTHING, db_column='lid')
-    lau_date = models.DateField(blank=True, null=True)
-    lau_comment = models.CharField(max_length=255, blank=True, null=True)
-
-    class Meta:
-        db_table = 'now_lau'
-
 class NowTuSequence(models.Model):
     sequence = models.CharField(primary_key=True, max_length=30)
     seq_name = models.CharField(max_length=30)
@@ -404,6 +392,16 @@ class NowLoc(models.Model):
     class Meta:
         db_table = 'now_loc'
 
+class NowLau(models.Model):
+    luid = models.AutoField(primary_key=True)
+    lau_coordinator = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='lau_coordinator', related_name='%(class)s_lau_coordinator')
+    lau_authorizer = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='lau_authorizer', related_name='%(class)s_lau_authorizer')
+    lid = models.ForeignKey(NowLoc, models.DO_NOTHING, db_column='lid')
+    lau_date = models.DateField(blank=True, null=True)
+    lau_comment = models.CharField(max_length=255, blank=True, null=True)
+
+    class Meta:
+        db_table = 'now_lau'
 
 class NowLr(models.Model):
     luid = models.OneToOneField(NowLau, models.DO_NOTHING, db_column='luid', primary_key=True)

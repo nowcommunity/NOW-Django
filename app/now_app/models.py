@@ -283,6 +283,24 @@ class NowLau(models.Model):
     class Meta:
         db_table = 'now_lau'
 
+class NowTuSequence(models.Model):
+    sequence = models.CharField(primary_key=True, max_length=30)
+    seq_name = models.CharField(max_length=30)
+
+    class Meta:
+        db_table = 'now_tu_sequence'
+
+class NowTimeUnit(models.Model):
+    tu_name = models.CharField(primary_key=True, max_length=100)
+    tu_display_name = models.CharField(max_length=100)
+    up_bnd = models.ForeignKey(NowTuBound, models.DO_NOTHING, db_column='up_bnd', related_name='%(class)s_up_bnd')
+    low_bnd = models.ForeignKey(NowTuBound, models.DO_NOTHING, db_column='low_bnd', related_name='%(class)s_low_bnd')
+    rank = models.CharField(max_length=15, blank=True, null=True)
+    sequence = models.ForeignKey(NowTuSequence, models.DO_NOTHING, db_column='sequence')
+    tu_comment = models.CharField(max_length=255, blank=True, null=True)
+
+    class Meta:
+        db_table = 'now_time_unit'
 
 class NowLoc(models.Model):
     lid = models.AutoField(primary_key=True)
@@ -654,26 +672,6 @@ class NowTau(models.Model):
 
     class Meta:
         db_table = 'now_tau'
-
-class NowTuSequence(models.Model):
-    sequence = models.CharField(primary_key=True, max_length=30)
-    seq_name = models.CharField(max_length=30)
-
-    class Meta:
-        db_table = 'now_tu_sequence'
-
-class NowTimeUnit(models.Model):
-    tu_name = models.CharField(primary_key=True, max_length=100)
-    tu_display_name = models.CharField(max_length=100)
-    up_bnd = models.ForeignKey(NowTuBound, models.DO_NOTHING, db_column='up_bnd', related_name='%(class)s_up_bnd')
-    low_bnd = models.ForeignKey(NowTuBound, models.DO_NOTHING, db_column='low_bnd', related_name='%(class)s_low_bnd')
-    rank = models.CharField(max_length=15, blank=True, null=True)
-    sequence = models.ForeignKey(NowTuSequence, models.DO_NOTHING, db_column='sequence')
-    tu_comment = models.CharField(max_length=255, blank=True, null=True)
-
-    class Meta:
-        db_table = 'now_time_unit'
-
 
 class NowTimeUpdate(models.Model):
     time_update_id = models.AutoField(primary_key=True)

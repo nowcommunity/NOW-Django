@@ -217,7 +217,7 @@ class RefJournal(models.Model):
     class Meta:
         db_table = 'ref_journal'
 
-class RefRef(models.Model):
+class RefReference(models.Model):
     rid = models.AutoField(primary_key=True)
     ref_type = models.ForeignKey(RefReferenceType, models.DO_NOTHING)
     journal = models.ForeignKey(RefJournal, models.DO_NOTHING, blank=True, null=True)
@@ -249,7 +249,7 @@ class RefRef(models.Model):
 
 class NowBr(models.Model):
     buid = models.OneToOneField(NowTimeUnitBoundaryUpdate, models.DO_NOTHING, db_column='buid', primary_key=True)
-    rid = models.ForeignKey(RefRef, models.DO_NOTHING, db_column='rid')
+    rid = models.ForeignKey(RefReference, models.DO_NOTHING, db_column='rid')
 
     class Meta:
         db_table = 'now_br'
@@ -403,7 +403,7 @@ class NowLau(models.Model):
 
 class NowLr(models.Model):
     luid = models.OneToOneField(NowLau, models.DO_NOTHING, db_column='luid', primary_key=True)
-    rid = models.ForeignKey(RefRef, models.DO_NOTHING, db_column='rid')
+    rid = models.ForeignKey(RefReference, models.DO_NOTHING, db_column='rid')
 
     class Meta:
         db_table = 'now_lr'
@@ -605,7 +605,7 @@ class NowSpCoordTaxa(models.Model):
 
 class NowSr(models.Model):
     suid = models.OneToOneField(NowSau, models.DO_NOTHING, db_column='suid', primary_key=True)
-    rid = models.ForeignKey(RefRef, models.DO_NOTHING, db_column='rid')
+    rid = models.ForeignKey(RefReference, models.DO_NOTHING, db_column='rid')
 
     class Meta:
         db_table = 'now_sr'
@@ -683,7 +683,7 @@ class NowTimeUpdate(models.Model):
 
 class NowTr(models.Model):
     tuid = models.OneToOneField(NowTau, models.DO_NOTHING, db_column='tuid', primary_key=True)
-    rid = models.ForeignKey(RefRef, models.DO_NOTHING, db_column='rid')
+    rid = models.ForeignKey(RefReference, models.DO_NOTHING, db_column='rid')
 
     class Meta:
         db_table = 'now_tr'
@@ -691,7 +691,7 @@ class NowTr(models.Model):
 
 class NowTur(models.Model):
     bid = models.OneToOneField(NowTimeUnitBoundary, models.DO_NOTHING, db_column='bid', primary_key=True)
-    rid = models.ForeignKey(RefRef, models.DO_NOTHING, db_column='rid')
+    rid = models.ForeignKey(RefReference, models.DO_NOTHING, db_column='rid')
 
     class Meta:
         db_table = 'now_tur'
@@ -1940,7 +1940,7 @@ class NowVTimeUnitLocalities(models.Model):
 
 
 class RefAuthors(models.Model):
-    rid = models.OneToOneField(RefRef, models.DO_NOTHING, db_column='rid', primary_key=True)
+    rid = models.OneToOneField(RefReference, models.DO_NOTHING, db_column='rid', primary_key=True)
     field_id = models.IntegerField()
     au_num = models.IntegerField()
     author_surname = models.CharField(max_length=255, blank=True, null=True)
@@ -1975,7 +1975,7 @@ class RefKeywords(models.Model):
 
 class RefKeywordsRef(models.Model):
     keywords = models.OneToOneField(RefKeywords, models.DO_NOTHING, primary_key=True)
-    rid = models.ForeignKey(RefRef, models.DO_NOTHING, db_column='rid')
+    rid = models.ForeignKey(RefReference, models.DO_NOTHING, db_column='rid')
 
     class Meta:
         db_table = 'ref_keywords_ref'

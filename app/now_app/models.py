@@ -200,6 +200,52 @@ class NowBau(models.Model):
     class Meta:
         db_table = 'now_bau'
 
+class RefRefType(models.Model):
+    ref_type_id = models.AutoField(primary_key=True)
+    ref_type = models.CharField(max_length=30, blank=True, null=True)
+
+    class Meta:
+        db_table = 'ref_ref_type'
+
+class RefJournal(models.Model):
+    journal_id = models.AutoField(primary_key=True)
+    journal_title = models.CharField(max_length=255, blank=True, null=True)
+    short_title = models.CharField(max_length=100, blank=True, null=True)
+    alt_title = models.CharField(max_length=255, blank=True, null=True)
+    issn = models.CharField(db_column='ISSN', max_length=10, blank=True, null=True)  # Field name made lowercase.
+
+    class Meta:
+        db_table = 'ref_journal'
+
+class RefRef(models.Model):
+    rid = models.AutoField(primary_key=True)
+    ref_type = models.ForeignKey(RefRefType, models.DO_NOTHING)
+    journal = models.ForeignKey(RefJournal, models.DO_NOTHING, blank=True, null=True)
+    title_primary = models.CharField(max_length=255, blank=True, null=True)
+    date_primary = models.IntegerField(blank=True, null=True)
+    volume = models.CharField(max_length=10, blank=True, null=True)
+    issue = models.CharField(max_length=10, blank=True, null=True)
+    start_page = models.IntegerField(blank=True, null=True)
+    end_page = models.IntegerField(blank=True, null=True)
+    publisher = models.CharField(max_length=255, blank=True, null=True)
+    pub_place = models.CharField(max_length=255, blank=True, null=True)
+    title_secondary = models.CharField(max_length=255, blank=True, null=True)
+    date_secondary = models.IntegerField(blank=True, null=True)
+    title_series = models.CharField(max_length=255, blank=True, null=True)
+    issn_isbn = models.CharField(max_length=30, blank=True, null=True)
+    ref_abstract = models.TextField(blank=True, null=True)
+    web_url = models.CharField(max_length=255, blank=True, null=True)
+    misc_1 = models.CharField(max_length=255, blank=True, null=True)
+    misc_2 = models.CharField(max_length=255, blank=True, null=True)
+    gen_notes = models.CharField(max_length=255, blank=True, null=True)
+    printed_language = models.CharField(max_length=50, blank=True, null=True)
+    exact_date = models.DateField(blank=True, null=True)
+    used_morph = models.IntegerField(blank=True, null=True)
+    used_now = models.IntegerField(blank=True, null=True)
+    used_gene = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        db_table = 'ref_ref'
 
 class NowBr(models.Model):
     buid = models.OneToOneField(NowBau, models.DO_NOTHING, db_column='buid', primary_key=True)
@@ -1915,13 +1961,6 @@ class RefAuthors(models.Model):
         db_table = 'ref_authors'
         unique_together = (('rid', 'field_id', 'au_num'),)
 
-class RefRefType(models.Model):
-    ref_type_id = models.AutoField(primary_key=True)
-    ref_type = models.CharField(max_length=30, blank=True, null=True)
-
-    class Meta:
-        db_table = 'ref_ref_type'
-
 class RefFieldName(models.Model):
     field_id = models.IntegerField(db_column='field_ID', primary_key=True)  # Field name made lowercase.
     ref_type = models.ForeignKey(RefRefType, models.DO_NOTHING)
@@ -1936,18 +1975,6 @@ class RefFieldName(models.Model):
     class Meta:
         db_table = 'ref_field_name'
         unique_together = (('field_id', 'ref_type'),)
-
-
-class RefJournal(models.Model):
-    journal_id = models.AutoField(primary_key=True)
-    journal_title = models.CharField(max_length=255, blank=True, null=True)
-    short_title = models.CharField(max_length=100, blank=True, null=True)
-    alt_title = models.CharField(max_length=255, blank=True, null=True)
-    issn = models.CharField(db_column='ISSN', max_length=10, blank=True, null=True)  # Field name made lowercase.
-
-    class Meta:
-        db_table = 'ref_journal'
-
 
 class RefKeywords(models.Model):
     keywords_id = models.AutoField(primary_key=True)
@@ -1964,34 +1991,3 @@ class RefKeywordsRef(models.Model):
     class Meta:
         db_table = 'ref_keywords_ref'
         unique_together = (('keywords', 'rid'),)
-
-
-class RefRef(models.Model):
-    rid = models.AutoField(primary_key=True)
-    ref_type = models.ForeignKey(RefRefType, models.DO_NOTHING)
-    journal = models.ForeignKey(RefJournal, models.DO_NOTHING, blank=True, null=True)
-    title_primary = models.CharField(max_length=255, blank=True, null=True)
-    date_primary = models.IntegerField(blank=True, null=True)
-    volume = models.CharField(max_length=10, blank=True, null=True)
-    issue = models.CharField(max_length=10, blank=True, null=True)
-    start_page = models.IntegerField(blank=True, null=True)
-    end_page = models.IntegerField(blank=True, null=True)
-    publisher = models.CharField(max_length=255, blank=True, null=True)
-    pub_place = models.CharField(max_length=255, blank=True, null=True)
-    title_secondary = models.CharField(max_length=255, blank=True, null=True)
-    date_secondary = models.IntegerField(blank=True, null=True)
-    title_series = models.CharField(max_length=255, blank=True, null=True)
-    issn_isbn = models.CharField(max_length=30, blank=True, null=True)
-    ref_abstract = models.TextField(blank=True, null=True)
-    web_url = models.CharField(max_length=255, blank=True, null=True)
-    misc_1 = models.CharField(max_length=255, blank=True, null=True)
-    misc_2 = models.CharField(max_length=255, blank=True, null=True)
-    gen_notes = models.CharField(max_length=255, blank=True, null=True)
-    printed_language = models.CharField(max_length=50, blank=True, null=True)
-    exact_date = models.DateField(blank=True, null=True)
-    used_morph = models.IntegerField(blank=True, null=True)
-    used_now = models.IntegerField(blank=True, null=True)
-    used_gene = models.IntegerField(blank=True, null=True)
-
-    class Meta:
-        db_table = 'ref_ref'

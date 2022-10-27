@@ -382,7 +382,7 @@ class NowLocality(models.Model):
     class Meta:
         db_table = 'now_loc'
 
-class NowCollMeth(models.Model):
+class NowCollectingMethod(models.Model):
     lid = models.OneToOneField(NowLocality, models.DO_NOTHING, db_column='lid', primary_key=True)
     coll_meth = models.CharField(max_length=21)
 

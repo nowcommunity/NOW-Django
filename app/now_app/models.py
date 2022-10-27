@@ -390,7 +390,7 @@ class NowCollectingMethod(models.Model):
         db_table = 'now_coll_meth'
         unique_together = (('lid', 'coll_meth'),)
 
-class NowLau(models.Model):
+class NowLocalityUpdate(models.Model):
     luid = models.AutoField(primary_key=True)
     lau_coordinator = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='lau_coordinator', related_name='%(class)s_lau_coordinator')
     lau_authorizer = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='lau_authorizer', related_name='%(class)s_lau_authorizer')
@@ -402,7 +402,7 @@ class NowLau(models.Model):
         db_table = 'now_lau'
 
 class NowLr(models.Model):
-    luid = models.OneToOneField(NowLau, models.DO_NOTHING, db_column='luid', primary_key=True)
+    luid = models.OneToOneField(NowLocalityUpdate, models.DO_NOTHING, db_column='luid', primary_key=True)
     rid = models.ForeignKey(RefReference, models.DO_NOTHING, db_column='rid')
 
     class Meta:

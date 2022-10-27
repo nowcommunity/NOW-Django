@@ -31,7 +31,7 @@ class ComMain(models.Model):
         db_table = 'com_main'
 
 
-class ComMlist(models.Model):
+class ComMuseumList(models.Model):
     museum = models.CharField(primary_key=True, max_length=10)
     institution = models.CharField(max_length=120)
     alt_int_name = models.CharField(max_length=120, blank=True, null=True)
@@ -487,7 +487,7 @@ class NowLsCopy(models.Model):
 
 class NowMus(models.Model):
     lid = models.OneToOneField(NowLoc, models.DO_NOTHING, db_column='lid', primary_key=True)
-    museum = models.ForeignKey(ComMlist, models.DO_NOTHING, db_column='museum')
+    museum = models.ForeignKey(ComMuseumList, models.DO_NOTHING, db_column='museum')
 
     class Meta:
         db_table = 'now_mus'

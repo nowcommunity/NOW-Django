@@ -180,12 +180,20 @@ class ComUsers(models.Model):
     class Meta:
         db_table = 'com_users'
 
+class NowTuBound(models.Model):
+    bid = models.AutoField(primary_key=True)
+    b_name = models.CharField(max_length=150, blank=True, null=True)
+    age = models.FloatField(blank=True, null=True)
+    b_comment = models.CharField(max_length=255, blank=True, null=True)
+
+    class Meta:
+        db_table = 'now_tu_bound'
 
 class NowBau(models.Model):
     buid = models.AutoField(primary_key=True)
     bau_coordinator = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='bau_coordinator', related_name='%(class)s_bau_coordinator')
     bau_authorizer = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='bau_authorizer', related_name='%(class)s_bau_authorizer')
-    bid = models.ForeignKey('NowTuBound', models.DO_NOTHING, db_column='bid')
+    bid = models.ForeignKey(NowTuBound, models.DO_NOTHING, db_column='bid')
     bau_date = models.DateField(blank=True, null=True)
     bau_comment = models.CharField(max_length=255, blank=True, null=True)
 
@@ -605,8 +613,8 @@ class NowTau(models.Model):
 class NowTimeUnit(models.Model):
     tu_name = models.CharField(primary_key=True, max_length=100)
     tu_display_name = models.CharField(max_length=100)
-    up_bnd = models.ForeignKey('NowTuBound', models.DO_NOTHING, db_column='up_bnd', related_name='%(class)s_up_bnd')
-    low_bnd = models.ForeignKey('NowTuBound', models.DO_NOTHING, db_column='low_bnd', related_name='%(class)s_low_bnd')
+    up_bnd = models.ForeignKey(NowTuBound, models.DO_NOTHING, db_column='up_bnd', related_name='%(class)s_up_bnd')
+    low_bnd = models.ForeignKey(NowTuBound, models.DO_NOTHING, db_column='low_bnd', related_name='%(class)s_low_bnd')
     rank = models.CharField(max_length=15, blank=True, null=True)
     sequence = models.ForeignKey('NowTuSequence', models.DO_NOTHING, db_column='sequence')
     tu_comment = models.CharField(max_length=255, blank=True, null=True)
@@ -637,17 +645,6 @@ class NowTr(models.Model):
     class Meta:
         db_table = 'now_tr'
         unique_together = (('tuid', 'rid'),)
-
-
-class NowTuBound(models.Model):
-    bid = models.AutoField(primary_key=True)
-    b_name = models.CharField(max_length=150, blank=True, null=True)
-    age = models.FloatField(blank=True, null=True)
-    b_comment = models.CharField(max_length=255, blank=True, null=True)
-
-    class Meta:
-        db_table = 'now_tu_bound'
-
 
 class NowTuSequence(models.Model):
     sequence = models.CharField(primary_key=True, max_length=30)

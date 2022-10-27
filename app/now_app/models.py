@@ -255,16 +255,6 @@ class NowBr(models.Model):
         db_table = 'now_br'
         unique_together = (('buid', 'rid'),)
 
-
-class NowCollMeth(models.Model):
-    lid = models.OneToOneField('NowLoc', models.DO_NOTHING, db_column='lid', primary_key=True)
-    coll_meth = models.CharField(max_length=21)
-
-    class Meta:
-        db_table = 'now_coll_meth'
-        unique_together = (('lid', 'coll_meth'),)
-
-
 class NowCollMethValues(models.Model):
     coll_meth_value = models.CharField(primary_key=True, max_length=21)
 
@@ -391,6 +381,14 @@ class NowLoc(models.Model):
 
     class Meta:
         db_table = 'now_loc'
+
+class NowCollMeth(models.Model):
+    lid = models.OneToOneField(NowLoc, models.DO_NOTHING, db_column='lid', primary_key=True)
+    coll_meth = models.CharField(max_length=21)
+
+    class Meta:
+        db_table = 'now_coll_meth'
+        unique_together = (('lid', 'coll_meth'),)
 
 class NowLau(models.Model):
     luid = models.AutoField(primary_key=True)

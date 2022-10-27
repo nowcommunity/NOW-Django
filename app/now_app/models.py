@@ -255,7 +255,7 @@ class NowTimeUnitBoundaryUpdateReference(models.Model):
         db_table = 'now_br'
         unique_together = (('buid', 'rid'),)
 
-class NowCollMethValues(models.Model):
+class NowCollectingMethodValue(models.Model):
     coll_meth_value = models.CharField(primary_key=True, max_length=21)
 
     class Meta:

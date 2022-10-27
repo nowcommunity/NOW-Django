@@ -647,7 +647,7 @@ class NowStratCoordPeople(models.Model):
         unique_together = (('strat_coord', 'initials'),)
 
 
-class NowSynLoc(models.Model):
+class NowLocalitySynonym(models.Model):
     syn_id = models.AutoField(primary_key=True)
     lid = models.ForeignKey(NowLocality, models.DO_NOTHING, db_column='lid')
     synonym = models.CharField(max_length=30, blank=True, null=True)

@@ -513,7 +513,7 @@ class NowProjectLocality(models.Model):
         db_table = 'now_plr'
         unique_together = (('lid', 'pid'),)
 
-class NowProjPeople(models.Model):
+class NowProjectPeople(models.Model):
     pid = models.OneToOneField(NowProject, models.DO_NOTHING, db_column='pid', primary_key=True)
     initials = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='initials')
 

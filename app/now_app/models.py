@@ -7,6 +7,24 @@
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
 
+class Log(models.Model):
+    log_id = models.AutoField(primary_key=True)
+    event_time = models.DateTimeField(blank=True, null=True)
+    user_name = models.CharField(max_length=100, blank=True, null=True)
+    server_name = models.CharField(max_length=50, blank=True, null=True)
+    table_name = models.CharField(max_length=50, blank=True, null=True)
+    pk_data = models.CharField(max_length=200, blank=True, null=True)
+    column_name = models.CharField(max_length=50, blank=True, null=True)
+    log_action = models.IntegerField(blank=True, null=True)
+    old_data = models.CharField(max_length=255, blank=True, null=True)
+    new_data = models.CharField(max_length=255, blank=True, null=True)
+    luid = models.IntegerField(blank=True, null=True)
+    suid = models.IntegerField(blank=True, null=True)
+    tuid = models.IntegerField(blank=True, null=True)
+    buid = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        db_table = 'log'
 
 class ComFamilySynonym(models.Model):
     syn_family_name = models.CharField(primary_key=True, max_length=30)

@@ -2294,4 +2294,26 @@ class Migration(migrations.Migration):
                 'unique_together': {('buid', 'rid')},
             },
         ),
+        migrations.CreateModel(
+            name='Log',
+            fields=[
+                ('log_id', models.AutoField(primary_key=True, serialize=False)),
+                ('event_time', models.DateTimeField(blank=True, null=True)),
+                ('user_name', models.CharField(blank=True, max_length=100, null=True)),
+                ('server_name', models.CharField(blank=True, max_length=50, null=True)),
+                ('table_name', models.CharField(blank=True, max_length=50, null=True)),
+                ('pk_data', models.CharField(blank=True, max_length=200, null=True)),
+                ('column_name', models.CharField(blank=True, max_length=50, null=True)),
+                ('log_action', models.IntegerField(blank=True, null=True)),
+                ('old_data', models.CharField(blank=True, max_length=255, null=True)),
+                ('new_data', models.CharField(blank=True, max_length=255, null=True)),
+                ('luid', models.IntegerField(blank=True, null=True)),
+                ('suid', models.IntegerField(blank=True, null=True)),
+                ('tuid', models.IntegerField(blank=True, null=True)),
+                ('buid', models.IntegerField(blank=True, null=True)),
+            ],
+            options={
+                'db_table': 'log',
+            },
+        ),
     ]

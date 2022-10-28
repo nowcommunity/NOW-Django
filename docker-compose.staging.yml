@@ -3,7 +3,7 @@ version: '3.8'
 services:
 
   web:
-    image: # STAGING IMAGE NAME
+    image: palaeontologyhelsinki/now_staging
     restart: unless-stopped
     ports:
       - 8000:8000

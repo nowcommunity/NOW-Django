@@ -678,7 +678,7 @@ class NowTimeUnitUpdate(models.Model):
     tuid = models.AutoField(primary_key=True)
     tau_coordinator = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='tau_coordinator', related_name='%(class)s_tau_coordinator')
     tau_authorizer = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='tau_authorizer', related_name='%(class)s_tau_authorizer')
-    tu_name = models.ForeignKey(NowTimeUnit, models.DO_NOTHING, db_column='tu_name')
+    tu_name = models.ForeignKey(NowTimeUnit, models.CASCADE, db_column='tu_name')
     tau_date = models.DateField(blank=True, null=True)
     tau_comment = models.CharField(max_length=255, blank=True, null=True)
 

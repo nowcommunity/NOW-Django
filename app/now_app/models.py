@@ -541,7 +541,7 @@ class NowProjectPeople(models.Model):
 
 
 class NowProjectSpecies(models.Model):
-    pid = models.OneToOneField(NowProject, models.DO_NOTHING, db_column='pid', primary_key=True)
+    pid = models.OneToOneField(NowProject, models.DO_NOTHING, db_column='pid')
     species = models.ForeignKey(ComSpecies, models.DO_NOTHING)
 
     class Meta:

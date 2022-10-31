@@ -657,7 +657,7 @@ class NowStratCoord(models.Model):
 
 
 class NowStratCoordPeople(models.Model):
-    strat_coord = models.OneToOneField(NowStratCoord, models.DO_NOTHING, primary_key=True)
+    strat_coord = models.OneToOneField(NowStratCoord, models.DO_NOTHING)
     initials = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='initials')
 
     class Meta:

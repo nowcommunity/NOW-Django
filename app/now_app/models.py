@@ -505,7 +505,7 @@ class NowLocalitySpeciesCopy(models.Model):
 
 class NowMuseum(models.Model):
     """Museum where significant material from the locality is housed"""
-    lid = models.OneToOneField(NowLocality, models.DO_NOTHING, db_column='lid')
+    lid = models.OneToOneField(NowLocality, models.CASCADE, db_column='lid')
     museum = models.ForeignKey(ComMuseumList, models.DO_NOTHING, db_column='museum')
 
     class Meta:

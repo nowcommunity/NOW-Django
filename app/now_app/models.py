@@ -709,7 +709,7 @@ class NowTimeUnitUpdateReference(models.Model):
         unique_together = (('tuid', 'rid'),)
 
 class NowTimeUnitBoundaryReference(models.Model):
-    bid = models.OneToOneField(NowTimeUnitBoundary, models.DO_NOTHING, db_column='bid')
+    bid = models.OneToOneField(NowTimeUnitBoundary, models.CASCADE, db_column='bid')
     rid = models.ForeignKey(RefReference, models.DO_NOTHING, db_column='rid')
 
     class Meta:

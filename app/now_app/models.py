@@ -1970,7 +1970,7 @@ class RefAuthors(models.Model):
         unique_together = (('rid', 'field_id', 'au_num'),)
 
 class RefFieldName(models.Model):
-    field_id = models.IntegerField(db_column='field_ID', primary_key=True)  # Field name made lowercase.
+    field_id = models.IntegerField(db_column='field_ID')  # Field name made lowercase.
     ref_type = models.ForeignKey(RefReferenceType, models.DO_NOTHING)
     ref_field_name = models.CharField(max_length=50, blank=True, null=True)
     display = models.IntegerField(blank=True, null=True)

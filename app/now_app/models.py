@@ -412,7 +412,7 @@ class NowLocalityUpdate(models.Model):
     luid = models.AutoField(primary_key=True)
     lau_coordinator = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='lau_coordinator', related_name='%(class)s_lau_coordinator')
     lau_authorizer = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='lau_authorizer', related_name='%(class)s_lau_authorizer')
-    lid = models.ForeignKey(NowLocality, models.DO_NOTHING, db_column='lid')
+    lid = models.ForeignKey(NowLocality, models.CASCADE, db_column='lid')
     lau_date = models.DateField(blank=True, null=True)
     lau_comment = models.CharField(max_length=255, blank=True, null=True)
 

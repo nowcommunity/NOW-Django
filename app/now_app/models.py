@@ -211,7 +211,7 @@ class NowTimeUnitBoundaryUpdate(models.Model):
     buid = models.AutoField(primary_key=True)
     bau_coordinator = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='bau_coordinator', related_name='%(class)s_bau_coordinator')
     bau_authorizer = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='bau_authorizer', related_name='%(class)s_bau_authorizer')
-    bid = models.ForeignKey(NowTimeUnitBoundary, models.DO_NOTHING, db_column='bid')
+    bid = models.ForeignKey(NowTimeUnitBoundary, models.CASCADE, db_column='bid')
     bau_date = models.DateField(blank=True, null=True)
     bau_comment = models.CharField(max_length=255, blank=True, null=True)
 

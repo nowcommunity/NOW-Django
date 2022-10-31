@@ -632,7 +632,7 @@ class NowSpeciesUpdateReference(models.Model):
 
 
 class NowSedimentaryStructure(models.Model):
-    lid = models.OneToOneField(NowLocality, models.DO_NOTHING, db_column='lid', primary_key=True)
+    lid = models.OneToOneField(NowLocality, models.DO_NOTHING, db_column='lid')
     sed_struct = models.CharField(max_length=30)
 
     class Meta:

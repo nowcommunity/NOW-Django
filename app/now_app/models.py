@@ -558,7 +558,7 @@ class NowRegCoord(models.Model):
 
 
 class NowRegCoordCountry(models.Model):
-    reg_coord = models.OneToOneField(NowRegCoord, models.DO_NOTHING, primary_key=True)
+    reg_coord = models.OneToOneField(NowRegCoord, models.DO_NOTHING)
     country = models.CharField(max_length=80)
 
     class Meta:

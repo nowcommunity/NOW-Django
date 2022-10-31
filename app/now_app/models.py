@@ -604,7 +604,7 @@ class NowSpCoord(models.Model):
 
 
 class NowSpCoordPeople(models.Model):
-    sp_coord = models.OneToOneField(NowSpCoord, models.DO_NOTHING, primary_key=True)
+    sp_coord = models.OneToOneField(NowSpCoord, models.DO_NOTHING)
     initials = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='initials')
 
     class Meta:

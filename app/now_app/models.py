@@ -177,7 +177,7 @@ class ComSubfamilySynonym(models.Model):
 
 class ComTaxaSynonym(models.Model):
     synonym_id = models.AutoField(primary_key=True)
-    species_id = models.ForeignKey(ComSpecies, on_delete=models.DO_NOTHING)
+    species = models.ForeignKey(ComSpecies, on_delete=models.DO_NOTHING)
     syn_genus_name = models.CharField(max_length=30, blank=True, null=True)
     syn_species_name = models.CharField(max_length=30, blank=True, null=True)
     syn_comment = models.CharField(max_length=255, blank=True, null=True)

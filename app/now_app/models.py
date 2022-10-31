@@ -687,10 +687,10 @@ class NowTimeUnitUpdate(models.Model):
 
 class NowTimeUpdate(models.Model):
     time_update_id = models.AutoField(primary_key=True)
-    tu_name = models.ForeignKey(NowTimeUnit, models.DO_NOTHING, db_column='tu_name')
-    tuid = models.ForeignKey(NowTimeUnitUpdate, models.DO_NOTHING, db_column='tuid', blank=True, null=True)
-    lower_buid = models.ForeignKey(NowTimeUnitBoundaryUpdate, models.DO_NOTHING, db_column='lower_buid', blank=True, null=True, related_name='%(class)s_lower_buid')
-    upper_buid = models.ForeignKey(NowTimeUnitBoundaryUpdate, models.DO_NOTHING, db_column='upper_buid', blank=True, null=True, related_name='%(class)s_upper_buid')
+    tu_name = models.ForeignKey(NowTimeUnit, models.CASCADE, db_column='tu_name')
+    tuid = models.ForeignKey(NowTimeUnitUpdate, models.CASCADE, db_column='tuid', blank=True, null=True)
+    lower_buid = models.ForeignKey(NowTimeUnitBoundaryUpdate, models.CASCADE, db_column='lower_buid', blank=True, null=True, related_name='%(class)s_lower_buid')
+    upper_buid = models.ForeignKey(NowTimeUnitBoundaryUpdate, models.CASCADE, db_column='upper_buid', blank=True, null=True, related_name='%(class)s_upper_buid')
     coordinator = models.CharField(max_length=10)
     authorizer = models.CharField(max_length=10)
     date = models.DateField(blank=True, null=True)

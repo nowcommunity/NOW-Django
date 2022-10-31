@@ -532,7 +532,7 @@ class NowProjectLocality(models.Model):
         unique_together = (('lid', 'pid'),)
 
 class NowProjectPeople(models.Model):
-    pid = models.OneToOneField(NowProject, models.DO_NOTHING, db_column='pid', primary_key=True)
+    pid = models.OneToOneField(NowProject, models.DO_NOTHING, db_column='pid')
     initials = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='initials')
 
     class Meta:

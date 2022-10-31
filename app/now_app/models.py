@@ -1959,7 +1959,7 @@ class NowVTimeUnitLocalities(models.Model):
 
 
 class RefAuthors(models.Model):
-    rid = models.OneToOneField(RefReference, models.DO_NOTHING, db_column='rid', primary_key=True)
+    rid = models.OneToOneField(RefReference, models.DO_NOTHING, db_column='rid')
     field_id = models.IntegerField()
     au_num = models.IntegerField()
     author_surname = models.CharField(max_length=255, blank=True, null=True)

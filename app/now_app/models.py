@@ -429,7 +429,7 @@ class NowLocalityUpdateReference(models.Model):
 
 
 class NowLocalitySpecies(models.Model):
-    lid = models.OneToOneField(NowLocality, models.DO_NOTHING, db_column='lid', primary_key=True)
+    lid = models.OneToOneField(NowLocality, models.DO_NOTHING, db_column='lid')
     species = models.ForeignKey(ComSpecies, models.DO_NOTHING)
     nis = models.IntegerField(blank=True, null=True)
     pct = models.FloatField(blank=True, null=True)

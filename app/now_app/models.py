@@ -623,7 +623,7 @@ class NowSpCoordTaxa(models.Model):
 
 
 class NowSpeciesUpdateReference(models.Model):
-    suid = models.OneToOneField(NowSpeciesUpdate, models.DO_NOTHING, db_column='suid')
+    suid = models.OneToOneField(NowSpeciesUpdate, models.CASCADE, db_column='suid')
     rid = models.ForeignKey(RefReference, models.DO_NOTHING, db_column='rid')
 
     class Meta:

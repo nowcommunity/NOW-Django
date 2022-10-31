@@ -266,7 +266,7 @@ class RefReference(models.Model):
         db_table = 'ref_ref'
 
 class NowTimeUnitBoundaryUpdateReference(models.Model):
-    buid = models.OneToOneField(NowTimeUnitBoundaryUpdate, models.DO_NOTHING, db_column='buid')
+    buid = models.OneToOneField(NowTimeUnitBoundaryUpdate, models.CASCADE, db_column='buid')
     rid = models.ForeignKey(RefReference, models.DO_NOTHING, db_column='rid')
 
     class Meta:

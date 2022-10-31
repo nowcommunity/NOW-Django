@@ -613,7 +613,7 @@ class NowSpCoordPeople(models.Model):
 
 
 class NowSpCoordTaxa(models.Model):
-    sp_coord = models.OneToOneField(NowSpCoord, models.DO_NOTHING, primary_key=True)
+    sp_coord = models.OneToOneField(NowSpCoord, models.DO_NOTHING)
     order_name = models.CharField(max_length=30)
     family_name = models.CharField(max_length=30)
 

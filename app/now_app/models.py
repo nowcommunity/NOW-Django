@@ -667,7 +667,7 @@ class NowStratCoordPeople(models.Model):
 
 class NowLocalitySynonym(models.Model):
     syn_id = models.AutoField(primary_key=True)
-    lid = models.ForeignKey(NowLocality, models.DO_NOTHING, db_column='lid')
+    lid = models.ForeignKey(NowLocality, models.CASCADE, db_column='lid')
     synonym = models.CharField(max_length=30, blank=True, null=True)
 
     class Meta:

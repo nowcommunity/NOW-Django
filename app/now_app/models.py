@@ -524,7 +524,7 @@ class NowProject(models.Model):
         db_table = 'now_proj'
 
 class NowProjectLocality(models.Model):
-    lid = models.OneToOneField(NowLocality, models.DO_NOTHING, db_column='lid', primary_key=True)
+    lid = models.OneToOneField(NowLocality, models.DO_NOTHING, db_column='lid')
     pid = models.ForeignKey(NowProject, models.DO_NOTHING, db_column='pid')
 
     class Meta:

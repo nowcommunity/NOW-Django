@@ -11,15 +11,15 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
+        migrations.AlterField(
+            model_name='nowlocalityupdatereference',
+            name='luid',
+            field=models.OneToOneField(db_column='luid', on_delete=django.db.models.deletion.DO_NOTHING, to='now_app.nowlocalityupdate'),
+        ),
         migrations.AddField(
             model_name='nowlocalityupdatereference',
             name='id',
             field=models.BigAutoField(auto_created=True, default=1, primary_key=True, serialize=False, verbose_name='ID'),
             preserve_default=False,
-        ),
-        migrations.AlterField(
-            model_name='nowlocalityupdatereference',
-            name='luid',
-            field=models.OneToOneField(db_column='luid', on_delete=django.db.models.deletion.DO_NOTHING, to='now_app.nowlocalityupdate'),
         ),
     ]

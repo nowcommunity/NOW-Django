@@ -567,7 +567,7 @@ class NowRegCoordCountry(models.Model):
 
 
 class NowRegCoordPeople(models.Model):
-    reg_coord = models.OneToOneField(NowRegCoord, models.DO_NOTHING, primary_key=True)
+    reg_coord = models.OneToOneField(NowRegCoord, models.DO_NOTHING)
     initials = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='initials')
 
     class Meta:

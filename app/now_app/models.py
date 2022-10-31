@@ -701,7 +701,7 @@ class NowTimeUpdate(models.Model):
 
 
 class NowTimeUnitUpdateReference(models.Model):
-    tuid = models.OneToOneField(NowTimeUnitUpdate, models.DO_NOTHING, db_column='tuid')
+    tuid = models.OneToOneField(NowTimeUnitUpdate, models.CASCADE, db_column='tuid')
     rid = models.ForeignKey(RefReference, models.DO_NOTHING, db_column='rid')
 
     class Meta:

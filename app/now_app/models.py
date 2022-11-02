@@ -13,7 +13,6 @@ class ComFamilySynonym(models.Model):
     family_name = models.CharField(max_length=30, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'com_family_synonym'
 
 
@@ -22,7 +21,6 @@ class ComGenusSynonym(models.Model):
     genus_name = models.CharField(max_length=30, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'com_genus_synonym'
 
 
@@ -30,7 +28,6 @@ class ComMain(models.Model):
     one = models.IntegerField(primary_key=True)
 
     class Meta:
-        managed = False
         db_table = 'com_main'
 
 
@@ -47,7 +44,6 @@ class ComMlist(models.Model):
     used_gene = models.IntegerField(blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'com_mlist'
 
 
@@ -56,7 +52,6 @@ class ComOrderSynonym(models.Model):
     order_name = models.CharField(max_length=30, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'com_order_synonym'
 
 
@@ -76,7 +71,6 @@ class ComPeople(models.Model):
     used_gene = models.IntegerField(blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'com_people'
 
 
@@ -152,7 +146,6 @@ class ComSpecies(models.Model):
     sp_comment = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'com_species'
 
 
@@ -161,7 +154,6 @@ class ComSubfamilySynonym(models.Model):
     subfamily_name = models.CharField(max_length=30, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'com_subfamily_synonym'
 
 
@@ -173,7 +165,6 @@ class ComTaxaSynonym(models.Model):
     syn_comment = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'com_taxa_synonym'
 
 
@@ -187,7 +178,6 @@ class ComUsers(models.Model):
     gen_user_group = models.CharField(max_length=30, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'com_users'
 
 
@@ -208,7 +198,6 @@ class Log(models.Model):
     buid = models.IntegerField(blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'log'
 
 
@@ -221,7 +210,6 @@ class NowBau(models.Model):
     bau_comment = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'now_bau'
 
 
@@ -231,7 +219,6 @@ class NowBr(models.Model):
     id = models.BigAutoField(primary_key=True)
 
     class Meta:
-        managed = False
         db_table = 'now_br'
 
 
@@ -241,7 +228,6 @@ class NowCollMeth(models.Model):
     id = models.BigAutoField(primary_key=True)
 
     class Meta:
-        managed = False
         db_table = 'now_coll_meth'
 
 
@@ -249,7 +235,6 @@ class NowCollMethValues(models.Model):
     coll_meth_value = models.CharField(primary_key=True, max_length=21)
 
     class Meta:
-        managed = False
         db_table = 'now_coll_meth_values'
 
 
@@ -262,7 +247,6 @@ class NowLau(models.Model):
     lau_comment = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'now_lau'
 
 
@@ -366,7 +350,6 @@ class NowLoc(models.Model):
     regional_culture_3 = models.CharField(max_length=64, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'now_loc'
 
 
@@ -376,7 +359,6 @@ class NowLr(models.Model):
     id = models.BigAutoField(primary_key=True)
 
     class Meta:
-        managed = False
         db_table = 'now_lr'
 
 
@@ -415,7 +397,6 @@ class NowLs(models.Model):
     id = models.BigAutoField(primary_key=True)
 
     class Meta:
-        managed = False
         db_table = 'now_ls'
 
 
@@ -453,7 +434,6 @@ class NowLsCopy(models.Model):
     do18_stdev = models.FloatField(blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'now_ls_copy'
 
 
@@ -463,7 +443,6 @@ class NowMus(models.Model):
     id = models.BigAutoField(primary_key=True)
 
     class Meta:
-        managed = False
         db_table = 'now_mus'
 
 
@@ -473,7 +452,6 @@ class NowPlr(models.Model):
     id = models.BigAutoField(primary_key=True)
 
     class Meta:
-        managed = False
         db_table = 'now_plr'
 
 
@@ -486,7 +464,6 @@ class NowProj(models.Model):
     proj_records = models.IntegerField(blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'now_proj'
 
 
@@ -496,7 +473,6 @@ class NowProjPeople(models.Model):
     id = models.BigAutoField(primary_key=True)
 
     class Meta:
-        managed = False
         db_table = 'now_proj_people'
 
 
@@ -506,7 +482,6 @@ class NowPsr(models.Model):
     id = models.BigAutoField(primary_key=True)
 
     class Meta:
-        managed = False
         db_table = 'now_psr'
 
 
@@ -515,7 +490,6 @@ class NowRegCoord(models.Model):
     region = models.CharField(max_length=80)
 
     class Meta:
-        managed = False
         db_table = 'now_reg_coord'
 
 
@@ -525,7 +499,6 @@ class NowRegCoordCountry(models.Model):
     id = models.BigAutoField(primary_key=True)
 
     class Meta:
-        managed = False
         db_table = 'now_reg_coord_country'
 
 
@@ -535,7 +508,6 @@ class NowRegCoordPeople(models.Model):
     id = models.BigAutoField(primary_key=True)
 
     class Meta:
-        managed = False
         db_table = 'now_reg_coord_people'
 
 
@@ -544,7 +516,6 @@ class NowRegionalCulture(models.Model):
     regional_culture_name = models.CharField(max_length=50)
 
     class Meta:
-        managed = False
         db_table = 'now_regional_culture'
 
 
@@ -557,7 +528,6 @@ class NowSau(models.Model):
     sau_comment = models.CharField(max_length=1024, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'now_sau'
 
 
@@ -566,7 +536,6 @@ class NowSpCoord(models.Model):
     tax_group = models.CharField(max_length=80)
 
     class Meta:
-        managed = False
         db_table = 'now_sp_coord'
 
 
@@ -576,7 +545,6 @@ class NowSpCoordPeople(models.Model):
     id = models.BigAutoField(primary_key=True)
 
     class Meta:
-        managed = False
         db_table = 'now_sp_coord_people'
 
 
@@ -587,7 +555,6 @@ class NowSpCoordTaxa(models.Model):
     id = models.BigAutoField(primary_key=True)
 
     class Meta:
-        managed = False
         db_table = 'now_sp_coord_taxa'
 
 
@@ -597,7 +564,6 @@ class NowSr(models.Model):
     id = models.BigAutoField(primary_key=True)
 
     class Meta:
-        managed = False
         db_table = 'now_sr'
 
 
@@ -607,7 +573,6 @@ class NowSs(models.Model):
     id = models.BigAutoField(primary_key=True)
 
     class Meta:
-        managed = False
         db_table = 'now_ss'
 
 
@@ -616,7 +581,6 @@ class NowSsValues(models.Model):
     category = models.CharField(max_length=80, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'now_ss_values'
 
 
@@ -625,7 +589,6 @@ class NowStratCoord(models.Model):
     title = models.CharField(max_length=80)
 
     class Meta:
-        managed = False
         db_table = 'now_strat_coord'
 
 
@@ -635,7 +598,6 @@ class NowStratCoordPeople(models.Model):
     id = models.BigAutoField(primary_key=True)
 
     class Meta:
-        managed = False
         db_table = 'now_strat_coord_people'
 
 
@@ -645,7 +607,6 @@ class NowSynLoc(models.Model):
     synonym = models.CharField(max_length=30, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'now_syn_loc'
 
 
@@ -658,7 +619,6 @@ class NowTau(models.Model):
     tau_comment = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'now_tau'
 
 
@@ -672,7 +632,6 @@ class NowTimeUnit(models.Model):
     tu_comment = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'now_time_unit'
 
 
@@ -688,7 +647,6 @@ class NowTimeUpdate(models.Model):
     comment = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'now_time_update'
 
 
@@ -698,7 +656,6 @@ class NowTr(models.Model):
     id = models.BigAutoField(primary_key=True)
 
     class Meta:
-        managed = False
         db_table = 'now_tr'
 
 
@@ -709,7 +666,6 @@ class NowTuBound(models.Model):
     b_comment = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'now_tu_bound'
 
 
@@ -718,7 +674,6 @@ class NowTuSequence(models.Model):
     seq_name = models.CharField(max_length=30)
 
     class Meta:
-        managed = False
         db_table = 'now_tu_sequence'
 
 
@@ -728,7 +683,6 @@ class NowTur(models.Model):
     id = models.BigAutoField(primary_key=True)
 
     class Meta:
-        managed = False
         db_table = 'now_tur'
 
 
@@ -741,7 +695,6 @@ class RefAuthors(models.Model):
     id = models.BigAutoField(primary_key=True)
 
     class Meta:
-        managed = False
         db_table = 'ref_authors'
 
 
@@ -758,7 +711,6 @@ class RefFieldName(models.Model):
     id = models.BigAutoField(primary_key=True)
 
     class Meta:
-        managed = False
         db_table = 'ref_field_name'
 
 
@@ -770,7 +722,6 @@ class RefJournal(models.Model):
     issn = models.CharField(db_column='ISSN', max_length=10, blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
-        managed = False
         db_table = 'ref_journal'
 
 
@@ -779,7 +730,6 @@ class RefKeywords(models.Model):
     keyword = models.CharField(max_length=50)
 
     class Meta:
-        managed = False
         db_table = 'ref_keywords'
 
 
@@ -789,7 +739,6 @@ class RefKeywordsRef(models.Model):
     id = models.BigAutoField(primary_key=True)
 
     class Meta:
-        managed = False
         db_table = 'ref_keywords_ref'
 
 
@@ -821,7 +770,6 @@ class RefRef(models.Model):
     used_gene = models.IntegerField(blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'ref_ref'
 
 
@@ -830,5 +778,4 @@ class RefRefType(models.Model):
     ref_type = models.CharField(max_length=30, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'ref_ref_type'

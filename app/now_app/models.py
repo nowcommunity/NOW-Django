@@ -219,6 +219,7 @@ class NowBr(models.Model):
 
     class Meta:
         db_table = 'now_br'
+        unique_together = (('buid', 'rid'),)
 
 
 class NowCollMeth(models.Model):
@@ -227,6 +228,7 @@ class NowCollMeth(models.Model):
 
     class Meta:
         db_table = 'now_coll_meth'
+        unique_together = (('lid', 'coll_meth'),)
 
 
 class NowCollMethValues(models.Model):
@@ -357,6 +359,7 @@ class NowLr(models.Model):
 
     class Meta:
         db_table = 'now_lr'
+        unique_together = (('luid', 'rid'),)
 
 
 class NowLs(models.Model):
@@ -394,6 +397,7 @@ class NowLs(models.Model):
 
     class Meta:
         db_table = 'now_ls'
+        unique_together = (('lid', 'species'),)
 
 
 class NowLsCopy(models.Model):
@@ -439,6 +443,7 @@ class NowMus(models.Model):
 
     class Meta:
         db_table = 'now_mus'
+        unique_together = (('lid', 'museum'),)
 
 
 class NowPlr(models.Model):
@@ -447,6 +452,7 @@ class NowPlr(models.Model):
 
     class Meta:
         db_table = 'now_plr'
+        unique_together = (('lid', 'pid'),)
 
 
 class NowProj(models.Model):
@@ -467,6 +473,7 @@ class NowProjPeople(models.Model):
 
     class Meta:
         db_table = 'now_proj_people'
+        unique_together = (('pid', 'initials'),)
 
 
 class NowPsr(models.Model):
@@ -475,6 +482,7 @@ class NowPsr(models.Model):
 
     class Meta:
         db_table = 'now_psr'
+        unique_together = (('pid', 'species'),)
 
 
 class NowRegCoord(models.Model):
@@ -491,6 +499,7 @@ class NowRegCoordCountry(models.Model):
 
     class Meta:
         db_table = 'now_reg_coord_country'
+        unique_together = (('reg_coord', 'country'),)
 
 
 class NowRegCoordPeople(models.Model):
@@ -499,6 +508,7 @@ class NowRegCoordPeople(models.Model):
 
     class Meta:
         db_table = 'now_reg_coord_people'
+        unique_together = (('reg_coord', 'initials'),)
 
 
 class NowRegionalCulture(models.Model):
@@ -535,6 +545,7 @@ class NowSpCoordPeople(models.Model):
 
     class Meta:
         db_table = 'now_sp_coord_people'
+        unique_together = (('sp_coord', 'initials'),)
 
 
 class NowSpCoordTaxa(models.Model):
@@ -544,6 +555,7 @@ class NowSpCoordTaxa(models.Model):
 
     class Meta:
         db_table = 'now_sp_coord_taxa'
+        unique_together = (('sp_coord', 'order_name', 'family_name'),)
 
 
 class NowSr(models.Model):
@@ -552,6 +564,7 @@ class NowSr(models.Model):
 
     class Meta:
         db_table = 'now_sr'
+        unique_together = (('suid', 'rid'),)
 
 
 class NowSs(models.Model):
@@ -560,6 +573,7 @@ class NowSs(models.Model):
 
     class Meta:
         db_table = 'now_ss'
+        unique_together = (('lid', 'sed_struct'),)
 
 
 class NowSsValues(models.Model):
@@ -584,6 +598,7 @@ class NowStratCoordPeople(models.Model):
 
     class Meta:
         db_table = 'now_strat_coord_people'
+        unique_together = (('strat_coord', 'initials'),)
 
 
 class NowSynLoc(models.Model):
@@ -641,6 +656,7 @@ class NowTr(models.Model):
 
     class Meta:
         db_table = 'now_tr'
+        unique_together = (('tuid', 'rid'),)
 
 
 class NowTuBound(models.Model):
@@ -667,6 +683,7 @@ class NowTur(models.Model):
 
     class Meta:
         db_table = 'now_tur'
+        unique_together = (('bid', 'rid'),)
 
 
 class RefAuthors(models.Model):
@@ -678,6 +695,7 @@ class RefAuthors(models.Model):
 
     class Meta:
         db_table = 'ref_authors'
+        unique_together = (('rid', 'field_id', 'au_num'),)
 
 
 class RefFieldName(models.Model):
@@ -693,6 +711,7 @@ class RefFieldName(models.Model):
 
     class Meta:
         db_table = 'ref_field_name'
+        unique_together = (('field_id', 'ref_type'),)
 
 
 class RefJournal(models.Model):
@@ -720,6 +739,7 @@ class RefKeywordsRef(models.Model):
 
     class Meta:
         db_table = 'ref_keywords_ref'
+        unique_together = (('keywords', 'rid'),)
 
 
 class RefRef(models.Model):

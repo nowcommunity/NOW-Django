@@ -216,7 +216,6 @@ class NowBau(models.Model):
 class NowBr(models.Model):
     buid = models.ForeignKey(NowBau, models.CASCADE, db_column='buid')
     rid = models.ForeignKey('RefRef', models.DO_NOTHING, db_column='rid')
-    id = models.BigAutoField(primary_key=True)
 
     class Meta:
         db_table = 'now_br'
@@ -225,7 +224,6 @@ class NowBr(models.Model):
 class NowCollMeth(models.Model):
     lid = models.ForeignKey('NowLoc', models.CASCADE, db_column='lid')
     coll_meth = models.CharField(max_length=21)
-    id = models.BigAutoField(primary_key=True)
 
     class Meta:
         db_table = 'now_coll_meth'
@@ -356,7 +354,6 @@ class NowLoc(models.Model):
 class NowLr(models.Model):
     luid = models.ForeignKey(NowLau, models.CASCADE, db_column='luid')
     rid = models.ForeignKey('RefRef', models.DO_NOTHING, db_column='rid')
-    id = models.BigAutoField(primary_key=True)
 
     class Meta:
         db_table = 'now_lr'
@@ -394,7 +391,6 @@ class NowLs(models.Model):
     do18_max = models.FloatField(blank=True, null=True)
     do18_min = models.FloatField(blank=True, null=True)
     do18_stdev = models.FloatField(blank=True, null=True)
-    id = models.BigAutoField(primary_key=True)
 
     class Meta:
         db_table = 'now_ls'
@@ -440,7 +436,6 @@ class NowLsCopy(models.Model):
 class NowMus(models.Model):
     lid = models.ForeignKey(NowLoc, models.CASCADE, db_column='lid')
     museum = models.ForeignKey(ComMlist, models.DO_NOTHING, db_column='museum')
-    id = models.BigAutoField(primary_key=True)
 
     class Meta:
         db_table = 'now_mus'
@@ -449,7 +444,6 @@ class NowMus(models.Model):
 class NowPlr(models.Model):
     lid = models.ForeignKey(NowLoc, models.CASCADE, db_column='lid')
     pid = models.ForeignKey('NowProj', models.DO_NOTHING, db_column='pid')
-    id = models.BigAutoField(primary_key=True)
 
     class Meta:
         db_table = 'now_plr'
@@ -470,7 +464,6 @@ class NowProj(models.Model):
 class NowProjPeople(models.Model):
     pid = models.ForeignKey(NowProj, models.DO_NOTHING, db_column='pid')
     initials = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='initials')
-    id = models.BigAutoField(primary_key=True)
 
     class Meta:
         db_table = 'now_proj_people'
@@ -479,7 +472,6 @@ class NowProjPeople(models.Model):
 class NowPsr(models.Model):
     pid = models.ForeignKey(NowProj, models.DO_NOTHING, db_column='pid')
     species = models.ForeignKey(ComSpecies, models.DO_NOTHING)
-    id = models.BigAutoField(primary_key=True)
 
     class Meta:
         db_table = 'now_psr'
@@ -496,7 +488,6 @@ class NowRegCoord(models.Model):
 class NowRegCoordCountry(models.Model):
     reg_coord = models.ForeignKey(NowRegCoord, models.DO_NOTHING)
     country = models.CharField(max_length=80)
-    id = models.BigAutoField(primary_key=True)
 
     class Meta:
         db_table = 'now_reg_coord_country'
@@ -505,7 +496,6 @@ class NowRegCoordCountry(models.Model):
 class NowRegCoordPeople(models.Model):
     reg_coord = models.ForeignKey(NowRegCoord, models.DO_NOTHING)
     initials = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='initials')
-    id = models.BigAutoField(primary_key=True)
 
     class Meta:
         db_table = 'now_reg_coord_people'
@@ -542,7 +532,6 @@ class NowSpCoord(models.Model):
 class NowSpCoordPeople(models.Model):
     sp_coord = models.ForeignKey(NowSpCoord, models.DO_NOTHING)
     initials = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='initials')
-    id = models.BigAutoField(primary_key=True)
 
     class Meta:
         db_table = 'now_sp_coord_people'
@@ -552,7 +541,6 @@ class NowSpCoordTaxa(models.Model):
     sp_coord = models.ForeignKey(NowSpCoord, models.DO_NOTHING)
     order_name = models.CharField(max_length=30)
     family_name = models.CharField(max_length=30)
-    id = models.BigAutoField(primary_key=True)
 
     class Meta:
         db_table = 'now_sp_coord_taxa'
@@ -561,7 +549,6 @@ class NowSpCoordTaxa(models.Model):
 class NowSr(models.Model):
     suid = models.ForeignKey(NowSau, models.CASCADE, db_column='suid')
     rid = models.ForeignKey('RefRef', models.DO_NOTHING, db_column='rid')
-    id = models.BigAutoField(primary_key=True)
 
     class Meta:
         db_table = 'now_sr'
@@ -570,7 +557,6 @@ class NowSr(models.Model):
 class NowSs(models.Model):
     lid = models.ForeignKey(NowLoc, models.CASCADE, db_column='lid')
     sed_struct = models.CharField(max_length=30)
-    id = models.BigAutoField(primary_key=True)
 
     class Meta:
         db_table = 'now_ss'
@@ -595,7 +581,6 @@ class NowStratCoord(models.Model):
 class NowStratCoordPeople(models.Model):
     strat_coord = models.ForeignKey(NowStratCoord, models.DO_NOTHING)
     initials = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='initials')
-    id = models.BigAutoField(primary_key=True)
 
     class Meta:
         db_table = 'now_strat_coord_people'
@@ -653,7 +638,6 @@ class NowTimeUpdate(models.Model):
 class NowTr(models.Model):
     tuid = models.ForeignKey(NowTau, models.CASCADE, db_column='tuid')
     rid = models.ForeignKey('RefRef', models.DO_NOTHING, db_column='rid')
-    id = models.BigAutoField(primary_key=True)
 
     class Meta:
         db_table = 'now_tr'
@@ -680,7 +664,6 @@ class NowTuSequence(models.Model):
 class NowTur(models.Model):
     bid = models.ForeignKey(NowTuBound, models.CASCADE, db_column='bid')
     rid = models.ForeignKey('RefRef', models.DO_NOTHING, db_column='rid')
-    id = models.BigAutoField(primary_key=True)
 
     class Meta:
         db_table = 'now_tur'
@@ -692,7 +675,6 @@ class RefAuthors(models.Model):
     au_num = models.IntegerField()
     author_surname = models.CharField(max_length=255, blank=True, null=True)
     author_initials = models.CharField(max_length=20, blank=True, null=True)
-    id = models.BigAutoField(primary_key=True)
 
     class Meta:
         db_table = 'ref_authors'
@@ -708,7 +690,6 @@ class RefFieldName(models.Model):
     field_x = models.IntegerField(blank=True, null=True)
     field_y = models.IntegerField(blank=True, null=True)
     field_name = models.CharField(max_length=50, blank=True, null=True)
-    id = models.BigAutoField(primary_key=True)
 
     class Meta:
         db_table = 'ref_field_name'
@@ -736,7 +717,6 @@ class RefKeywords(models.Model):
 class RefKeywordsRef(models.Model):
     keywords = models.ForeignKey(RefKeywords, models.DO_NOTHING)
     rid = models.ForeignKey('RefRef', models.DO_NOTHING, db_column='rid')
-    id = models.BigAutoField(primary_key=True)
 
     class Meta:
         db_table = 'ref_keywords_ref'

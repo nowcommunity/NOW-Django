@@ -201,11 +201,21 @@ class Log(models.Model):
         db_table = 'log'
 
 
+class NowTuBound(models.Model):
+    bid = models.AutoField(primary_key=True)
+    b_name = models.CharField(max_length=150, blank=True, null=True)
+    age = models.FloatField(blank=True, null=True)
+    b_comment = models.CharField(max_length=255, blank=True, null=True)
+
+    class Meta:
+        db_table = 'now_tu_bound'
+
+
 class NowBau(models.Model):
     buid = models.AutoField(primary_key=True)
     bau_coordinator = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='bau_coordinator', related_name='%(class)s_bau_coordinator')
     bau_authorizer = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='bau_authorizer', related_name='%(class)s_bau_authorizer')
-    bid = models.ForeignKey('NowTuBound', models.CASCADE, db_column='bid')
+    bid = models.ForeignKey(NowTuBound, models.CASCADE, db_column='bid')
     bau_date = models.DateField(blank=True, null=True)
     bau_comment = models.CharField(max_length=255, blank=True, null=True)
 
@@ -213,22 +223,63 @@ class NowBau(models.Model):
         db_table = 'now_bau'
 
 
+class RefRefType(models.Model):
+    ref_type_id = models.AutoField(primary_key=True)
+    ref_type = models.CharField(max_length=30, blank=True, null=True)
+
+    class Meta:
+        db_table = 'ref_ref_type'
+
+
+class RefJournal(models.Model):
+    journal_id = models.AutoField(primary_key=True)
+    journal_title = models.CharField(max_length=255, blank=True, null=True)
+    short_title = models.CharField(max_length=100, blank=True, null=True)
+    alt_title = models.CharField(max_length=255, blank=True, null=True)
+    issn = models.CharField(db_column='ISSN', max_length=10, blank=True, null=True)  # Field name made lowercase.
+
+    class Meta:
+        db_table = 'ref_journal'
+
+
+class RefRef(models.Model):
+    rid = models.AutoField(primary_key=True)
+    ref_type = models.ForeignKey(RefRefType, models.DO_NOTHING)
+    journal = models.ForeignKey(RefJournal, models.DO_NOTHING, blank=True, null=True)
+    title_primary = models.CharField(max_length=255, blank=True, null=True)
+    date_primary = models.IntegerField(blank=True, null=True)
+    volume = models.CharField(max_length=10, blank=True, null=True)
+    issue = models.CharField(max_length=10, blank=True, null=True)
+    start_page = models.IntegerField(blank=True, null=True)
+    end_page = models.IntegerField(blank=True, null=True)
+    publisher = models.CharField(max_length=255, blank=True, null=True)
+    pub_place = models.CharField(max_length=255, blank=True, null=True)
+    title_secondary = models.CharField(max_length=255, blank=True, null=True)
+    date_secondary = models.IntegerField(blank=True, null=True)
+    title_series = models.CharField(max_length=255, blank=True, null=True)
+    issn_isbn = models.CharField(max_length=30, blank=True, null=True)
+    ref_abstract = models.TextField(blank=True, null=True)
+    web_url = models.CharField(max_length=255, blank=True, null=True)
+    misc_1 = models.CharField(max_length=255, blank=True, null=True)
+    misc_2 = models.CharField(max_length=255, blank=True, null=True)
+    gen_notes = models.CharField(max_length=255, blank=True, null=True)
+    printed_language = models.CharField(max_length=50, blank=True, null=True)
+    exact_date = models.DateField(blank=True, null=True)
+    used_morph = models.IntegerField(blank=True, null=True)
+    used_now = models.IntegerField(blank=True, null=True)
+    used_gene = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        db_table = 'ref_ref'
+
+
 class NowBr(models.Model):
     buid = models.ForeignKey(NowBau, models.CASCADE, db_column='buid')
-    rid = models.ForeignKey('RefRef', models.DO_NOTHING, db_column='rid')
+    rid = models.ForeignKey(RefRef, models.DO_NOTHING, db_column='rid')
 
     class Meta:
         db_table = 'now_br'
         unique_together = (('buid', 'rid'),)
-
-
-class NowCollMeth(models.Model):
-    lid = models.ForeignKey('NowLoc', models.CASCADE, db_column='lid')
-    coll_meth = models.CharField(max_length=21)
-
-    class Meta:
-        db_table = 'now_coll_meth'
-        unique_together = (('lid', 'coll_meth'),)
 
 
 class NowCollMethValues(models.Model):
@@ -238,22 +289,31 @@ class NowCollMethValues(models.Model):
         db_table = 'now_coll_meth_values'
 
 
-class NowLau(models.Model):
-    luid = models.AutoField(primary_key=True)
-    lau_coordinator = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='lau_coordinator', related_name='%(class)s_lau_coordinator')
-    lau_authorizer = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='lau_authorizer', related_name='%(class)s_lau_authorizer')
-    lid = models.ForeignKey('NowLoc', models.CASCADE, db_column='lid')
-    lau_date = models.DateField(blank=True, null=True)
-    lau_comment = models.CharField(max_length=255, blank=True, null=True)
+class NowTuSequence(models.Model):
+    sequence = models.CharField(primary_key=True, max_length=30)
+    seq_name = models.CharField(max_length=30)
 
     class Meta:
-        db_table = 'now_lau'
+        db_table = 'now_tu_sequence'
+
+
+class NowTimeUnit(models.Model):
+    tu_name = models.CharField(primary_key=True, max_length=100)
+    tu_display_name = models.CharField(max_length=100)
+    up_bnd = models.ForeignKey(NowTuBound, models.DO_NOTHING, db_column='up_bnd', related_name='%(class)s_up_bnd')
+    low_bnd = models.ForeignKey(NowTuBound, models.DO_NOTHING, db_column='low_bnd', related_name='%(class)s_low_bnd')
+    rank = models.CharField(max_length=15, blank=True, null=True)
+    sequence = models.ForeignKey(NowTuSequence, models.DO_NOTHING, db_column='sequence')
+    tu_comment = models.CharField(max_length=255, blank=True, null=True)
+
+    class Meta:
+        db_table = 'now_time_unit'
 
 
 class NowLoc(models.Model):
     lid = models.AutoField(primary_key=True)
-    bfa_max = models.ForeignKey('NowTimeUnit', models.DO_NOTHING, db_column='bfa_max', blank=True, null=True, related_name='%(class)s_bfa_max')
-    bfa_min = models.ForeignKey('NowTimeUnit', models.DO_NOTHING, db_column='bfa_min', blank=True, null=True, related_name='%(class)s_bfa_min')
+    bfa_max = models.ForeignKey(NowTimeUnit, models.DO_NOTHING, db_column='bfa_max', blank=True, null=True, related_name='%(class)s_bfa_max')
+    bfa_min = models.ForeignKey(NowTimeUnit, models.DO_NOTHING, db_column='bfa_min', blank=True, null=True, related_name='%(class)s_bfa_min')
     loc_name = models.CharField(max_length=30)
     date_meth = models.CharField(max_length=9)
     max_age = models.FloatField()
@@ -353,9 +413,29 @@ class NowLoc(models.Model):
         db_table = 'now_loc'
 
 
+class NowCollMeth(models.Model):
+    lid = models.ForeignKey(NowLoc, models.CASCADE, db_column='lid')
+    coll_meth = models.CharField(max_length=21)
+
+    class Meta:
+        db_table = 'now_coll_meth'
+        unique_together = (('lid', 'coll_meth'),)
+
+class NowLau(models.Model):
+    luid = models.AutoField(primary_key=True)
+    lau_coordinator = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='lau_coordinator', related_name='%(class)s_lau_coordinator')
+    lau_authorizer = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='lau_authorizer', related_name='%(class)s_lau_authorizer')
+    lid = models.ForeignKey(NowLoc, models.CASCADE, db_column='lid')
+    lau_date = models.DateField(blank=True, null=True)
+    lau_comment = models.CharField(max_length=255, blank=True, null=True)
+
+    class Meta:
+        db_table = 'now_lau'
+
+
 class NowLr(models.Model):
     luid = models.ForeignKey(NowLau, models.CASCADE, db_column='luid')
-    rid = models.ForeignKey('RefRef', models.DO_NOTHING, db_column='rid')
+    rid = models.ForeignKey(RefRef, models.DO_NOTHING, db_column='rid')
 
     class Meta:
         db_table = 'now_lr'
@@ -446,15 +526,6 @@ class NowMus(models.Model):
         unique_together = (('lid', 'museum'),)
 
 
-class NowPlr(models.Model):
-    lid = models.ForeignKey(NowLoc, models.CASCADE, db_column='lid')
-    pid = models.ForeignKey('NowProj', models.DO_NOTHING, db_column='pid')
-
-    class Meta:
-        db_table = 'now_plr'
-        unique_together = (('lid', 'pid'),)
-
-
 class NowProj(models.Model):
     pid = models.AutoField(primary_key=True)
     contact = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='contact')
@@ -465,6 +536,15 @@ class NowProj(models.Model):
 
     class Meta:
         db_table = 'now_proj'
+
+
+class NowPlr(models.Model):
+    lid = models.ForeignKey(NowLoc, models.CASCADE, db_column='lid')
+    pid = models.ForeignKey(NowProj, models.DO_NOTHING, db_column='pid')
+
+    class Meta:
+        db_table = 'now_plr'
+        unique_together = (('lid', 'pid'),)
 
 
 class NowProjPeople(models.Model):
@@ -560,7 +640,7 @@ class NowSpCoordTaxa(models.Model):
 
 class NowSr(models.Model):
     suid = models.ForeignKey(NowSau, models.CASCADE, db_column='suid')
-    rid = models.ForeignKey('RefRef', models.DO_NOTHING, db_column='rid')
+    rid = models.ForeignKey(RefRef, models.DO_NOTHING, db_column='rid')
 
     class Meta:
         db_table = 'now_sr'
@@ -614,25 +694,12 @@ class NowTau(models.Model):
     tuid = models.AutoField(primary_key=True)
     tau_coordinator = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='tau_coordinator', related_name='%(class)s_tau_coordinator')
     tau_authorizer = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='tau_authorizer', related_name='%(class)s_tau_authorizer')
-    tu_name = models.ForeignKey('NowTimeUnit', models.CASCADE, db_column='tu_name')
+    tu_name = models.ForeignKey(NowTimeUnit, models.CASCADE, db_column='tu_name')
     tau_date = models.DateField(blank=True, null=True)
     tau_comment = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
         db_table = 'now_tau'
-
-
-class NowTimeUnit(models.Model):
-    tu_name = models.CharField(primary_key=True, max_length=100)
-    tu_display_name = models.CharField(max_length=100)
-    up_bnd = models.ForeignKey('NowTuBound', models.DO_NOTHING, db_column='up_bnd', related_name='%(class)s_up_bnd')
-    low_bnd = models.ForeignKey('NowTuBound', models.DO_NOTHING, db_column='low_bnd', related_name='%(class)s_low_bnd')
-    rank = models.CharField(max_length=15, blank=True, null=True)
-    sequence = models.ForeignKey('NowTuSequence', models.DO_NOTHING, db_column='sequence')
-    tu_comment = models.CharField(max_length=255, blank=True, null=True)
-
-    class Meta:
-        db_table = 'now_time_unit'
 
 
 class NowTimeUpdate(models.Model):
@@ -652,34 +719,16 @@ class NowTimeUpdate(models.Model):
 
 class NowTr(models.Model):
     tuid = models.ForeignKey(NowTau, models.CASCADE, db_column='tuid')
-    rid = models.ForeignKey('RefRef', models.DO_NOTHING, db_column='rid')
+    rid = models.ForeignKey(RefRef, models.DO_NOTHING, db_column='rid')
 
     class Meta:
         db_table = 'now_tr'
         unique_together = (('tuid', 'rid'),)
 
 
-class NowTuBound(models.Model):
-    bid = models.AutoField(primary_key=True)
-    b_name = models.CharField(max_length=150, blank=True, null=True)
-    age = models.FloatField(blank=True, null=True)
-    b_comment = models.CharField(max_length=255, blank=True, null=True)
-
-    class Meta:
-        db_table = 'now_tu_bound'
-
-
-class NowTuSequence(models.Model):
-    sequence = models.CharField(primary_key=True, max_length=30)
-    seq_name = models.CharField(max_length=30)
-
-    class Meta:
-        db_table = 'now_tu_sequence'
-
-
 class NowTur(models.Model):
     bid = models.ForeignKey(NowTuBound, models.CASCADE, db_column='bid')
-    rid = models.ForeignKey('RefRef', models.DO_NOTHING, db_column='rid')
+    rid = models.ForeignKey(RefRef, models.DO_NOTHING, db_column='rid')
 
     class Meta:
         db_table = 'now_tur'
@@ -687,7 +736,7 @@ class NowTur(models.Model):
 
 
 class RefAuthors(models.Model):
-    rid = models.ForeignKey('RefRef', models.DO_NOTHING, db_column='rid')
+    rid = models.ForeignKey(RefRef, models.DO_NOTHING, db_column='rid')
     field_id = models.IntegerField()
     au_num = models.IntegerField()
     author_surname = models.CharField(max_length=255, blank=True, null=True)
@@ -700,7 +749,7 @@ class RefAuthors(models.Model):
 
 class RefFieldName(models.Model):
     field_id = models.IntegerField(db_column='field_ID')  # Field name made lowercase.
-    ref_type = models.ForeignKey('RefRefType', models.DO_NOTHING)
+    ref_type = models.ForeignKey(RefRefType, models.DO_NOTHING)
     ref_field_name = models.CharField(max_length=50, blank=True, null=True)
     display = models.IntegerField(blank=True, null=True)
     label_x = models.IntegerField(blank=True, null=True)
@@ -714,17 +763,6 @@ class RefFieldName(models.Model):
         unique_together = (('field_id', 'ref_type'),)
 
 
-class RefJournal(models.Model):
-    journal_id = models.AutoField(primary_key=True)
-    journal_title = models.CharField(max_length=255, blank=True, null=True)
-    short_title = models.CharField(max_length=100, blank=True, null=True)
-    alt_title = models.CharField(max_length=255, blank=True, null=True)
-    issn = models.CharField(db_column='ISSN', max_length=10, blank=True, null=True)  # Field name made lowercase.
-
-    class Meta:
-        db_table = 'ref_journal'
-
-
 class RefKeywords(models.Model):
     keywords_id = models.AutoField(primary_key=True)
     keyword = models.CharField(max_length=50)
@@ -735,47 +773,9 @@ class RefKeywords(models.Model):
 
 class RefKeywordsRef(models.Model):
     keywords = models.ForeignKey(RefKeywords, models.DO_NOTHING)
-    rid = models.ForeignKey('RefRef', models.DO_NOTHING, db_column='rid')
+    rid = models.ForeignKey(RefRef, models.DO_NOTHING, db_column='rid')
 
     class Meta:
         db_table = 'ref_keywords_ref'
         unique_together = (('keywords', 'rid'),)
 
-
-class RefRef(models.Model):
-    rid = models.AutoField(primary_key=True)
-    ref_type = models.ForeignKey('RefRefType', models.DO_NOTHING)
-    journal = models.ForeignKey(RefJournal, models.DO_NOTHING, blank=True, null=True)
-    title_primary = models.CharField(max_length=255, blank=True, null=True)
-    date_primary = models.IntegerField(blank=True, null=True)
-    volume = models.CharField(max_length=10, blank=True, null=True)
-    issue = models.CharField(max_length=10, blank=True, null=True)
-    start_page = models.IntegerField(blank=True, null=True)
-    end_page = models.IntegerField(blank=True, null=True)
-    publisher = models.CharField(max_length=255, blank=True, null=True)
-    pub_place = models.CharField(max_length=255, blank=True, null=True)
-    title_secondary = models.CharField(max_length=255, blank=True, null=True)
-    date_secondary = models.IntegerField(blank=True, null=True)
-    title_series = models.CharField(max_length=255, blank=True, null=True)
-    issn_isbn = models.CharField(max_length=30, blank=True, null=True)
-    ref_abstract = models.TextField(blank=True, null=True)
-    web_url = models.CharField(max_length=255, blank=True, null=True)
-    misc_1 = models.CharField(max_length=255, blank=True, null=True)
-    misc_2 = models.CharField(max_length=255, blank=True, null=True)
-    gen_notes = models.CharField(max_length=255, blank=True, null=True)
-    printed_language = models.CharField(max_length=50, blank=True, null=True)
-    exact_date = models.DateField(blank=True, null=True)
-    used_morph = models.IntegerField(blank=True, null=True)
-    used_now = models.IntegerField(blank=True, null=True)
-    used_gene = models.IntegerField(blank=True, null=True)
-
-    class Meta:
-        db_table = 'ref_ref'
-
-
-class RefRefType(models.Model):
-    ref_type_id = models.AutoField(primary_key=True)
-    ref_type = models.CharField(max_length=30, blank=True, null=True)
-
-    class Meta:
-        db_table = 'ref_ref_type'

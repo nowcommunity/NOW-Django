@@ -205,7 +205,7 @@ class NowBau(models.Model):
     buid = models.AutoField(primary_key=True)
     bau_coordinator = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='bau_coordinator', related_name='%(class)s_bau_coordinator')
     bau_authorizer = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='bau_authorizer', related_name='%(class)s_bau_authorizer')
-    bid = models.ForeignKey('NowTuBound', models.DO_NOTHING, db_column='bid')
+    bid = models.ForeignKey('NowTuBound', models.CASCADE, db_column='bid')
     bau_date = models.DateField(blank=True, null=True)
     bau_comment = models.CharField(max_length=255, blank=True, null=True)
 
@@ -214,7 +214,7 @@ class NowBau(models.Model):
 
 
 class NowBr(models.Model):
-    buid = models.ForeignKey(NowBau, models.DO_NOTHING, db_column='buid')
+    buid = models.ForeignKey(NowBau, models.CASCADE, db_column='buid')
     rid = models.ForeignKey('RefRef', models.DO_NOTHING, db_column='rid')
     id = models.BigAutoField(primary_key=True)
 
@@ -223,7 +223,7 @@ class NowBr(models.Model):
 
 
 class NowCollMeth(models.Model):
-    lid = models.ForeignKey('NowLoc', models.DO_NOTHING, db_column='lid')
+    lid = models.ForeignKey('NowLoc', models.CASCADE, db_column='lid')
     coll_meth = models.CharField(max_length=21)
     id = models.BigAutoField(primary_key=True)
 
@@ -242,7 +242,7 @@ class NowLau(models.Model):
     luid = models.AutoField(primary_key=True)
     lau_coordinator = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='lau_coordinator', related_name='%(class)s_lau_coordinator')
     lau_authorizer = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='lau_authorizer', related_name='%(class)s_lau_authorizer')
-    lid = models.ForeignKey('NowLoc', models.DO_NOTHING, db_column='lid')
+    lid = models.ForeignKey('NowLoc', models.CASCADE, db_column='lid')
     lau_date = models.DateField(blank=True, null=True)
     lau_comment = models.CharField(max_length=255, blank=True, null=True)
 
@@ -354,7 +354,7 @@ class NowLoc(models.Model):
 
 
 class NowLr(models.Model):
-    luid = models.ForeignKey(NowLau, models.DO_NOTHING, db_column='luid')
+    luid = models.ForeignKey(NowLau, models.CASCADE, db_column='luid')
     rid = models.ForeignKey('RefRef', models.DO_NOTHING, db_column='rid')
     id = models.BigAutoField(primary_key=True)
 
@@ -438,7 +438,7 @@ class NowLsCopy(models.Model):
 
 
 class NowMus(models.Model):
-    lid = models.ForeignKey(NowLoc, models.DO_NOTHING, db_column='lid')
+    lid = models.ForeignKey(NowLoc, models.CASCADE, db_column='lid')
     museum = models.ForeignKey(ComMlist, models.DO_NOTHING, db_column='museum')
     id = models.BigAutoField(primary_key=True)
 
@@ -447,7 +447,7 @@ class NowMus(models.Model):
 
 
 class NowPlr(models.Model):
-    lid = models.ForeignKey(NowLoc, models.DO_NOTHING, db_column='lid')
+    lid = models.ForeignKey(NowLoc, models.CASCADE, db_column='lid')
     pid = models.ForeignKey('NowProj', models.DO_NOTHING, db_column='pid')
     id = models.BigAutoField(primary_key=True)
 
@@ -559,7 +559,7 @@ class NowSpCoordTaxa(models.Model):
 
 
 class NowSr(models.Model):
-    suid = models.ForeignKey(NowSau, models.DO_NOTHING, db_column='suid')
+    suid = models.ForeignKey(NowSau, models.CASCADE, db_column='suid')
     rid = models.ForeignKey('RefRef', models.DO_NOTHING, db_column='rid')
     id = models.BigAutoField(primary_key=True)
 
@@ -568,7 +568,7 @@ class NowSr(models.Model):
 
 
 class NowSs(models.Model):
-    lid = models.ForeignKey(NowLoc, models.DO_NOTHING, db_column='lid')
+    lid = models.ForeignKey(NowLoc, models.CASCADE, db_column='lid')
     sed_struct = models.CharField(max_length=30)
     id = models.BigAutoField(primary_key=True)
 
@@ -603,7 +603,7 @@ class NowStratCoordPeople(models.Model):
 
 class NowSynLoc(models.Model):
     syn_id = models.AutoField(primary_key=True)
-    lid = models.ForeignKey(NowLoc, models.DO_NOTHING, db_column='lid')
+    lid = models.ForeignKey(NowLoc, models.CASCADE, db_column='lid')
     synonym = models.CharField(max_length=30, blank=True, null=True)
 
     class Meta:
@@ -614,7 +614,7 @@ class NowTau(models.Model):
     tuid = models.AutoField(primary_key=True)
     tau_coordinator = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='tau_coordinator', related_name='%(class)s_tau_coordinator')
     tau_authorizer = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='tau_authorizer', related_name='%(class)s_tau_authorizer')
-    tu_name = models.ForeignKey('NowTimeUnit', models.DO_NOTHING, db_column='tu_name')
+    tu_name = models.ForeignKey('NowTimeUnit', models.CASCADE, db_column='tu_name')
     tau_date = models.DateField(blank=True, null=True)
     tau_comment = models.CharField(max_length=255, blank=True, null=True)
 
@@ -637,10 +637,10 @@ class NowTimeUnit(models.Model):
 
 class NowTimeUpdate(models.Model):
     time_update_id = models.AutoField(primary_key=True)
-    tu_name = models.ForeignKey(NowTimeUnit, models.DO_NOTHING, db_column='tu_name')
-    tuid = models.ForeignKey(NowTau, models.DO_NOTHING, db_column='tuid', blank=True, null=True)
-    lower_buid = models.ForeignKey(NowBau, models.DO_NOTHING, db_column='lower_buid', blank=True, null=True, related_name='%(class)s_lower_buid')
-    upper_buid = models.ForeignKey(NowBau, models.DO_NOTHING, db_column='upper_buid', blank=True, null=True, related_name='%(class)s_upper_buid')
+    tu_name = models.ForeignKey(NowTimeUnit, models.CASCADE, db_column='tu_name')
+    tuid = models.ForeignKey(NowTau, models.CASCADE, db_column='tuid', blank=True, null=True)
+    lower_buid = models.ForeignKey(NowBau, models.CASCADE, db_column='lower_buid', blank=True, null=True, related_name='%(class)s_lower_buid')
+    upper_buid = models.ForeignKey(NowBau, models.CASCADE, db_column='upper_buid', blank=True, null=True, related_name='%(class)s_upper_buid')
     coordinator = models.CharField(max_length=10)
     authorizer = models.CharField(max_length=10)
     date = models.DateField(blank=True, null=True)
@@ -651,7 +651,7 @@ class NowTimeUpdate(models.Model):
 
 
 class NowTr(models.Model):
-    tuid = models.ForeignKey(NowTau, models.DO_NOTHING, db_column='tuid')
+    tuid = models.ForeignKey(NowTau, models.CASCADE, db_column='tuid')
     rid = models.ForeignKey('RefRef', models.DO_NOTHING, db_column='rid')
     id = models.BigAutoField(primary_key=True)
 
@@ -678,7 +678,7 @@ class NowTuSequence(models.Model):
 
 
 class NowTur(models.Model):
-    bid = models.ForeignKey(NowTuBound, models.DO_NOTHING, db_column='bid')
+    bid = models.ForeignKey(NowTuBound, models.CASCADE, db_column='bid')
     rid = models.ForeignKey('RefRef', models.DO_NOTHING, db_column='rid')
     id = models.BigAutoField(primary_key=True)
 

@@ -31,7 +31,7 @@ class ComMain(models.Model):
         db_table = 'com_main'
 
 
-class ComMlist(models.Model):
+class ComMuseumList(models.Model):
     museum = models.CharField(primary_key=True, max_length=10)
     institution = models.CharField(max_length=120)
     alt_int_name = models.CharField(max_length=120, blank=True, null=True)
@@ -201,7 +201,7 @@ class Log(models.Model):
         db_table = 'log'
 
 
-class NowTuBound(models.Model):
+class NowTimeUnitBoundary(models.Model):
     bid = models.AutoField(primary_key=True)
     b_name = models.CharField(max_length=150, blank=True, null=True)
     age = models.FloatField(blank=True, null=True)
@@ -211,11 +211,11 @@ class NowTuBound(models.Model):
         db_table = 'now_tu_bound'
 
 
-class NowBau(models.Model):
+class NowTimeUnitBoundaryUpdate(models.Model):
     buid = models.AutoField(primary_key=True)
     bau_coordinator = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='bau_coordinator', related_name='%(class)s_bau_coordinator')
     bau_authorizer = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='bau_authorizer', related_name='%(class)s_bau_authorizer')
-    bid = models.ForeignKey(NowTuBound, models.CASCADE, db_column='bid')
+    bid = models.ForeignKey(NowTimeUnitBoundary, models.CASCADE, db_column='bid')
     bau_date = models.DateField(blank=True, null=True)
     bau_comment = models.CharField(max_length=255, blank=True, null=True)
 
@@ -223,7 +223,7 @@ class NowBau(models.Model):
         db_table = 'now_bau'
 
 
-class RefRefType(models.Model):
+class RefReferenceType(models.Model):
     ref_type_id = models.AutoField(primary_key=True)
     ref_type = models.CharField(max_length=30, blank=True, null=True)
 
@@ -242,9 +242,9 @@ class RefJournal(models.Model):
         db_table = 'ref_journal'
 
 
-class RefRef(models.Model):
+class RefReference(models.Model):
     rid = models.AutoField(primary_key=True)
-    ref_type = models.ForeignKey(RefRefType, models.DO_NOTHING)
+    ref_type = models.ForeignKey(RefReferenceType, models.DO_NOTHING)
     journal = models.ForeignKey(RefJournal, models.DO_NOTHING, blank=True, null=True)
     title_primary = models.CharField(max_length=255, blank=True, null=True)
     date_primary = models.IntegerField(blank=True, null=True)
@@ -273,23 +273,23 @@ class RefRef(models.Model):
         db_table = 'ref_ref'
 
 
-class NowBr(models.Model):
-    buid = models.ForeignKey(NowBau, models.CASCADE, db_column='buid')
-    rid = models.ForeignKey(RefRef, models.DO_NOTHING, db_column='rid')
+class NowTimeUnitBoundaryUpdateReference(models.Model):
+    buid = models.ForeignKey(NowTimeUnitBoundaryUpdate, models.CASCADE, db_column='buid')
+    rid = models.ForeignKey(RefReference, models.DO_NOTHING, db_column='rid')
 
     class Meta:
         db_table = 'now_br'
         unique_together = (('buid', 'rid'),)
 
 
-class NowCollMethValues(models.Model):
+class NowCollectingMethodValue(models.Model):
     coll_meth_value = models.CharField(primary_key=True, max_length=21)
 
     class Meta:
         db_table = 'now_coll_meth_values'
 
 
-class NowTuSequence(models.Model):
+class NowTimeUnitSequence(models.Model):
     sequence = models.CharField(primary_key=True, max_length=30)
     seq_name = models.CharField(max_length=30)
 
@@ -300,17 +300,17 @@ class NowTuSequence(models.Model):
 class NowTimeUnit(models.Model):
     tu_name = models.CharField(primary_key=True, max_length=100)
     tu_display_name = models.CharField(max_length=100)
-    up_bnd = models.ForeignKey(NowTuBound, models.DO_NOTHING, db_column='up_bnd', related_name='%(class)s_up_bnd')
-    low_bnd = models.ForeignKey(NowTuBound, models.DO_NOTHING, db_column='low_bnd', related_name='%(class)s_low_bnd')
+    up_bnd = models.ForeignKey(NowTimeUnitBoundary, models.DO_NOTHING, db_column='up_bnd', related_name='%(class)s_up_bnd')
+    low_bnd = models.ForeignKey(NowTimeUnitBoundary, models.DO_NOTHING, db_column='low_bnd', related_name='%(class)s_low_bnd')
     rank = models.CharField(max_length=15, blank=True, null=True)
-    sequence = models.ForeignKey(NowTuSequence, models.DO_NOTHING, db_column='sequence')
+    sequence = models.ForeignKey(NowTimeUnitSequence, models.DO_NOTHING, db_column='sequence')
     tu_comment = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
         db_table = 'now_time_unit'
 
 
-class NowLoc(models.Model):
+class NowLocality(models.Model):
     lid = models.AutoField(primary_key=True)
     bfa_max = models.ForeignKey(NowTimeUnit, models.DO_NOTHING, db_column='bfa_max', blank=True, null=True, related_name='%(class)s_bfa_max')
     bfa_min = models.ForeignKey(NowTimeUnit, models.DO_NOTHING, db_column='bfa_min', blank=True, null=True, related_name='%(class)s_bfa_min')
@@ -413,19 +413,19 @@ class NowLoc(models.Model):
         db_table = 'now_loc'
 
 
-class NowCollMeth(models.Model):
-    lid = models.ForeignKey(NowLoc, models.CASCADE, db_column='lid')
+class NowCollectingMethod(models.Model):
+    lid = models.ForeignKey(NowLocality, models.CASCADE, db_column='lid')
     coll_meth = models.CharField(max_length=21)
 
     class Meta:
         db_table = 'now_coll_meth'
         unique_together = (('lid', 'coll_meth'),)
 
-class NowLau(models.Model):
+class NowLocalityUpdate(models.Model):
     luid = models.AutoField(primary_key=True)
     lau_coordinator = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='lau_coordinator', related_name='%(class)s_lau_coordinator')
     lau_authorizer = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='lau_authorizer', related_name='%(class)s_lau_authorizer')
-    lid = models.ForeignKey(NowLoc, models.CASCADE, db_column='lid')
+    lid = models.ForeignKey(NowLocality, models.CASCADE, db_column='lid')
     lau_date = models.DateField(blank=True, null=True)
     lau_comment = models.CharField(max_length=255, blank=True, null=True)
 
@@ -433,17 +433,17 @@ class NowLau(models.Model):
         db_table = 'now_lau'
 
 
-class NowLr(models.Model):
-    luid = models.ForeignKey(NowLau, models.CASCADE, db_column='luid')
-    rid = models.ForeignKey(RefRef, models.DO_NOTHING, db_column='rid')
+class NowLocalityUpdateReference(models.Model):
+    luid = models.ForeignKey(NowLocalityUpdate, models.CASCADE, db_column='luid')
+    rid = models.ForeignKey(RefReference, models.DO_NOTHING, db_column='rid')
 
     class Meta:
         db_table = 'now_lr'
         unique_together = (('luid', 'rid'),)
 
 
-class NowLs(models.Model):
-    lid = models.ForeignKey(NowLoc, models.DO_NOTHING, db_column='lid')
+class NowLocalitySpecies(models.Model):
+    lid = models.ForeignKey(NowLocality, models.DO_NOTHING, db_column='lid')
     species = models.ForeignKey(ComSpecies, models.DO_NOTHING)
     nis = models.IntegerField(blank=True, null=True)
     pct = models.FloatField(blank=True, null=True)
@@ -480,7 +480,7 @@ class NowLs(models.Model):
         unique_together = (('lid', 'species'),)
 
 
-class NowLsCopy(models.Model):
+class NowLocalitySpeciesCopy(models.Model):
     lid = models.IntegerField()
     species_id = models.IntegerField()
     nis = models.IntegerField(blank=True, null=True)
@@ -517,16 +517,16 @@ class NowLsCopy(models.Model):
         db_table = 'now_ls_copy'
 
 
-class NowMus(models.Model):
-    lid = models.ForeignKey(NowLoc, models.CASCADE, db_column='lid')
-    museum = models.ForeignKey(ComMlist, models.DO_NOTHING, db_column='museum')
+class NowMuseum(models.Model):
+    lid = models.ForeignKey(NowLocality, models.CASCADE, db_column='lid')
+    museum = models.ForeignKey(ComMuseumList, models.DO_NOTHING, db_column='museum')
 
     class Meta:
         db_table = 'now_mus'
         unique_together = (('lid', 'museum'),)
 
 
-class NowProj(models.Model):
+class NowProject(models.Model):
     pid = models.AutoField(primary_key=True)
     contact = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='contact')
     proj_code = models.CharField(max_length=10, blank=True, null=True)
@@ -538,17 +538,17 @@ class NowProj(models.Model):
         db_table = 'now_proj'
 
 
-class NowPlr(models.Model):
-    lid = models.ForeignKey(NowLoc, models.CASCADE, db_column='lid')
-    pid = models.ForeignKey(NowProj, models.DO_NOTHING, db_column='pid')
+class NowProjectLocality(models.Model):
+    lid = models.ForeignKey(NowLocality, models.CASCADE, db_column='lid')
+    pid = models.ForeignKey(NowProject, models.DO_NOTHING, db_column='pid')
 
     class Meta:
         db_table = 'now_plr'
         unique_together = (('lid', 'pid'),)
 
 
-class NowProjPeople(models.Model):
-    pid = models.ForeignKey(NowProj, models.DO_NOTHING, db_column='pid')
+class NowProjectPeople(models.Model):
+    pid = models.ForeignKey(NowProject, models.DO_NOTHING, db_column='pid')
     initials = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='initials')
 
     class Meta:
@@ -556,8 +556,8 @@ class NowProjPeople(models.Model):
         unique_together = (('pid', 'initials'),)
 
 
-class NowPsr(models.Model):
-    pid = models.ForeignKey(NowProj, models.DO_NOTHING, db_column='pid')
+class NowProjectSpecies(models.Model):
+    pid = models.ForeignKey(NowProject, models.DO_NOTHING, db_column='pid')
     species = models.ForeignKey(ComSpecies, models.DO_NOTHING)
 
     class Meta:
@@ -599,7 +599,7 @@ class NowRegionalCulture(models.Model):
         db_table = 'now_regional_culture'
 
 
-class NowSau(models.Model):
+class NowSpeciesUpdate(models.Model):
     suid = models.AutoField(primary_key=True)
     sau_coordinator = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='sau_coordinator', related_name='%(class)s_sau_coordinator')
     sau_authorizer = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='sau_authorizer', related_name='%(class)s_sau_authorizer')
@@ -638,17 +638,17 @@ class NowSpCoordTaxa(models.Model):
         unique_together = (('sp_coord', 'order_name', 'family_name'),)
 
 
-class NowSr(models.Model):
-    suid = models.ForeignKey(NowSau, models.CASCADE, db_column='suid')
-    rid = models.ForeignKey(RefRef, models.DO_NOTHING, db_column='rid')
+class NowSpeciesUpdateReference(models.Model):
+    suid = models.ForeignKey(NowSpeciesUpdate, models.CASCADE, db_column='suid')
+    rid = models.ForeignKey(RefReference, models.DO_NOTHING, db_column='rid')
 
     class Meta:
         db_table = 'now_sr'
         unique_together = (('suid', 'rid'),)
 
 
-class NowSs(models.Model):
-    lid = models.ForeignKey(NowLoc, models.CASCADE, db_column='lid')
+class NowSedimentaryStructure(models.Model):
+    lid = models.ForeignKey(NowLocality, models.CASCADE, db_column='lid')
     sed_struct = models.CharField(max_length=30)
 
     class Meta:
@@ -656,7 +656,7 @@ class NowSs(models.Model):
         unique_together = (('lid', 'sed_struct'),)
 
 
-class NowSsValues(models.Model):
+class NowSedimentaryStructureValue(models.Model):
     ss_value = models.CharField(primary_key=True, max_length=30)
     category = models.CharField(max_length=80, blank=True, null=True)
 
@@ -681,16 +681,16 @@ class NowStratCoordPeople(models.Model):
         unique_together = (('strat_coord', 'initials'),)
 
 
-class NowSynLoc(models.Model):
+class NowLocalitySynonym(models.Model):
     syn_id = models.AutoField(primary_key=True)
-    lid = models.ForeignKey(NowLoc, models.CASCADE, db_column='lid')
+    lid = models.ForeignKey(NowLocality, models.CASCADE, db_column='lid')
     synonym = models.CharField(max_length=30, blank=True, null=True)
 
     class Meta:
         db_table = 'now_syn_loc'
 
 
-class NowTau(models.Model):
+class NowTimeUnitUpdate(models.Model):
     tuid = models.AutoField(primary_key=True)
     tau_coordinator = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='tau_coordinator', related_name='%(class)s_tau_coordinator')
     tau_authorizer = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='tau_authorizer', related_name='%(class)s_tau_authorizer')
@@ -705,9 +705,9 @@ class NowTau(models.Model):
 class NowTimeUpdate(models.Model):
     time_update_id = models.AutoField(primary_key=True)
     tu_name = models.ForeignKey(NowTimeUnit, models.CASCADE, db_column='tu_name')
-    tuid = models.ForeignKey(NowTau, models.CASCADE, db_column='tuid', blank=True, null=True)
-    lower_buid = models.ForeignKey(NowBau, models.CASCADE, db_column='lower_buid', blank=True, null=True, related_name='%(class)s_lower_buid')
-    upper_buid = models.ForeignKey(NowBau, models.CASCADE, db_column='upper_buid', blank=True, null=True, related_name='%(class)s_upper_buid')
+    tuid = models.ForeignKey(NowTimeUnitUpdate, models.CASCADE, db_column='tuid', blank=True, null=True)
+    lower_buid = models.ForeignKey(NowTimeUnitBoundaryUpdate, models.CASCADE, db_column='lower_buid', blank=True, null=True, related_name='%(class)s_lower_buid')
+    upper_buid = models.ForeignKey(NowTimeUnitBoundaryUpdate, models.CASCADE, db_column='upper_buid', blank=True, null=True, related_name='%(class)s_upper_buid')
     coordinator = models.CharField(max_length=10)
     authorizer = models.CharField(max_length=10)
     date = models.DateField(blank=True, null=True)
@@ -717,18 +717,18 @@ class NowTimeUpdate(models.Model):
         db_table = 'now_time_update'
 
 
-class NowTr(models.Model):
-    tuid = models.ForeignKey(NowTau, models.CASCADE, db_column='tuid')
-    rid = models.ForeignKey(RefRef, models.DO_NOTHING, db_column='rid')
+class NowTimeUnitUpdateReference(models.Model):
+    tuid = models.ForeignKey(NowTimeUnitUpdate, models.CASCADE, db_column='tuid')
+    rid = models.ForeignKey(RefReference, models.DO_NOTHING, db_column='rid')
 
     class Meta:
         db_table = 'now_tr'
         unique_together = (('tuid', 'rid'),)
 
 
-class NowTur(models.Model):
-    bid = models.ForeignKey(NowTuBound, models.CASCADE, db_column='bid')
-    rid = models.ForeignKey(RefRef, models.DO_NOTHING, db_column='rid')
+class NowTimeUnitBoundaryReference(models.Model):
+    bid = models.ForeignKey(NowTimeUnitBoundary, models.CASCADE, db_column='bid')
+    rid = models.ForeignKey(RefReference, models.DO_NOTHING, db_column='rid')
 
     class Meta:
         db_table = 'now_tur'
@@ -736,7 +736,7 @@ class NowTur(models.Model):
 
 
 class RefAuthors(models.Model):
-    rid = models.ForeignKey(RefRef, models.DO_NOTHING, db_column='rid')
+    rid = models.ForeignKey(RefReference, models.DO_NOTHING, db_column='rid')
     field_id = models.IntegerField()
     au_num = models.IntegerField()
     author_surname = models.CharField(max_length=255, blank=True, null=True)
@@ -749,7 +749,7 @@ class RefAuthors(models.Model):
 
 class RefFieldName(models.Model):
     field_id = models.IntegerField(db_column='field_ID')  # Field name made lowercase.
-    ref_type = models.ForeignKey(RefRefType, models.DO_NOTHING)
+    ref_type = models.ForeignKey(RefReferenceType, models.DO_NOTHING)
     ref_field_name = models.CharField(max_length=50, blank=True, null=True)
     display = models.IntegerField(blank=True, null=True)
     label_x = models.IntegerField(blank=True, null=True)
@@ -773,7 +773,7 @@ class RefKeywords(models.Model):
 
 class RefKeywordsRef(models.Model):
     keywords = models.ForeignKey(RefKeywords, models.DO_NOTHING)
-    rid = models.ForeignKey(RefRef, models.DO_NOTHING, db_column='rid')
+    rid = models.ForeignKey(RefReference, models.DO_NOTHING, db_column='rid')
 
     class Meta:
         db_table = 'ref_keywords_ref'

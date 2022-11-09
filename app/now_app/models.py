@@ -32,7 +32,7 @@ class ComMain(models.Model):
 
 
 class ComMuseumList(models.Model):
-    museum = models.CharField(primary_key=True, max_length=10)
+    museum = models.CharField(max_length=10)
     institution = models.CharField(max_length=120)
     alt_int_name = models.CharField(max_length=120, blank=True, null=True)
     city = models.CharField(max_length=50, blank=True, null=True)
@@ -56,7 +56,7 @@ class ComOrderSynonym(models.Model):
 
 
 class ComPeople(models.Model):
-    initials = models.CharField(primary_key=True, max_length=10)
+    initials = models.CharField(max_length=10)
     first_name = models.CharField(max_length=50, blank=True, null=True)
     surname = models.CharField(max_length=80)
     full_name = models.CharField(max_length=80)
@@ -290,7 +290,7 @@ class NowCollectingMethodValue(models.Model):
 
 
 class NowTimeUnitSequence(models.Model):
-    sequence = models.CharField(primary_key=True, max_length=30)
+    sequence = models.CharField(max_length=30)
     seq_name = models.CharField(max_length=30)
 
     class Meta:
@@ -298,7 +298,7 @@ class NowTimeUnitSequence(models.Model):
 
 
 class NowTimeUnit(models.Model):
-    tu_name = models.CharField(primary_key=True, max_length=100)
+    tu_name = models.CharField(max_length=100)
     tu_display_name = models.CharField(max_length=100)
     up_bnd = models.ForeignKey(NowTimeUnitBoundary, models.DO_NOTHING, db_column='up_bnd', related_name='%(class)s_up_bnd', db_constraint=False)
     low_bnd = models.ForeignKey(NowTimeUnitBoundary, models.DO_NOTHING, db_column='low_bnd', related_name='%(class)s_low_bnd', db_constraint=False)

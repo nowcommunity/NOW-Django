@@ -245,7 +245,7 @@ class RefJournal(models.Model):
 class RefReference(models.Model):
     rid = models.BigAutoField(primary_key=True)
     ref_type = models.ForeignKey(RefReferenceType, models.DO_NOTHING)
-    journal = models.ForeignKey(RefJournal, models.DO_NOTHING, blank=True, null=True)
+    journal = models.BigIntegerField(blank=True, null=True)
     title_primary = models.CharField(max_length=255, blank=True, null=True)
     date_primary = models.IntegerField(blank=True, null=True)
     volume = models.CharField(max_length=10, blank=True, null=True)
@@ -705,9 +705,9 @@ class NowTimeUnitUpdate(models.Model):
 class NowTimeUpdate(models.Model):
     time_update_id = models.BigAutoField(primary_key=True)
     tu_name = models.ForeignKey(NowTimeUnit, models.CASCADE, db_column='tu_name')
-    tuid = models.ForeignKey(NowTimeUnitUpdate, models.CASCADE, db_column='tuid', blank=True, null=True)
-    lower_buid = models.ForeignKey(NowTimeUnitBoundaryUpdate, models.CASCADE, db_column='lower_buid', blank=True, null=True, related_name='%(class)s_lower_buid')
-    upper_buid = models.ForeignKey(NowTimeUnitBoundaryUpdate, models.CASCADE, db_column='upper_buid', blank=True, null=True, related_name='%(class)s_upper_buid')
+    tuid = models.BigIntegerField(db_column='tuid', blank=True, null=True)
+    lower_buid = models.BigIntegerField(db_column='lower_buid', blank=True, null=True)
+    upper_buid = models.BigIntegerField(db_column='upper_buid', blank=True, null=True)
     coordinator = models.CharField(max_length=10)
     authorizer = models.CharField(max_length=10)
     date = models.DateField(blank=True, null=True)

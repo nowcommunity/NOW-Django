@@ -25,7 +25,7 @@ class ComGenusSynonym(models.Model):
 
 
 class ComMain(models.Model):
-    one = models.IntegerField(primary_key=True)
+    one = models.BigAutoField(primary_key=True)
 
     class Meta:
         db_table = 'com_main'
@@ -75,7 +75,7 @@ class ComPeople(models.Model):
 
 
 class ComSpecies(models.Model):
-    species_id = models.AutoField(primary_key=True)
+    species_id = models.BigAutoField(primary_key=True)
     class_name = models.CharField(max_length=30)
     order_name = models.CharField(max_length=30)
     family_name = models.CharField(max_length=30)
@@ -158,7 +158,7 @@ class ComSubfamilySynonym(models.Model):
 
 
 class ComTaxaSynonym(models.Model):
-    synonym_id = models.AutoField(primary_key=True)
+    synonym_id = models.BigAutoField(primary_key=True)
     species_id = models.IntegerField()
     syn_genus_name = models.CharField(max_length=30, blank=True, null=True)
     syn_species_name = models.CharField(max_length=30, blank=True, null=True)
@@ -169,7 +169,7 @@ class ComTaxaSynonym(models.Model):
 
 
 class ComUsers(models.Model):
-    user_id = models.AutoField(primary_key=True)
+    user_id = models.BigAutoField(primary_key=True)
     user_name = models.CharField(max_length=100, blank=True, null=True)
     password = models.CharField(max_length=100, blank=True, null=True)
     last_login = models.DateField(blank=True, null=True)
@@ -182,7 +182,7 @@ class ComUsers(models.Model):
 
 
 class Log(models.Model):
-    log_id = models.AutoField(primary_key=True)
+    log_id = models.BigAutoField(primary_key=True)
     event_time = models.DateTimeField(blank=True, null=True)
     user_name = models.CharField(max_length=100, blank=True, null=True)
     server_name = models.CharField(max_length=50, blank=True, null=True)
@@ -202,7 +202,7 @@ class Log(models.Model):
 
 
 class NowTimeUnitBoundary(models.Model):
-    bid = models.AutoField(primary_key=True)
+    bid = models.BigAutoField(primary_key=True)
     b_name = models.CharField(max_length=150, blank=True, null=True)
     age = models.FloatField(blank=True, null=True)
     b_comment = models.CharField(max_length=255, blank=True, null=True)
@@ -224,7 +224,7 @@ class NowTimeUnitBoundaryUpdate(models.Model):
 
 
 class RefReferenceType(models.Model):
-    ref_type_id = models.AutoField(primary_key=True)
+    ref_type_id = models.BigAutoField(primary_key=True)
     ref_type = models.CharField(max_length=30, blank=True, null=True)
 
     class Meta:
@@ -243,7 +243,7 @@ class RefJournal(models.Model):
 
 
 class RefReference(models.Model):
-    rid = models.AutoField(primary_key=True)
+    rid = models.BigAutoField(primary_key=True)
     ref_type = models.ForeignKey(RefReferenceType, models.DO_NOTHING)
     journal = models.ForeignKey(RefJournal, models.DO_NOTHING, blank=True, null=True)
     title_primary = models.CharField(max_length=255, blank=True, null=True)
@@ -311,7 +311,7 @@ class NowTimeUnit(models.Model):
 
 
 class NowLocality(models.Model):
-    lid = models.AutoField(primary_key=True)
+    lid = models.BigAutoField(primary_key=True)
     bfa_max = models.ForeignKey(NowTimeUnit, models.DO_NOTHING, db_column='bfa_max', blank=True, null=True, related_name='%(class)s_bfa_max')
     bfa_min = models.ForeignKey(NowTimeUnit, models.DO_NOTHING, db_column='bfa_min', blank=True, null=True, related_name='%(class)s_bfa_min')
     loc_name = models.CharField(max_length=30)
@@ -422,7 +422,7 @@ class NowCollectingMethod(models.Model):
         unique_together = (('lid', 'coll_meth'),)
 
 class NowLocalityUpdate(models.Model):
-    luid = models.AutoField(primary_key=True)
+    luid = models.BigAutoField(primary_key=True)
     lau_coordinator = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='lau_coordinator', related_name='%(class)s_lau_coordinator')
     lau_authorizer = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='lau_authorizer', related_name='%(class)s_lau_authorizer')
     lid = models.ForeignKey(NowLocality, models.CASCADE, db_column='lid')
@@ -527,7 +527,7 @@ class NowMuseum(models.Model):
 
 
 class NowProject(models.Model):
-    pid = models.AutoField(primary_key=True)
+    pid = models.BigAutoField(primary_key=True)
     contact = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='contact')
     proj_code = models.CharField(max_length=10, blank=True, null=True)
     proj_name = models.CharField(max_length=80, blank=True, null=True)
@@ -566,7 +566,7 @@ class NowProjectSpecies(models.Model):
 
 
 class NowRegCoord(models.Model):
-    reg_coord_id = models.AutoField(primary_key=True)
+    reg_coord_id = models.BigAutoField(primary_key=True)
     region = models.CharField(max_length=80)
 
     class Meta:
@@ -600,7 +600,7 @@ class NowRegionalCulture(models.Model):
 
 
 class NowSpeciesUpdate(models.Model):
-    suid = models.AutoField(primary_key=True)
+    suid = models.BigAutoField(primary_key=True)
     sau_coordinator = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='sau_coordinator', related_name='%(class)s_sau_coordinator')
     sau_authorizer = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='sau_authorizer', related_name='%(class)s_sau_authorizer')
     species = models.ForeignKey(ComSpecies, models.DO_NOTHING)
@@ -612,7 +612,7 @@ class NowSpeciesUpdate(models.Model):
 
 
 class NowSpCoord(models.Model):
-    sp_coord_id = models.AutoField(primary_key=True)
+    sp_coord_id = models.BigAutoField(primary_key=True)
     tax_group = models.CharField(max_length=80)
 
     class Meta:
@@ -665,7 +665,7 @@ class NowSedimentaryStructureValue(models.Model):
 
 
 class NowStratCoord(models.Model):
-    strat_coord_id = models.AutoField(primary_key=True)
+    strat_coord_id = models.BigAutoField(primary_key=True)
     title = models.CharField(max_length=80)
 
     class Meta:
@@ -682,7 +682,7 @@ class NowStratCoordPeople(models.Model):
 
 
 class NowLocalitySynonym(models.Model):
-    syn_id = models.AutoField(primary_key=True)
+    syn_id = models.BigAutoField(primary_key=True)
     lid = models.ForeignKey(NowLocality, models.CASCADE, db_column='lid')
     synonym = models.CharField(max_length=30, blank=True, null=True)
 
@@ -703,7 +703,7 @@ class NowTimeUnitUpdate(models.Model):
 
 
 class NowTimeUpdate(models.Model):
-    time_update_id = models.AutoField(primary_key=True)
+    time_update_id = models.BigAutoField(primary_key=True)
     tu_name = models.ForeignKey(NowTimeUnit, models.CASCADE, db_column='tu_name')
     tuid = models.ForeignKey(NowTimeUnitUpdate, models.CASCADE, db_column='tuid', blank=True, null=True)
     lower_buid = models.ForeignKey(NowTimeUnitBoundaryUpdate, models.CASCADE, db_column='lower_buid', blank=True, null=True, related_name='%(class)s_lower_buid')
@@ -764,7 +764,7 @@ class RefFieldName(models.Model):
 
 
 class RefKeywords(models.Model):
-    keywords_id = models.AutoField(primary_key=True)
+    keywords_id = models.BigAutoField(primary_key=True)
     keyword = models.CharField(max_length=50)
 
     class Meta:

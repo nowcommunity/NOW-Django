@@ -9,7 +9,7 @@ from django.db import models
 
 
 class ComFamilySynonym(models.Model):
-    syn_family_name = models.CharField(primary_key=True, max_length=30)
+    syn_family_name = models.CharField(max_length=30)
     family_name = models.CharField(max_length=30, blank=True, null=True)
 
     class Meta:
@@ -17,7 +17,7 @@ class ComFamilySynonym(models.Model):
 
 
 class ComGenusSynonym(models.Model):
-    syn_genus_name = models.CharField(primary_key=True, max_length=30)
+    syn_genus_name = models.CharField(max_length=30)
     genus_name = models.CharField(max_length=30, blank=True, null=True)
 
     class Meta:
@@ -48,7 +48,7 @@ class ComMuseumList(models.Model):
 
 
 class ComOrderSynonym(models.Model):
-    syn_order_name = models.CharField(primary_key=True, max_length=30)
+    syn_order_name = models.CharField(max_length=30)
     order_name = models.CharField(max_length=30, blank=True, null=True)
 
     class Meta:
@@ -150,7 +150,7 @@ class ComSpecies(models.Model):
 
 
 class ComSubfamilySynonym(models.Model):
-    syn_subfamily_name = models.CharField(primary_key=True, max_length=30)
+    syn_subfamily_name = models.CharField(max_length=30)
     subfamily_name = models.CharField(max_length=30, blank=True, null=True)
 
     class Meta:
@@ -283,7 +283,7 @@ class NowTimeUnitBoundaryUpdateReference(models.Model):
 
 
 class NowCollectingMethodValue(models.Model):
-    coll_meth_value = models.CharField(primary_key=True, max_length=21)
+    coll_meth_value = models.CharField(max_length=21)
 
     class Meta:
         db_table = 'now_coll_meth_values'
@@ -592,7 +592,7 @@ class NowRegCoordPeople(models.Model):
 
 
 class NowRegionalCulture(models.Model):
-    regional_culture_id = models.CharField(primary_key=True, max_length=50)
+    regional_culture_id = models.CharField(max_length=50)
     regional_culture_name = models.CharField(max_length=50)
 
     class Meta:
@@ -657,7 +657,7 @@ class NowSedimentaryStructure(models.Model):
 
 
 class NowSedimentaryStructureValue(models.Model):
-    ss_value = models.CharField(primary_key=True, max_length=30)
+    ss_value = models.CharField(max_length=30)
     category = models.CharField(max_length=80, blank=True, null=True)
 
     class Meta:

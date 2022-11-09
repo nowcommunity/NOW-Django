@@ -212,7 +212,7 @@ class NowTimeUnitBoundary(models.Model):
 
 
 class NowTimeUnitBoundaryUpdate(models.Model):
-    buid = models.AutoField(primary_key=True)
+    buid = models.BigAutoField(primary_key=True)
     bau_coordinator = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='bau_coordinator', related_name='%(class)s_bau_coordinator')
     bau_authorizer = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='bau_authorizer', related_name='%(class)s_bau_authorizer')
     bid = models.ForeignKey(NowTimeUnitBoundary, models.CASCADE, db_column='bid')
@@ -232,7 +232,7 @@ class RefReferenceType(models.Model):
 
 
 class RefJournal(models.Model):
-    journal_id = models.AutoField(primary_key=True)
+    journal_id = models.BigAutoField(primary_key=True)
     journal_title = models.CharField(max_length=255, blank=True, null=True)
     short_title = models.CharField(max_length=100, blank=True, null=True)
     alt_title = models.CharField(max_length=255, blank=True, null=True)
@@ -691,7 +691,7 @@ class NowLocalitySynonym(models.Model):
 
 
 class NowTimeUnitUpdate(models.Model):
-    tuid = models.AutoField(primary_key=True)
+    tuid = models.BigAutoField(primary_key=True)
     tau_coordinator = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='tau_coordinator', related_name='%(class)s_tau_coordinator')
     tau_authorizer = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='tau_authorizer', related_name='%(class)s_tau_authorizer')
     tu_name = models.ForeignKey(NowTimeUnit, models.CASCADE, db_column='tu_name')

@@ -69,6 +69,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.orcid',
     'rest_framework',
     'now_app',
+    'api',
 ]
 
 SITE_ID = 1

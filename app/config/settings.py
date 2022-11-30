@@ -186,6 +186,19 @@ STATIC_ROOT = get_var('STATIC_ROOT', os.path.join(BASE_DIR, 'static'))
 MEDIA_URL = 'media/'
 MEDIA_ROOT = get_var('MEDIA_ROOT', os.path.join(BASE_DIR, 'media'))
 
+# Email (Sendgrid)
+
+SENDGRID_API_KEY = get_var('SENDGRID_API_KEY')
+
+EMAIL_BACKEND = get_var(
+    'EMAIL_BACKEND', 'django.core.mail.backends.console.EmailBackend')
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = 'apikey' # this is exactly the value 'apikey'
+EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = get_var('DEFAULT_FROM_EMAIL')
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 

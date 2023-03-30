@@ -6,6 +6,7 @@ from rest_framework import generics
 from rest_framework.decorators import action
 from rest_framework.routers import APIRootView
 from django.http.response import HttpResponseRedirectBase
+from rest_framework import status
 from django.urls import reverse
 from rest_framework import permissions
 from django_filters.views import FilterMixin
@@ -106,6 +107,14 @@ class WebViewExtensions(RendererExtensions):
 		url = reverse(self.basename + '-detail', kwargs={'pk': next_instance_pk})
 		url = preserve_view_query_params(self, url, request)
 		return redirect(url)
+
+	def destroy(self, request, *args, **kwargs):
+		# Implementation identical to DRF DestroyModelMixin but redirects to list instead of returning code 204
+		instance = self.get_object()
+		self.perform_destroy(instance)
+		url = reverse(self.basename + '-list')
+		url = preserve_view_query_params(self, url, request)
+		return HttpResponseRedirectBase(url, status=status.HTTP_303_SEE_OTHER)
 
 	class Meta:
 		abstract = True

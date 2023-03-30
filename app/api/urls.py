@@ -21,4 +21,5 @@ urlpatterns = [
         renderer_classes=[JSONOpenAPIRenderer],
         patterns=apirouter.urls,
     ), name='openapi-schema'),
+    path('auth/', include('rest_framework.urls')),
 ]

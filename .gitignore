@@ -3,6 +3,8 @@ nginx/certs/*
 nginx/certbot/*
 !nginx/certs/.keep
 
+app/static
+
 .vscode/
 media/
 github_kli*

@@ -69,6 +69,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.orcid',
     'django_filters',
     'rest_framework',
+    'django_select2',
     'now_app',
     'api',
 ]
@@ -102,6 +103,15 @@ TEMPLATES = [
         },
     },
 ]
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'default_cache',
+    }
+}
+
+SELECT2_CACHE_BACKEND = "default"
 
 
 # ORCID Allauth Settings

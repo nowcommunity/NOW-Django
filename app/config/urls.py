@@ -22,6 +22,7 @@ from django.urls import path
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
+    path("select2/", include("django_select2.urls")),
     path('', include('api.urls'))
 ]
 

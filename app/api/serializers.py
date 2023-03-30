@@ -12,6 +12,8 @@ class NowMuseumSerializer(serializers.ModelSerializer):
 		fields = ('__all__')
 
 class LocalitySerializer(serializers.ModelSerializer):
+	museum = serializers.PrimaryKeyRelatedField(many=True, queryset=now_models.ComMuseumList.objects.all())
+
 	class Meta:
 		model = now_models.NowLocality
 		exclude = ()

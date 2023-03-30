@@ -9,11 +9,29 @@ from django_filters.views import FilterMixin
 
 from . import serializers as api_serializers
 from now_app import models as now_models
+from . import renderers as api_renderers
 from . import filters as now_filters
 # Create your views here.
 
 class BaseViewSet(viewsets.ModelViewSet, FilterMixin):
 	permission_classes = [permissions.DjangoModelPermissions]
+
+	class Meta:
+		abstract = True
+
+class RendererExtensions():
+	# Defines helper functions used by the WebRenderer. Any viewset using WebRenderer
+	# must inherit this class or define similar functions for the renderer to function
+	# correctly.
+
+	def get_template(self, context):
+		# Called by renderer to determine which template to render
+		return 'rest_framework/api.html'
+
+	def modify_context(self, context):
+		# Called by renderer allowing the renderer context to be modified
+		# Use in conjunction with get_template to customize a viewset view
+		return context
 
 	class Meta:
 		abstract = True
@@ -42,7 +60,8 @@ class LocalityViewSet(BaseViewSet):
 	serializer_class = api_serializers.LocalitySerializer
 	queryset = serializer_class.Meta.model.objects.all()
 
-class HomeView(APIRootView):
+class HomeView(APIRootView, RendererExtensions):
+	renderer_classes = [api_renderers.WebRenderer]
 
 	def get_template(self, context):
 		return 'home.html'

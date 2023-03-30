@@ -1,0 +1,12 @@
+{% extends "rest_framework/api.html" %}
+
+{% load static %}
+{% load i18n %}
+{% load rest_framework %}
+
+{% block data_content %}
+New and Old Worlds home page
+<h3></h3>
+<a href="{% url 'openapi-schema' %}">JSON API</a><br />
+
+{% endblock data_content %}

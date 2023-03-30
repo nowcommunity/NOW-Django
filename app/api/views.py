@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from rest_framework import generics
 from rest_framework.decorators import action
 from rest_framework.routers import APIRootView
+from django.http.response import HttpResponseRedirectBase
 from django.urls import reverse
 from rest_framework import permissions
 from django_filters.views import FilterMixin
@@ -40,6 +41,9 @@ class RendererExtensions():
 		abstract = True
 
 class WebViewExtensions(RendererExtensions):
+	# Implements generic next/previous navigation within (filtered) listings as well as
+	# URLs and functionality for implementing custom create/edit pages
+
 	def primary_key_field(self, model=None):
 		if model == None:
 			model = type(self.get_object())
@@ -47,6 +51,29 @@ class WebViewExtensions(RendererExtensions):
 		for field in model._meta.get_fields():
 			if hasattr(field, 'primary_key') and field.primary_key is True:
 				return field.name
+
+	def redirect_to_detail(self, request, pk):
+		url = reverse(self.basename + '-detail', kwargs={'pk': pk})
+		url = preserve_view_query_params(self, url, request)
+		return redirect(url)
+
+	@action(detail=False, methods=['GET', 'POST'], name='new')
+	def new(self, request):
+		if request.method == 'GET':
+			return Response()
+
+		response = self.create(request)
+		return self.redirect_to_detail(request, response.data[self.primary_key_field()])
+
+	@action(detail=True, methods=['GET', 'PUT'], name='edit')
+	def edit(self, request, pk):
+		if request.method == 'GET':
+			instance = self.get_object()
+			serializer = self.get_serializer(instance)
+			return Response(serializer.data)
+
+		response = self.update(request)
+		return self.redirect_to_detail(request, pk)
 
 	@action(detail=True, methods=['GET'])
 	def next(self, request, pk):

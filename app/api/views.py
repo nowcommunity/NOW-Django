@@ -140,6 +140,10 @@ class MuseumWebViewSet(WebViewExtensions, MuseumViewSet):
 				return 'museum_detail.html'
 			case 'list':
 				return 'museum_list.html'
+			case 'new':
+				return 'museum_create_form.html'
+			case 'edit':
+				return 'museum_edit_form.html'
 			case _:
 				return super().get_template(context)
 

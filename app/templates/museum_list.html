@@ -1,0 +1,40 @@
+{% extends "rest_framework/api.html" %}
+
+{% load static %}
+{% load i18n %}
+{% load rest_framework %}
+{% load api_extras %}
+
+{% block title %}Museums – New and Old Worlds{% endblock title %}
+{% block page_header %}Museums{% endblock page_header %}
+
+{% block data_content %}
+<table class='table table-bordered'>
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Museum</th>
+			<th>Institution</th>
+			<th>City</th>
+			<th>State</th>
+			<th>Country</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for item in data %}
+		<tr>
+			{% url 'commuseumlist-detail' pk=item.id as temp_url %}
+			<td><a href="{% preserve_query_params temp_url %}">{{ item.id }}</a></td>
+			<td>{{ item.museum }}</td>
+			<td>{{ item.institution }}</td>
+			<td>{{ item.city }}</td>
+			<td>{{ item.state }}</td>
+			<td>{{ item.country }}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% endblock data_content %}
+
+{% block form_content %}
+{% endblock %}

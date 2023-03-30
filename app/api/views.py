@@ -103,8 +103,18 @@ class MuseumViewSet(BaseViewSet):
 	# ordering_fields = '__all__'
 	# ordering = ['id']
 
+# Note: Inherit from WebViewExtension first so ModelViewSet destroy is correctly overridden by WebViewExtensions
 class MuseumWebViewSet(WebViewExtensions, MuseumViewSet):
 	renderer_classes = [api_renderers.WebRenderer]
+
+	def get_template(self, context):
+		match self.action:
+			case 'retrieve':
+				return 'museum_detail.html'
+			case 'list':
+				return 'museum_list.html'
+			case _:
+				return super().get_template(context)
 
 class LocalityViewSet(BaseViewSet):
 	serializer_class = api_serializers.LocalitySerializer
@@ -112,6 +122,15 @@ class LocalityViewSet(BaseViewSet):
 
 class LocalityWebViewSet(WebViewExtensions, LocalityViewSet):
 	renderer_classes = [api_renderers.WebRenderer]
+
+	def get_template(self, context):
+		match self.action:
+			case 'retrieve':
+				return 'locality_detail.html'
+			case 'list':
+				return 'locality_list.html'
+			case _:
+				return super().get_template(context)
 
 class HomeView(APIRootView, RendererExtensions):
 	renderer_classes = [api_renderers.WebRenderer]

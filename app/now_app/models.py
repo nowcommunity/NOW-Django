@@ -43,6 +43,9 @@ class ComMuseumList(models.Model):
     used_now = models.IntegerField(blank=True, null=True)
     used_gene = models.IntegerField(blank=True, null=True)
 
+    def __str__(self):
+        return '{} ({})'.format(self.institution, self.museum)
+
     class Meta:
         db_table = 'com_mlist'
 

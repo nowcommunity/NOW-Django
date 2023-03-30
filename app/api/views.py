@@ -1,9 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from rest_framework.settings import api_settings
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework import generics
+from rest_framework.decorators import action
 from rest_framework.routers import APIRootView
+from django.urls import reverse
 from rest_framework import permissions
 from django_filters.views import FilterMixin
 
@@ -11,6 +13,7 @@ from . import serializers as api_serializers
 from now_app import models as now_models
 from . import renderers as api_renderers
 from . import filters as now_filters
+from .utils.query_params import preserve_view_query_params
 # Create your views here.
 
 class BaseViewSet(viewsets.ModelViewSet, FilterMixin):
@@ -32,6 +35,50 @@ class RendererExtensions():
 		# Called by renderer allowing the renderer context to be modified
 		# Use in conjunction with get_template to customize a viewset view
 		return context
+
+	class Meta:
+		abstract = True
+
+class WebViewExtensions(RendererExtensions):
+	def primary_key_field(self, model=None):
+		if model == None:
+			model = type(self.get_object())
+
+		for field in model._meta.get_fields():
+			if hasattr(field, 'primary_key') and field.primary_key is True:
+				return field.name
+
+	@action(detail=True, methods=['GET'])
+	def next(self, request, pk):
+		qs = self.filter_queryset(self.get_queryset())
+
+		instance = self.get_object()
+		model = type(instance)
+		pk_field_name = primary_key_field(model)
+
+		instance_index = (*qs,).index(instance)
+		next_index = min(instance_index + 1, qs.count() - 1)
+		next_instance_pk = getattr(qs[next_index], pk_field_name)
+
+		url = reverse(self.basename + '-detail', kwargs={'pk': next_instance_pk})
+		url = preserve_view_query_params(self, url, request)
+		return redirect(url)
+
+	@action(detail=True, methods=['GET'])
+	def previous(self, request, pk):
+		qs = self.filter_queryset(self.get_queryset())
+
+		instance = self.get_object()
+		model = type(instance)
+		pk_field_name = primary_key_field(model)
+
+		instance_index = (*qs,).index(instance)
+		next_index = max(instance_index - 1, 0)
+		next_instance_pk = getattr(qs[next_index], pk_field_name)
+
+		url = reverse(self.basename + '-detail', kwargs={'pk': next_instance_pk})
+		url = preserve_view_query_params(self, url, request)
+		return redirect(url)
 
 	class Meta:
 		abstract = True

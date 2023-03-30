@@ -103,9 +103,15 @@ class MuseumViewSet(BaseViewSet):
 	# ordering_fields = '__all__'
 	# ordering = ['id']
 
+class MuseumWebViewSet(WebViewExtensions, MuseumViewSet):
+	renderer_classes = [api_renderers.WebRenderer]
+
 class LocalityViewSet(BaseViewSet):
 	serializer_class = api_serializers.LocalitySerializer
 	queryset = serializer_class.Meta.model.objects.all()
+
+class LocalityWebViewSet(WebViewExtensions, LocalityViewSet):
+	renderer_classes = [api_renderers.WebRenderer]
 
 class HomeView(APIRootView, RendererExtensions):
 	renderer_classes = [api_renderers.WebRenderer]

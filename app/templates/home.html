@@ -7,6 +7,8 @@
 {% block data_content %}
 New and Old Worlds home page
 <h3></h3>
+<a href="{% url 'commuseumlist-list' %}">Museums</a><br />
+<a href="{% url 'nowlocality-list' %}">Localities</a><br />
 <a href="{% url 'openapi-schema' %}">JSON API</a><br />
 
 {% endblock data_content %}

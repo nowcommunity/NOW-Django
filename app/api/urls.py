@@ -8,6 +8,8 @@ from .routers import Router, ApiRouter
 
 # Set root renderers in constructor
 router = Router()
+router.register(r'museums', views.MuseumWebViewSet)
+router.register(r'localities', views.LocalityWebViewSet)
 
 apirouter = ApiRouter()
 apirouter.register(r'museums', views.MuseumViewSet, 'api-museums')

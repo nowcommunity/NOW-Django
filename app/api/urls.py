@@ -10,6 +10,8 @@ from .routers import Router, ApiRouter
 router = Router()
 
 apirouter = ApiRouter()
+apirouter.register(r'museums', views.MuseumViewSet, 'api-museums')
+apirouter.register(r'localities', views.LocalityViewSet, 'api-localities')
 
 urlpatterns = [
     path('', include(router.urls)),

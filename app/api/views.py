@@ -76,6 +76,19 @@ class WebViewExtensions(RendererExtensions):
 		response = self.update(request)
 		return self.redirect_to_detail(request, pk)
 
+	@action(detail=True, methods=['GET', 'POST'])
+	def form_edit(self, request, pk=None):
+		if request.method == 'GET':
+			instance = self.get_object()
+			serializer = self.get_serializer(instance)
+			return Response(serializer.data)
+
+		# Forms only support GET and POST methods. Because forms may include only a subset
+		# of the fields, a partial update is performed so blank or missing fields aren't deleted
+		# from the model instance.
+		response = self.partial_update(request)
+		return self.redirect_to_detail(request, pk)
+
 	@action(detail=True, methods=['GET'])
 	def next(self, request, pk):
 		qs = self.filter_queryset(self.get_queryset())
@@ -153,8 +166,18 @@ class MuseumWebViewSet(WebViewExtensions, MuseumViewSet):
 				return 'museum_create_form.html'
 			case 'edit':
 				return 'museum_edit_form.html'
+			case 'form_edit':
+				return 'generic_form.html'
 			case _:
 				return super().get_template(context)
+
+	def modify_context(self, context):
+		from now_app import forms
+		match self.action:
+			case 'form_edit':
+				context['django_form'] = forms.ComMuseumForm(initial=context['data'])
+
+		return context
 
 class LocalityViewSet(BaseViewSet):
 	serializer_class = api_serializers.LocalitySerializer
@@ -169,8 +192,18 @@ class LocalityWebViewSet(WebViewExtensions, LocalityViewSet):
 				return 'locality_detail.html'
 			case 'list':
 				return 'locality_list.html'
+			case 'form_edit':
+				return 'generic_form.html'
 			case _:
 				return super().get_template(context)
+
+	def modify_context(self, context):
+		from now_app import forms as now_forms
+		match self.action:
+			case 'form_edit':
+				context['django_form'] = now_forms.NowLocalityForm(initial=context['data'])
+
+		return context
 
 class HomeView(APIRootView, RendererExtensions):
 	renderer_classes = [api_renderers.WebRenderer]

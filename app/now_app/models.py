@@ -409,6 +409,8 @@ class NowLocality(models.Model):
     regional_culture_2 = models.CharField(max_length=64, blank=True, null=True)
     regional_culture_3 = models.CharField(max_length=64, blank=True, null=True)
 
+    museum = models.ManyToManyField(ComMuseumList, through='NowMuseum')
+
     class Meta:
         db_table = 'now_loc'
 
@@ -518,6 +520,7 @@ class NowLocalitySpeciesCopy(models.Model):
 
 
 class NowMuseum(models.Model):
+    # Used in M2M defined on NowLocality
     lid = models.ForeignKey(NowLocality, models.CASCADE, db_column='lid')
     museum = models.ForeignKey(ComMuseumList, models.DO_NOTHING, db_column='museum')
 

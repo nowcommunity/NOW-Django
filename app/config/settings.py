@@ -113,6 +113,12 @@ CACHES = {
 
 SELECT2_CACHE_BACKEND = "default"
 
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend',
+        'rest_framework.filters.OrderingFilter',
+    ],
+}
 
 # ORCID Allauth Settings
 # https://django-allauth.readthedocs.io/en/latest/installation.html

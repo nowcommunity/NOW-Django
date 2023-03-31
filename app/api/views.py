@@ -149,8 +149,6 @@ class MuseumViewSet(BaseViewSet):
 
 	# Filtering
 	filterset_class = now_filters.MuseumFilter
-	# ordering_fields = '__all__'
-	# ordering = ['id']
 
 # Note: Inherit from WebViewExtension first so ModelViewSet destroy is correctly overridden by WebViewExtensions
 class MuseumWebViewSet(WebViewExtensions, MuseumViewSet):

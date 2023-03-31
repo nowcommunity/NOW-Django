@@ -4,7 +4,7 @@
 {% load static %}
 {% load i18n %}
 {% load rest_framework %}
-
+{% load crispy_forms_tags %}
 {% load api_extras %}
 
 {% block title %}{% if name %}{{ name }} – {% endif %}New and Old Worlds{% endblock title %}
@@ -58,6 +58,7 @@
   </div>
 {% endif %}
 
+
 {% if filter_form %}
   <button style="float: right; margin-right: 10px" data-toggle="modal" data-target="#filtersModal" class="btn btn-default">
     <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
@@ -87,10 +88,10 @@
     </div>
 
     {% if inline_filter %}
-      <form class="well" method="get">
-        <h3>Filter</h3>
-        {{ inline_filter.form.as_div }}
-        <input type="submit" />
+      <h3>Filter</h3>
+      <form class="form-vertical" method="get">
+        {{ inline_filter.form|crispy }}
+        <button type="submit" class="btn btn-default" >Filter</button>
       </form>
     {% endif %}
 

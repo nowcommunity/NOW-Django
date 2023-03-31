@@ -70,6 +70,8 @@ INSTALLED_APPS = [
     'django_filters',
     'rest_framework',
     'django_select2',
+    'crispy_bootstrap3', # Bootstrap 3 templates
+    'crispy_forms', # Better rendering of django-filter forums
     'now_app',
     'api',
 ]
@@ -231,3 +233,7 @@ DEFAULT_FROM_EMAIL = get_var('DEFAULT_FROM_EMAIL')
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Crispy forms
+CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap3'
+CRISPY_TEMPLATE_PACK = 'bootstrap3'

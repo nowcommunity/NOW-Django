@@ -19,7 +19,7 @@ from .utils.query_params import preserve_view_query_params
 # Create your views here.
 
 class BaseViewSet(viewsets.ModelViewSet, FilterMixin):
-	permission_classes = [permissions.DjangoModelPermissions]
+	permission_classes = [permissions.DjangoModelPermissionsOrAnonReadOnly]
 
 	class Meta:
 		abstract = True

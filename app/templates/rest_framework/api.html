@@ -86,6 +86,14 @@
       {% endblock %}
     </div>
 
+    {% if inline_filter %}
+      <form class="well" method="get">
+        <h3>Filter</h3>
+        {{ inline_filter.form.as_div }}
+        <input type="submit" />
+      </form>
+    {% endif %}
+
     {% if paginator %}
       <nav class="pull-right">
         {% get_pagination_html paginator %}

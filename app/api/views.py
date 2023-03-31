@@ -176,6 +176,9 @@ class MuseumWebViewSet(WebViewExtensions, MuseumViewSet):
 		match self.action:
 			case 'form_edit':
 				context['django_form'] = forms.ComMuseumForm(initial=context['data'])
+			case 'list':
+				context['inline_filter'] = now_filters.MuseumFilter(context['request'].GET, queryset=self.get_queryset())
+				print(context['inline_filter'].form.as_p())
 
 		return context
 

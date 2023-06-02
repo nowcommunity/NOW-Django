@@ -43,6 +43,9 @@ class ComMuseumList(models.Model):
     used_now = models.IntegerField(blank=True, null=True)
     used_gene = models.IntegerField(blank=True, null=True)
 
+    def __str__(self):
+        return '{} ({})'.format(self.institution, self.museum)
+
     class Meta:
         db_table = 'com_mlist'
 
@@ -69,6 +72,10 @@ class ComPeople(models.Model):
     used_morph = models.IntegerField(blank=True, null=True)
     used_now = models.IntegerField(blank=True, null=True)
     used_gene = models.IntegerField(blank=True, null=True)
+
+    reg_coord = models.ManyToManyField('NowRegCoord', through='NowRegCoordPeople')
+    sp_coord = models.ManyToManyField('NowSpCoord', through='NowSpCoordPeople')
+    strat_coord = models.ManyToManyField('NowStratCoord', through='NowStratCoordPeople')
 
     class Meta:
         db_table = 'com_people'
@@ -207,6 +214,8 @@ class NowTimeUnitBoundary(models.Model):
     age = models.FloatField(blank=True, null=True)
     b_comment = models.CharField(max_length=255, blank=True, null=True)
 
+    references = models.ManyToManyField('RefReference', through='NowTimeUnitBoundaryReference')
+
     class Meta:
         db_table = 'now_tu_bound'
 
@@ -218,6 +227,8 @@ class NowTimeUnitBoundaryUpdate(models.Model):
     bid = models.ForeignKey(NowTimeUnitBoundary, models.CASCADE, db_column='bid')
     bau_date = models.DateField(blank=True, null=True)
     bau_comment = models.CharField(max_length=255, blank=True, null=True)
+
+    references = models.ManyToManyField('RefReference', through='NowTimeUnitBoundaryUpdateReference')
 
     class Meta:
         db_table = 'now_bau'
@@ -269,11 +280,14 @@ class RefReference(models.Model):
     used_now = models.IntegerField(blank=True, null=True)
     used_gene = models.IntegerField(blank=True, null=True)
 
+    keywords = models.ManyToManyField('RefKeywords', through='RefKeywordsRef')
+
     class Meta:
         db_table = 'ref_ref'
 
 
 class NowTimeUnitBoundaryUpdateReference(models.Model):
+    # Used in M2M defined on TimeUnitBoundaryUpdate
     buid = models.ForeignKey(NowTimeUnitBoundaryUpdate, models.CASCADE, db_column='buid')
     rid = models.ForeignKey(RefReference, models.DO_NOTHING, db_column='rid')
 
@@ -409,6 +423,9 @@ class NowLocality(models.Model):
     regional_culture_2 = models.CharField(max_length=64, blank=True, null=True)
     regional_culture_3 = models.CharField(max_length=64, blank=True, null=True)
 
+    museum = models.ManyToManyField(ComMuseumList, through='NowMuseum')
+    species = models.ManyToManyField(ComSpecies, through='NowLocalitySpecies')
+
     class Meta:
         db_table = 'now_loc'
 
@@ -429,11 +446,14 @@ class NowLocalityUpdate(models.Model):
     lau_date = models.DateField(blank=True, null=True)
     lau_comment = models.CharField(max_length=255, blank=True, null=True)
 
+    reference = models.ManyToManyField(RefReference, through='NowLocalityUpdateReference')
+
     class Meta:
         db_table = 'now_lau'
 
 
 class NowLocalityUpdateReference(models.Model):
+    # Used in M2M defined on NowLocalityUpdate
     luid = models.ForeignKey(NowLocalityUpdate, models.CASCADE, db_column='luid')
     rid = models.ForeignKey(RefReference, models.DO_NOTHING, db_column='rid')
 
@@ -443,6 +463,7 @@ class NowLocalityUpdateReference(models.Model):
 
 
 class NowLocalitySpecies(models.Model):
+    # Used in M2M defined on NowLocality
     lid = models.ForeignKey(NowLocality, models.DO_NOTHING, db_column='lid')
     species = models.ForeignKey(ComSpecies, models.DO_NOTHING)
     nis = models.IntegerField(blank=True, null=True)
@@ -518,6 +539,7 @@ class NowLocalitySpeciesCopy(models.Model):
 
 
 class NowMuseum(models.Model):
+    # Used in M2M defined on NowLocality
     lid = models.ForeignKey(NowLocality, models.CASCADE, db_column='lid')
     museum = models.ForeignKey(ComMuseumList, models.DO_NOTHING, db_column='museum')
 
@@ -528,17 +550,22 @@ class NowMuseum(models.Model):
 
 class NowProject(models.Model):
     pid = models.BigAutoField(primary_key=True)
-    contact = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='contact')
+    contact = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='contact', related_name='project_contact')
     proj_code = models.CharField(max_length=10, blank=True, null=True)
     proj_name = models.CharField(max_length=80, blank=True, null=True)
     proj_status = models.CharField(max_length=10, blank=True, null=True)
     proj_records = models.IntegerField(blank=True, null=True)
+
+    localities = models.ManyToManyField(NowLocality, through='NowProjectLocality')
+    people = models.ManyToManyField(ComPeople, through='NowProjectPeople')
+    species = models.ManyToManyField(ComSpecies, through='NowProjectSpecies')
 
     class Meta:
         db_table = 'now_proj'
 
 
 class NowProjectLocality(models.Model):
+    # Used in M2M defined on NowProject
     lid = models.ForeignKey(NowLocality, models.CASCADE, db_column='lid')
     pid = models.ForeignKey(NowProject, models.DO_NOTHING, db_column='pid')
 
@@ -548,6 +575,7 @@ class NowProjectLocality(models.Model):
 
 
 class NowProjectPeople(models.Model):
+    # Used in M2M defined on NowProject
     pid = models.ForeignKey(NowProject, models.DO_NOTHING, db_column='pid')
     initials = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='initials')
 
@@ -557,6 +585,7 @@ class NowProjectPeople(models.Model):
 
 
 class NowProjectSpecies(models.Model):
+    # Used in M2M defined on NowProject
     pid = models.ForeignKey(NowProject, models.DO_NOTHING, db_column='pid')
     species = models.ForeignKey(ComSpecies, models.DO_NOTHING)
 
@@ -583,6 +612,7 @@ class NowRegCoordCountry(models.Model):
 
 
 class NowRegCoordPeople(models.Model):
+    # Used in M2M defined on ComPeople
     reg_coord = models.ForeignKey(NowRegCoord, models.DO_NOTHING)
     initials = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='initials')
 
@@ -607,6 +637,8 @@ class NowSpeciesUpdate(models.Model):
     sau_date = models.DateField(blank=True, null=True)
     sau_comment = models.CharField(max_length=1024, blank=True, null=True)
 
+    references = models.ManyToManyField(RefReference, through='NowSpeciesUpdateReference')
+
     class Meta:
         db_table = 'now_sau'
 
@@ -620,6 +652,7 @@ class NowSpCoord(models.Model):
 
 
 class NowSpCoordPeople(models.Model):
+    # Used in M2M defined on ComPeople
     sp_coord = models.ForeignKey(NowSpCoord, models.DO_NOTHING)
     initials = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='initials')
 
@@ -639,6 +672,7 @@ class NowSpCoordTaxa(models.Model):
 
 
 class NowSpeciesUpdateReference(models.Model):
+    # Used in M2M defined on NowSpeciesUpdate
     suid = models.ForeignKey(NowSpeciesUpdate, models.CASCADE, db_column='suid')
     rid = models.ForeignKey(RefReference, models.DO_NOTHING, db_column='rid')
 
@@ -673,6 +707,7 @@ class NowStratCoord(models.Model):
 
 
 class NowStratCoordPeople(models.Model):
+    # Used in M2M defined on ComPeople
     strat_coord = models.ForeignKey(NowStratCoord, models.DO_NOTHING)
     initials = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='initials')
 
@@ -698,6 +733,8 @@ class NowTimeUnitUpdate(models.Model):
     tau_date = models.DateField(blank=True, null=True)
     tau_comment = models.CharField(max_length=255, blank=True, null=True)
 
+    references = models.ManyToManyField(RefReference, through='NowTimeUnitUpdateReference')
+
     class Meta:
         db_table = 'now_tau'
 
@@ -718,6 +755,7 @@ class NowTimeUpdate(models.Model):
 
 
 class NowTimeUnitUpdateReference(models.Model):
+    # Used in M2M defined on NowTimeUnitUpdate
     tuid = models.ForeignKey(NowTimeUnitUpdate, models.CASCADE, db_column='tuid')
     rid = models.ForeignKey(RefReference, models.DO_NOTHING, db_column='rid')
 
@@ -727,6 +765,7 @@ class NowTimeUnitUpdateReference(models.Model):
 
 
 class NowTimeUnitBoundaryReference(models.Model):
+    # Used in M2M field defined on NowTimeUnitBoundary
     bid = models.ForeignKey(NowTimeUnitBoundary, models.CASCADE, db_column='bid')
     rid = models.ForeignKey(RefReference, models.DO_NOTHING, db_column='rid')
 
@@ -772,6 +811,7 @@ class RefKeywords(models.Model):
 
 
 class RefKeywordsRef(models.Model):
+    # used in M2M field defined on RefReference
     keywords = models.ForeignKey(RefKeywords, models.DO_NOTHING)
     rid = models.ForeignKey(RefReference, models.DO_NOTHING, db_column='rid')
 

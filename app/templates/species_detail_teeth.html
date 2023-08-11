@@ -1,0 +1,130 @@
+<h3>Teeth</h3>
+<h4>Teeth</h4>
+<div class="col-sm-4">
+    <table class="table">
+        <tr>
+            <th>Tooth Shape - Multicuspid</th>
+            <td>!!!!!!!!!!!!!!!!!!!!!!!!</td>
+        </tr>
+        <tr>
+            <th>Hypsodonty</th>
+            <td>{{ data.tht|default_if_none:'' }}</td>
+        </tr>
+        <tr>
+            <th>Horizodonty</th>
+            <td>{{ data.horizodonty|default_if_none:'' }}</td>
+        </tr>
+        <tr>
+            <th>Symphyseal Mobility</th>
+            <td>{{ data.symph_mob|default_if_none:'' }}</td>
+        </tr>
+        <tr>
+            <th>Relative Blade Length of Lower Carnassial</th>
+            <td>{{ data.relative_blade_length|default_if_none:'' }}</td>
+        </tr>
+    </table>
+</div>
+<div class="col-sm-4">
+    <table class="table">
+        <tr>
+            <th>Developmental Crown Type</th>
+            <td>{{ data.crowntype|default_if_none:'' }}</td>
+        </tr>
+        <tr>
+            <th>Cusp shape</th>
+            <td>{{ data.cusp_shape|default_if_none:'' }}</td>
+        </tr>
+        <tr>
+            <th>Buccal cusp count</th>
+            <td>{{ data.cusp_count_buccal|default_if_none:'' }}</td>
+        </tr>
+        <tr>
+            <th>Lingual cusp count</th>
+            <td>{{ data.cusp_count_lingual|default_if_none:'' }}</td>
+        </tr>
+        <tr>
+            <th>Longitudinal loph count</th>
+            <td>{{ data.loph_count_lon|default_if_none:'' }}</td>
+        </tr>
+        <tr>
+            <th>Transverse loph count</th>
+            <td>{{ data.loph_count_trs|default_if_none:'' }}</td>
+        </tr>
+    </table>
+</div>
+<div class="col-sm-4">
+    <table class="table">
+        <tr>
+            <th>Functional Crown Type</th>
+            <td>{{ data.fct_al|default_if_none:'-' }}{{ data.fct_ol|default_if_none:'-' }}{{ data.fct_sf|default_if_none:'-' }}{{ data.fct_ot|default_if_none:'-' }}{{ data.fct_cm|default_if_none:'-' }}</td>
+        </tr>
+        <tr>
+            <th>Presence of acute lophs (AL)</th>
+            <td>{{ data.fct_al|default_if_none:'' }}</td>
+        </tr>
+        <tr>
+            <th>Presence of obtuse or basin-like lophs (OL)</th>
+            <td>{{ data.fct_ol|default_if_none:'' }}</td>
+        </tr>
+        <tr>
+            <th>Structural fortification of cusps (SF)</th>
+            <td>{{ data.fct_sf|default_if_none:'' }}</td>
+        </tr>
+        <tr>
+            <th>Occlusal topography (OT)</th>
+            <td>{{ data.fct_ot|default_if_none:'' }}</td>
+        </tr>
+        <tr>
+            <th>Coronal cementum (CM)</th>
+            <td>{{ data.fct_cm|default_if_none:'' }}</td>
+        </tr>
+    </table>
+</div>
+<div class="col-sm-4">
+    <table class="table">
+        <tr>
+            <th>Mesowear Type</th>
+            <td>{{ data.mesowear|default_if_none:'' }}</td>
+        </tr>
+        <tr>
+            <th>Cusp Relief Low (OR%)</th>
+            <td>{{ data.mw_or_low|default_if_none:'' }}</td>
+        </tr>
+        <tr>
+            <th>Cusp Relief High (OR%)</th>
+            <td>{{ data.mw_or_high|default_if_none:'' }}</td>
+        </tr>
+        <tr>
+            <th>Cusp Shape Sharp (CS%)</th>
+            <td>{{ data.mw_cs_sharp|default_if_none:'' }}</td>
+        </tr>
+        <tr>
+            <th>Cusp Shape Rounded (CS%)</th>
+            <td>{{ data.mw_cs_round|default_if_none:'' }}</td>
+        </tr>
+        <tr>
+            <th>Cusp Shape Blunt (CS%)</th>
+            <td>{{ data.mw_cs_blunt|default_if_none:'' }}</td>
+        </tr>
+        <tr>
+            <th>Scale Minimum</th>
+            <td>{{ data.mw_scale_min|default_if_none:'' }}</td>
+        </tr>
+        <tr>
+            <th>Scale Maximum</th>
+            <td>{{ data.mw_scale_max|default_if_none:'' }}</td>
+        </tr>
+        <tr>
+            <th>Reported Value</th>
+            <td>{{ data.mw_value|default_if_none:'' }}</td>
+        </tr>
+        <tr>
+            <th>Normalized Score</th>
+            <td>!!!!!!!!!!!!!!!!!!!!!!!!</td>
+        </tr>
+        <tr>
+            <th>Microwear Type</th>
+            <td>{{ data.microwear|default_if_none:'' }}</td>
+        </tr>
+    </table>
+</div>

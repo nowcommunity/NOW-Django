@@ -181,8 +181,14 @@ class MuseumWebViewSet(WebViewExtensions, MuseumViewSet):
 		return context
 
 class LocalityViewSet(BaseViewSet):
-	serializer_class = api_serializers.LocalitySerializer
-	queryset = serializer_class.Meta.model.objects.all()
+#	serializer_class = api_serializers.LocalitySerializer
+#	queryset = serializer_class.Meta.model.objects.all().order_by('loc_name')
+	queryset = now_models.NowLocality.objects.all().order_by('loc_name')
+	
+	def get_serializer_class(self):
+		if self.request.method == 'GET':
+			return api_serializers.LocalityListSerializer
+		return api_serializers.LocalitySerializer
 
 class LocalityWebViewSet(WebViewExtensions, LocalityViewSet):
 	renderer_classes = [api_renderers.WebRenderer]
@@ -211,3 +217,63 @@ class HomeView(APIRootView, RendererExtensions):
 
 	def get_template(self, context):
 		return 'home.html'
+
+
+class SpeciesViewSet(BaseViewSet):
+	serializer_class = api_serializers.SpeciesSerializer
+	queryset = serializer_class.Meta.model.objects.all().order_by('order_name', 'family_name', 'genus_name', 'species_name', 'unique_identifier')
+
+
+class SpeciesWebViewSet(WebViewExtensions, SpeciesViewSet):
+	renderer_classes = [api_renderers.WebRenderer]
+
+	def get_template(self, context):
+		match self.action:
+			case 'retrieve':
+				return 'species_detail.html'
+			case 'list':
+				return 'species_list.html'
+			case 'form_edit':
+				return 'generic_form.html'
+			case _:
+				return super().get_template(context)
+
+	def modify_context(self, context):
+		from now_app import forms as now_forms
+		match self.action:
+			case 'form_edit':
+				context['django_form'] = now_forms.NowSpeciesForm(initial=context['data'])
+
+		return context
+
+
+class ReferenceViewSet(BaseViewSet):
+	serializer_class = api_serializers.ReferenceSerializer
+	queryset = serializer_class.Meta.model.objects.all()
+
+
+class ReferenceWebViewSet(WebViewExtensions, ReferenceViewSet):
+	renderer_classes = [api_renderers.WebRenderer]
+
+	def get_template(self, context):
+		match self.action:
+			case 'retrieve':
+				return 'reference_detail.html'
+			case 'list':
+				return 'reference_list.html'
+			case 'form_edit':
+				return 'generic_form.html'
+			case _:
+				return super().get_template(context)
+
+	def modify_context(self, context):
+		from now_app import forms as now_forms
+		match self.action:
+			case 'form_edit':
+				context['django_form'] = now_forms.NowReferenceForm(initial=context['data'])
+
+		return context
+
+class TestViewSet(BaseViewSet):
+	serializer_class = api_serializers.NowSpeciesUpdateReferenceSerializer
+	queryset = serializer_class.Meta.model.objects.all()

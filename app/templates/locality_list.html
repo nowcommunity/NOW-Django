@@ -13,8 +13,10 @@
 	<thead>
 		<tr>
 			<th>ID</th>
-			<th>max</th>
-			<th>min</th>
+			<th>Locality</th>
+			<th>Country or Continent</th>
+			<th>Maximum Age</th>
+			<th>Minimum Age</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -22,8 +24,10 @@
 		<tr>
 			{% url 'nowlocality-detail' pk=item.lid as temp_url %}
 			<td><a href="{% preserve_query_params temp_url %}">{{ item.lid }}</a></td>
-			<td>{{ item.bfa_max }}</td>
-			<td>{{ item.bfa_min }}</td>
+			<td>{{ item.loc_name }}</td>
+			<td>{{ item.country }}</td>
+			<td>{{ item.max_age }}</td>
+			<td>{{ item.min_age }}</td>
 		</tr>
 		{% endfor %}
 	</tbody>

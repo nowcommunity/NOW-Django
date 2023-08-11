@@ -1,0 +1,45 @@
+{% extends "rest_framework/api.html" %}
+
+{% load static %}
+{% load i18n %}
+{% load rest_framework %}
+{% load api_extras %}
+
+{% block title %}Species – New and Old Worlds{% endblock title %}
+{% block page_header %}Species{% endblock page_header %}
+
+{% block data_content %}
+<table class='table table-striped table-hover'>
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Subclass or Superorder</th>
+			<th>Order</th>
+			<th>Suborder or Superfamily</th>
+			<th>Family</th>
+			<th>Subfamily or Tribe</th>
+			<th>Genus</th>
+			<th>Species</th>
+			<th>Unique Identifier</th>
+			<th>Taxon Status</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for item in data %}
+		<tr>
+			{% url 'comspecies-detail' pk=item.species_id as temp_url %}
+			<td><a href="{% preserve_query_params temp_url %}">{{ item.species_id }}</a></td>
+			<td>{{ item.subclass_or_superorder_name|default:"-" }}</td>
+			<td>{{ item.order_name|default:"-" }}</td>
+			<td>{{ item.suborder_or_superfamily_name|default:"-" }}</td>
+			<td>{{ item.family_name|default:"-" }}</td>
+			<td>{{ item.subfamily_name|default:"-" }}</td>
+			<td>{{ item.genus_name|default:"-" }}</td>
+			<td>{{ item.species_name|default:"-" }}</td>
+			<td>{{ item.unique_identifier|default:"-" }}</td>
+			<td>{{ item.taxon_status|default:"-" }}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% endblock data_content %}

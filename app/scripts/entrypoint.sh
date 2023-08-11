@@ -7,7 +7,7 @@ python manage.py shell < ./scripts/check_db_connection.py || exit
 echo 
 echo "RUNNING: MAKEMIGRATIONS & MIGRATE"
 python manage.py makemigrations
-python manage.py migrate
+python manage.py migrate --fake-initial
 python manage.py collectstatic --no-input
 
 echo

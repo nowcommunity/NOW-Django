@@ -1,0 +1,50 @@
+<h3>Habitat & Locomotion</h3>
+<h4>Feeding Habitat</h4>
+<table class="table">
+    <tbody>
+        <tr>
+            <th>Feeding Habitat 1:</th>
+            <td>{{ data.feedinghab1|default_if_none:'' }}</td>
+        </tr>
+        <tr>
+            <th>Feeding Habitat 2:</th>
+            <td>{{ data.feedinghab2|default_if_none:'' }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<h4>Shelter Habitat</h4>
+<table class="table">
+    <tbody>
+        <tr>
+            <th>Shelter Habitat 1:</th>
+            <td>{{ data.shelterhab1|default_if_none:'' }}</td>
+        </tr>
+        <tr>
+            <th>Shelter Habitat 2:</th>
+            <td>{{ data.shelterhab2|default_if_none:'' }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<h4>Locomotion</h4>
+<table class="table">
+    <tbody>
+        <tr>
+            <th>Locomotion 1:</th>
+            <td>{{ data.locomo1_display|default_if_none:'' }}</td>
+        </tr>
+        <tr>
+            <th>Locomotion 2:</th>
+            <td>{{ data.locomo2_display|default_if_none:'' }}</td>
+        </tr>
+        <tr>
+            <th>Locomotion 3:</th>
+            <td>{{ data.locomo3_display|default_if_none:'' }}</td>
+        </tr>
+        <tr>
+            <th>Activity:</th>
+            <td>{{ data.activity|default_if_none:'' }}</td>
+        </tr>
+    </tbody>
+</table>

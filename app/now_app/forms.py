@@ -24,3 +24,13 @@ class NowLocalityForm(forms.ModelForm):
         widgets = {
             'museum': MuseumWidget
         }
+
+class NowSpeciesForm(forms.ModelForm):
+    class Meta:
+        model = now_models.ComSpecies
+        fields = '__all__'
+
+class NowReferenceForm(forms.ModelForm):
+    class Meta:
+        model = now_models.RefReference
+        fields = '__all__'

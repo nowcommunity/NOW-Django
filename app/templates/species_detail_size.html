@@ -1,0 +1,42 @@
+<h3>Size</h3>
+<h4>Size</h4>
+<table class="table">
+    <tbody>
+        <tr>
+            <th>Body Mass (g):</th>
+            <td>{{ data.body_mass|default_if_none:'' }}</td>
+        </tr>
+        <tr>
+            <th>Brain Mass (g):</th>
+            <td>{{ data.brain_mass|default_if_none:'' }}</td>
+        </tr>
+        <tr>
+            <th>Snout-Vent Length:</th>
+            <td>{{ data.sv_length|default_if_none:'' }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<h4>Sexual Dimorphism</h4>
+<table class="table">
+    <tbody>
+        <tr>
+            <th>Sexual Dimorphism - Size:</th>
+            <td>{{ data.sd_size|default_if_none:'' }}</td>
+        </tr>
+        <tr>
+            <th>Sexual Dimorphism - Display:</th>
+            <td>{{ data.sd_display|default_if_none:'' }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<h4>Population</h4>
+<table class="table">
+    <tbody>
+        <tr>
+            <th>Population Structure:</th>
+            <td>{{ data.pop_struc|default_if_none:'' }}</td>
+        </tr>
+    </tbody>
+</table>

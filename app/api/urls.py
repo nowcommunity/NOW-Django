@@ -10,10 +10,15 @@ from .routers import Router, ApiRouter
 router = Router()
 router.register(r'museums', views.MuseumWebViewSet)
 router.register(r'localities', views.LocalityWebViewSet)
+router.register(r'species', views.SpeciesWebViewSet)
+router.register(r'references', views.ReferenceWebViewSet)
 
 apirouter = ApiRouter()
 apirouter.register(r'museums', views.MuseumViewSet, 'api-museums')
 apirouter.register(r'localities', views.LocalityViewSet, 'api-localities')
+apirouter.register(r'species', views.SpeciesViewSet, 'api-species')
+apirouter.register(r'references', views.ReferenceViewSet, 'api-reference')
+apirouter.register(r'test', views.TestViewSet, 'api-test')
 
 urlpatterns = [
     path('', include(router.urls)),

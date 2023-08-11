@@ -1,0 +1,176 @@
+{% extends "rest_framework/api.html" %}
+
+{% load static %}
+{% load i18n %}
+{% load rest_framework %}
+
+{% block title %}Species {{ data.species_id }} {{ data.genus_name }} {{ data.species_name }} – New and Old Worlds{% endblock title %}
+{% block page_header %}
+	{{ data.species_id }}
+	{{ data.genus_name }}
+	{{ data.species_name }}
+	{{ data.unique_identifier }}
+{% endblock page_header %}
+
+{% block data_content %}
+<div class="tabbable" >
+	<ul class="nav nav-tabs nav-justified">
+		<li class="active"><a data-toggle="tab" href="#species-taxonomy">Taxonomy</a></li>
+		<li><a data-toggle="tab" href="#species-synonyms">Synonyms</a></li>
+		<li><a data-toggle="tab" href="#species-diet">Diet</a></li>
+		<li><a data-toggle="tab" href="#species-locomotion">Locomotion</a></li>
+		<li><a data-toggle="tab" href="#species-size">Size</a></li>
+		<li><a data-toggle="tab" href="#species-teeth">Teeth</a></li>
+		<li><a data-toggle="tab" href="#species-localities">Localities</a></li>
+		<li><a data-toggle="tab" href="#species-loc-sp-info">Loc.-Sp. Info</a></li>
+		<li><a data-toggle="tab" href="#species-updates">Updates</a></li>
+	</ul>
+	<div class="tab-content">
+		<div id="species-taxonomy" class="tab-pane active"> <!-- Taxonomy Tab begins -->
+			<div class="container">
+				<div class="row"> <!-- Taxonomic Classification begins -->
+				  	<div class="col-sm-6">
+						<h3>Taxonomic Classification</h3>
+						<table class="table">
+							<tbody>
+								<tr>
+									<th>Class</th>
+									<td>{{ data.class_name|default_if_none:'' }}</td>
+									<th>Subclass or Superorder</th>
+									<td>{{ data.subclass_or_superorder_name|default_if_none:'' }}</td>
+								</tr>
+								<tr>
+									<th>Order</th>
+									<td>{{ data.order_name|default_if_none:'' }}</td>
+									<th>Suborder or Superfamily</th>
+									<td>{{ data.suborder_or_superfamily_name|default_if_none:'' }}</td>
+								</tr>
+								<tr>
+									<th>Family</th>
+									<td>{{ data.family_name|default_if_none:'' }}</td>
+									<th>Subfamily or Tribe</th>
+									<td>{{ data.subfamily_name|default_if_none:'' }}</td>
+								</tr>
+								<tr>
+									<th>Genus</th>
+									<td>{{ data.genus_name|default_if_none:'' }}</td>
+									<th></th>
+									<td></td>
+								</tr>
+								<tr>
+									<th>Species</th>
+									<td>{{ data.species_name|default_if_none:'' }}</td>
+									<th>Unique Identifier</th>
+									<td>{{ data.unique_identifier|default_if_none:'' }}</td>
+								</tr>
+								<tr>
+									<th>Taxon Status</th>
+									<td>{{ data.taxonomic_status|default_if_none:'' }}</td>
+									<th></th>
+									<td></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div> <!-- Taxonomic Classification ends -->
+				<div class="row"> <!-- Taxonomic Comment begins -->
+					<div class="col-sm-6">
+					<h3>Comment</h3>
+					<table class="table">
+							<tbody>
+								<tr>
+									<th>Comment</th>
+									<td>{{ data.sp_comment|default_if_none:'' }}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div> <!-- Taxonomic Comment ends -->
+				<div class="row"> <!-- Taxonomic Author begins -->
+					<div class="col-sm-6">
+						<h3>Author</h3>
+						<table class="table">
+							<tbody>
+								<tr>
+									<th>Author</th>
+									<td>{{ data.sp_author|default_if_none:'' }}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div> <!-- Taxonomic Author ends -->
+			</div>
+		</div> <!-- Taxonomy Tab ends -->
+		<div id="species-synonyms" class="tab-pane"> <!-- Synonyms Tab begins -->
+			<div class="container">
+				<div class="row"> <!-- Synonyms begins -->
+				  	<div class="col-sm-6">
+						{% include 'species_detail_synonyms.html' %}
+					</div>
+				</div> <!-- Synonyms ends-->
+			</div>		  
+		</div> <!-- Synonyms Tab ends -->
+		<div id="species-diet" class="tab-pane"> <!-- Diet Tab begins -->
+			<div class="container">
+				<div class="row"> <!-- Diet begins -->
+				  	<div class="col-sm-6">
+						{% include 'species_detail_diet.html' %}
+					</div>
+				</div> <!-- Diet ends-->
+			</div>		  
+		</div> <!-- Diet Tab ends -->
+		<div id="species-locomotion" class="tab-pane"> <!-- Locomotion Tab begins -->
+			<div class="container">
+				<div class="row"> <!-- Locomotion begins -->
+				  	<div class="col-sm-6">
+						{% include 'species_detail_locomotion.html' %}
+					</div>
+				</div> <!-- Locomotion ends-->
+			</div>		  
+		</div> <!-- Locomotion Tab ends -->
+		<div id="species-size" class="tab-pane"> <!-- Size Tab begins -->
+			<div class="container">
+				<div class="row"> <!-- Size begins -->
+				  	<div class="col-sm-6">
+						{% include 'species_detail_size.html' %}
+					</div>
+				</div> <!-- Size ends-->
+			</div>		  
+		</div> <!-- Size Tab ends -->
+		<div id="species-teeth" class="tab-pane"> <!-- Teeth Tab begins -->
+			<div class="container">
+				<div class="row"> <!-- Teeth begins -->
+					{% include 'species_detail_teeth.html' %}
+				</div> <!-- Teeth ends-->
+			</div>		  			
+		</div> <!-- Teeth Tab ends -->
+		<div id="species-localities" class="tab-pane"> <!-- Localities Tab begins -->
+			<div class="container">
+				<div class="row"> <!-- Localities begins -->
+				  	<div class="col-md-9">
+						{% include 'species_detail_localities.html' %}
+					</div>
+				</div> <!-- Localities ends-->
+			</div>
+		</div> <!-- Localities Tab ends -->
+		<div id="species-loc-sp-info" class="tab-pane"> <!-- Species Localities Tab begins -->
+			<div class="container">
+				<div class="row"> <!-- Species Localities begins -->
+				  	<div class="col-md-9">
+						{% include 'species_detail_species_localities.html' %}
+					</div>
+				</div> <!-- Species Localities ends-->
+			</div>
+		</div> <!-- Species Localities Tab ends -->
+		<div id="species-updates" class="tab-pane"> <!-- Updates Tab begins -->
+			<div class="container">
+				<div class="row"> <!-- Updates begins -->
+				  	<div class="col-md-9">
+						{% include 'species_detail_updates.html' %}
+					</div>
+				</div> <!-- Updates ends-->
+			</div>
+		</div> <!-- Updates Tab ends -->
+	</div>
+</div>
+{% endblock data_content %}

@@ -1,0 +1,24 @@
+<h3>Localities</h3>
+<p>{{ data.species_locality|length }} {{ data.species_locality|length|pluralize:"record,records" }}</p>
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th>lid</th>
+        <th>Locality</th>
+        <th>Country</th>
+        <th>Max Age</th>
+        <th>Min Age</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for ls in data.species_locality %}
+        <tr>
+            <td>{{ ls.locality.lid }}</td>
+            <td>{{ ls.locality.loc_name }}</td>
+            <td>{{ ls.locality.country }}</td>
+            <td>{{ ls.locality.max_age }}</td>
+            <td>{{ ls.locality.min_age }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

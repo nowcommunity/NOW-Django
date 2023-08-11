@@ -1,0 +1,72 @@
+<h3>Locality-Species Information</h3>
+<p>{{ data.species_locality|length }} {{ data.species_locality|length|pluralize:"record,records" }}</p>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Locality</th>
+            <th>Country</th>
+            <th>ID Status</th>
+            <th>Additional Information</th>
+            <th>Source Name</th>
+            <th>nis</th>
+            <th>pct</th>
+            <th>quad</th>
+            <th>mni</th>
+            <th>qua</th>
+            <th>Body Mass (g)</th>
+            <th>Mesowear</th>
+            <th>MW Low</th>
+            <th>MW High</th>
+            <th>MW Sharp</th>
+            <th>MW Round</th>
+            <th>MW Blunt</th>
+            <th>MW Score</th>
+            <th>Microwear</th>
+            <th>dC13 Mean</th>
+            <th>dC13 n</th>
+            <th>dC13 Max</th>
+            <th>dC13 Min</th>
+            <th>dC13 STDEV</th>
+            <th>dO18 Mean</th>
+            <th>dO18 n</th>
+            <th>dO18 Max</th>
+            <th>dO18 Min</th>
+            <th>dO18 STDEV</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for ls in data.species_locality %}
+        <tr>
+            <td>{{ ls.locality.loc_name|default_if_none:'' }}</td>
+            <td>{{ ls.locality.country|default_if_none:'' }}</td>
+            <td>{{ ls.id_status|default_if_none:'' }}</td>
+            <td>{{ ls.orig_entry|default_if_none:'' }}</td>
+            <td>{{ ls.source_name|default_if_none:'' }}</td>
+            <td>{{ ls.nis|default_if_none:'' }}</td>
+            <td>{{ ls.pct|default_if_none:'' }}</td>
+            <td>{{ ls.quad|default_if_none:'' }}</td>
+            <td>{{ ls.mni|default_if_none:'' }}</td>
+            <td>{{ ls.qua|default_if_none:'' }}</td>
+            <td>{{ ls.body_mass|default_if_none:'' }}</td>
+            <td>{{ ls.mesowear|default_if_none:'' }}</td>
+            <td>{{ ls.mw_or_low|default_if_none:'' }}</td>
+            <td>{{ ls.mw_or_high|default_if_none:'' }}</td>
+            <td>{{ ls.mw_cs_sharp|default_if_none:'' }}</td>
+            <td>{{ ls.mw_cs_round|default_if_none:'' }}</td>
+            <td>{{ ls.mw_cs_blunt|default_if_none:'' }}</td>
+            <td>{{ ls.mw_value|default_if_none:'' }}</td>
+            <td>{{ ls.microwear|default_if_none:'' }}</td>
+            <td>{{ ls.dc13_mean|default_if_none:'' }}</td>
+            <td>{{ ls.dc13_n|default_if_none:'' }}</td>
+            <td>{{ ls.dc13_max|default_if_none:'' }}</td>
+            <td>{{ ls.dc13_min|default_if_none:'' }}</td>
+            <td>{{ ls.dc13_stdev|default_if_none:'' }}</td>
+            <td>{{ ls.do18_mean|default_if_none:'' }}</td>
+            <td>{{ ls.do18_n|default_if_none:'' }}</td>
+            <td>{{ ls.do18_max|default_if_none:'' }}</td>
+            <td>{{ ls.do18_min|default_if_none:'' }}</td>
+            <td>{{ ls.do18_stdev|default_if_none:'' }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

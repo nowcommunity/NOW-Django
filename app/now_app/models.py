@@ -82,6 +82,48 @@ class ComPeople(models.Model):
 
 
 class ComSpecies(models.Model):
+    LOCOMO1 = [
+        ('ae', 'Aerial'),
+        ('aq', 'Aquatic'),
+        ('sa', 'Semi-Aquatic'),
+        ('te', 'Terrestrial'),
+    ]
+
+    LOCOMO2 = [
+        ('aerial', 'aerial'),
+        ('arboreal', 'arboreal'),
+        ('fossorial', 'fossorial'),
+        ('npow_flight', 'non-powered flight'),
+        ('pow_flight', 'powered flight'),
+        ('scansorial', 'scansorial'),
+        ('semi-fossorial', 'semi-fossorial'),
+        ('surficial', 'surficial'),
+        ('swimming', 'swimming'),
+    ]
+
+    LOCOMO3 = [
+        ('arboreal', 'Arboreal'),
+        ('arb_above_br','arboreal, above-branch'),
+        ('arb_suspensory','arboreal, below-branch suspensory'),
+        ('bipedal_str','bipedal striding'),
+        ('cursorial','cursorial:running specialists'),
+        ('fast_flight','fast powered flight'),
+        ('gen_quad','general, unspecialized quadrupedal'),
+        ('glide','short, controlled nonpowered flight, glide angle < 45deg.'),
+        ('graviportal','graviportal'),
+        ('hover','powered flightwith specializations for hovering'),
+        ('k_walk','knuckle-walking'),
+        ('parachute','nonpowered flight, glide angle > 45deg.'),
+        ('saltatory','jumping, hopping, ricochetal'),
+        ('s/f_flight','fly slow or fast'),
+        ('slow_flight','slow powered flight'),
+        ('soar','all types of soaring'),
+        ('undulate','undulate'),
+        ('sub_curs','sub cursorial'),
+        ('hyper_curs','hyper cursorial'),
+        ('swim_parax','swim parax'),
+   ]
+
     species_id = models.BigAutoField(primary_key=True)
     class_name = models.CharField(max_length=30)
     order_name = models.CharField(max_length=30)
@@ -109,9 +151,9 @@ class ComSpecies(models.Model):
     feedinghab2 = models.CharField(max_length=8, blank=True, null=True)
     shelterhab1 = models.CharField(max_length=2, blank=True, null=True)
     shelterhab2 = models.CharField(max_length=8, blank=True, null=True)
-    locomo1 = models.CharField(max_length=2, blank=True, null=True)
-    locomo2 = models.CharField(max_length=15, blank=True, null=True)
-    locomo3 = models.CharField(max_length=15, blank=True, null=True)
+    locomo1 = models.CharField(max_length=2, choices=LOCOMO1, default='', help_text='The most general substrate of locomotion.', blank=True, null=True,)
+    locomo2 = models.CharField(max_length=15, choices=LOCOMO2, default='', help_text='Specific substrate of terrestrial locomotion, or type of flying.', blank=True, null=True,)
+    locomo3 = models.CharField(max_length=15, choices=LOCOMO3, default='', help_text='Specific substrate of terrestrial locomotion, or type of flying.', blank=True, null=True,)
     hunt_forage = models.CharField(max_length=8, blank=True, null=True)
     body_mass = models.BigIntegerField(blank=True, null=True)
     brain_mass = models.IntegerField(blank=True, null=True)
@@ -151,6 +193,7 @@ class ComSpecies(models.Model):
     used_now = models.IntegerField(blank=True, null=True)
     used_gene = models.IntegerField(blank=True, null=True)
     sp_comment = models.CharField(max_length=255, blank=True, null=True)
+
 
     class Meta:
         db_table = 'com_species'
@@ -248,6 +291,9 @@ class RefJournal(models.Model):
     short_title = models.CharField(max_length=100, blank=True, null=True)
     alt_title = models.CharField(max_length=255, blank=True, null=True)
     issn = models.CharField(db_column='ISSN', max_length=10, blank=True, null=True)  # Field name made lowercase.
+
+    def __str__(self):
+        return '{}'.format(self.journal_title)
 
     class Meta:
         db_table = 'ref_journal'
@@ -426,6 +472,9 @@ class NowLocality(models.Model):
     museum = models.ManyToManyField(ComMuseumList, through='NowMuseum')
     species = models.ManyToManyField(ComSpecies, through='NowLocalitySpecies')
 
+    def __str__(self):
+        return '{} ({})'.format(self.loc_name, self.country)
+
     class Meta:
         db_table = 'now_loc'
 
@@ -464,8 +513,10 @@ class NowLocalityUpdateReference(models.Model):
 
 class NowLocalitySpecies(models.Model):
     # Used in M2M defined on NowLocality
-    lid = models.ForeignKey(NowLocality, models.DO_NOTHING, db_column='lid')
-    species = models.ForeignKey(ComSpecies, models.DO_NOTHING)
+#    lid = models.ForeignKey(NowLocality, models.DO_NOTHING, db_column='lid')
+#    species = models.ForeignKey(ComSpecies, models.DO_NOTHING)
+    lid = models.ForeignKey(NowLocality, models.DO_NOTHING, db_column='lid', related_name='locality_species')
+    species = models.ForeignKey(ComSpecies, models.DO_NOTHING, related_name='species_locality')
     nis = models.IntegerField(blank=True, null=True)
     pct = models.FloatField(blank=True, null=True)
     quad = models.IntegerField(blank=True, null=True)
@@ -633,7 +684,8 @@ class NowSpeciesUpdate(models.Model):
     suid = models.BigAutoField(primary_key=True)
     sau_coordinator = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='sau_coordinator', related_name='%(class)s_sau_coordinator')
     sau_authorizer = models.ForeignKey(ComPeople, models.DO_NOTHING, db_column='sau_authorizer', related_name='%(class)s_sau_authorizer')
-    species = models.ForeignKey(ComSpecies, models.DO_NOTHING)
+#    species = models.ForeignKey(ComSpecies, models.DO_NOTHING)
+    species = models.ForeignKey(ComSpecies, models.DO_NOTHING, related_name='species_update')
     sau_date = models.DateField(blank=True, null=True)
     sau_comment = models.CharField(max_length=1024, blank=True, null=True)
 
@@ -775,7 +827,8 @@ class NowTimeUnitBoundaryReference(models.Model):
 
 
 class RefAuthors(models.Model):
-    rid = models.ForeignKey(RefReference, models.DO_NOTHING, db_column='rid')
+    rid = models.ForeignKey(RefReference, models.DO_NOTHING, related_name='authors', db_column='rid')
+#    rid = models.ForeignKey(RefReference, models.DO_NOTHING, db_column='rid')
     field_id = models.IntegerField()
     au_num = models.IntegerField()
     author_surname = models.CharField(max_length=255, blank=True, null=True)

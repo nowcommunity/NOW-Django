@@ -1,0 +1,34 @@
+<h3>Diet</h3>
+<h4>Diet Information</h4>
+<table class="table">
+    <tbody>
+        <tr>
+            <th>Diet 1:</th>
+            <td> {{ data.diet1|default_if_none:'' }}</td>
+        </tr>
+        <tr>
+            <th>Diet 2:</th>
+            <td> {{ data.diet2|default_if_none:'' }}</td>
+        </tr>
+        <tr>
+            <th>Diet 3:</th>
+            <td> {{ data.diet3|default_if_none:'' }}</td>
+        </tr>
+        <tr>
+            <th>Relative Fibre Content:</th>
+            <td> {{ data.rel_fib|default_if_none:'' }}</td>
+        </tr>
+        <tr>
+            <th>Selectivity:</th>
+            <td> {{ data.selectivity|default_if_none:'' }}</td>
+        </tr>
+        <tr>
+            <th>Digestion:</th>
+            <td> {{ data.digestion|default_if_none:'' }}</td>
+        </tr>
+        <tr>
+            <th>Hunt/Forage:</th>
+            <td> {{ data.hunt_forage|default_if_none:'' }}</td>
+        </tr>
+    </tbody>
+</table>

@@ -1,0 +1,40 @@
+{% extends "rest_framework/api.html" %}
+
+{% load static %}
+{% load i18n %}
+{% load rest_framework %}
+
+{% block title %}Reference {{ data.rid }} {{ data.title_primary }} – New and Old Worlds{% endblock title %}
+{% block page_header %}
+	#{{ data.rid }} <br>
+	{{ data.first_author }}
+	({{ data.date_primary }}).
+	{{ data.title_primary }}.
+	{{ data.journal.journal_title }}
+	{{ data.volume }}:
+	{{ data.start_page }} -
+	{{ data.end_page }}
+
+{% endblock page_header %}
+
+{% block data_content %}
+<div class="tabbable" >
+	<ul class="nav nav-tabs nav-justified">
+	  <li class="active"><a data-toggle="tab" href="#reference-reference">Reference</a></li>
+	  <li><a data-toggle="tab" href="#reference-locality">Locality</a></li>
+	  <li><a data-toggle="tab" href="#reference-species">Species</a></li>
+	</ul>
+	<div class="tab-content">
+		<div id="reference-reference" class="tab-pane active">
+			<h3>Reference Details</h3>
+			<p>Reference Type: {{ data.ref_type.ref_type }}</p>
+		</div>
+		<div id="reference-locality" class="tab-pane">
+			<h3>Locality</h3>
+		</div>
+		<div id="reference-species" class="tab-pane">
+			<h3>Species</h3>
+		</div>
+	</div>
+</div>
+{% endblock data_content %}

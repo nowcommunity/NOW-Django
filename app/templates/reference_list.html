@@ -1,0 +1,39 @@
+{% extends "rest_framework/api.html" %}
+
+{% load static %}
+{% load i18n %}
+{% load rest_framework %}
+{% load api_extras %}
+
+{% block title %}References – New and Old Worlds{% endblock title %}
+{% block page_header %}References{% endblock page_header %}
+
+{% block data_content %}
+<table class='table table-bordered'>
+	<thead>
+		<tr>
+			<th>Reference ID</th>
+			<th>Author</th>
+			<th>Year</th>
+			<th>Title</th>
+			<th>Journal</th>
+			<th>Book Title</th>
+			<th>Type</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for item in data %}
+			<tr>
+				{% url 'refreference-detail' pk=item.rid as temp_url %}
+				<td><a href="{% preserve_query_params temp_url %}">{{ item.rid }}</a></td>
+				<td>{{ item.first_author }}</td>
+				<td>{{ item.date_primary }}</td>
+				<td>{{ item.title_primary|default_if_none:'' }}</td>
+				<td>{{ item.journal.journal_title }}</td>
+				<td>{{ item.title_secondary|default_if_none:'' }}</td>
+				<td>{{ item.ref_type.ref_type }}</td>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% endblock data_content %}
